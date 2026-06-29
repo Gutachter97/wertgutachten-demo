@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">
+<title>Wertgutachten – Marktplatz 3, 99423 Weimar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#002147;--navy2:#637e9c;--green:#45b973;--ow:#fcfcfd;--ow2:#f0f2f4;
+      --zebra:#f5f7f9;--line:#d7dde4;--text:#002147;--muted:#5a6b7d;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+body{font-family:'Inter',Helvetica,Arial,sans-serif;color:var(--text);font-size:10pt;
+     line-height:1.55;background:var(--ow);}
+h1,h2,.brand,.titel,.kicker,.vw .z,.vw .a,.h1,.h2,table.kv tr.head td{
+     font-family:'Arvo','Georgia',serif;}
+.page{page-break-after:always;}
+.page:last-child{page-break-after:auto;}
+@page{size:A4;margin:18mm 22mm 20mm;}
+@media print{
+  .h1,.h2{break-after:avoid-page;}
+  tr,.vw,.metagrid,.note,.objzeile,.lh,table.kv tr.head{break-inside:avoid;}
+  table.kv{break-inside:auto;}
+  p.t,.fuss{orphans:3;widows:3;}
+  /* Ein Dokument, zwei Ansichten: interne Markierungen (SV-Tags, Prüfvermerke,
+     „maschinell erstellt"-Hinweis) und Auswahl-Radios verschwinden im Druck
+     → sauberes Kunden-PDF aus demselben, am Bildschirm bearbeiteten Wertgutachten. */
+  .intern-only,.sv{display:none!important;}
+  input[type=radio]{display:none!important;}
+}
+
+/* ---- Briefkopf (Deckblatt) + Kopfzeile (Innenseiten) ---- */
+.lh{display:flex;justify-content:space-between;align-items:flex-end;
+    border-bottom:1.5pt solid var(--navy);padding-bottom:6px;}
+.lh .brand{font-size:18pt;font-weight:700;color:var(--navy);letter-spacing:.2em;}
+.lh .contact{text-align:right;font-size:7.8pt;color:var(--muted);line-height:1.55;}
+.accent{height:2.5pt;background:var(--green);width:100%;margin-bottom:2px;}
+.kopf{display:flex;justify-content:space-between;align-items:flex-end;
+      border-bottom:1pt solid var(--navy);padding-bottom:4px;margin-bottom:16px;
+      font-size:7.8pt;color:var(--muted);}
+.kopf .b{color:var(--navy);letter-spacing:.16em;font-size:9pt;font-weight:700;}
+
+/* ---- Deckblatt ---- */
+.kicker{margin-top:26px;font-size:9.5pt;letter-spacing:.28em;color:var(--navy2);text-transform:uppercase;}
+.titel{font-size:23pt;font-weight:700;color:var(--navy);line-height:1.2;margin:4px 0 2px;}
+.titel-sub{font-size:10.5pt;color:var(--muted);margin-bottom:20px;}
+.objzeile{font-size:13pt;color:var(--navy);font-weight:600;border-top:.5pt solid var(--line);
+          padding-top:12px;margin-bottom:4px;}
+.objzeile .oart{font-size:10pt;color:var(--muted);font-weight:400;}
+.vw{background:var(--ow2);border-left:4pt solid var(--green);padding:18px 22px;margin:22px 0;}
+.vw .l{font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.vw .z{font-size:32pt;font-weight:700;color:var(--navy);line-height:1.1;margin:2px 0;}
+.vw .w{font-style:italic;font-size:10.5pt;color:var(--navy2);}
+.metagrid{display:grid;grid-template-columns:1fr 1fr;gap:4px 28px;margin-top:14px;}
+.metagrid .m{border-bottom:.5pt solid var(--line);padding:5px 0;}
+.metagrid .m .l{font-size:7.8pt;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.metagrid .m .v{font-size:10pt;color:var(--navy);}
+.firma{margin-top:16px;font-size:8.5pt;color:var(--muted);line-height:1.55;}
+.firma b{color:var(--navy);font-size:9.5pt;}
+
+/* ---- Abschnitts-Überschriften ---- */
+.h1{font-size:14pt;font-weight:700;color:var(--navy);border-left:3.5pt solid var(--green);
+    padding-left:10px;line-height:1.25;}
+.h1 .nr{margin-right:8px;}
+.sub{font-style:italic;color:var(--muted);font-size:9pt;margin:3px 0 10px;padding-left:14px;}
+.rule{display:none;}
+.h2{font-size:10.5pt;font-weight:700;color:var(--navy);margin:16px 0 5px;}
+p.t{margin:7px 0;text-align:justify;color:#26384a;}
+p.t b{font-weight:700;color:var(--navy);}
+
+/* ---- Label/Wert-Tabellen ---- */
+table.kv{width:100%;border-collapse:collapse;margin:4px 0 8px;}
+table.kv td{padding:5px 9px;border-bottom:.5pt solid var(--line);vertical-align:top;font-size:9.7pt;}
+table.kv td.l{width:60%;color:#26384a;}
+table.kv td.v{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--navy);}
+table.kv tr:nth-child(even) td{background:var(--zebra);}
+table.kv tr.head td{background:var(--navy);color:var(--ow);font-size:8.2pt;font-weight:700;
+                    letter-spacing:.05em;text-transform:uppercase;border:none;}
+table.kv tr.sum td{border-top:1.5pt solid var(--navy);border-bottom:none;font-weight:700;
+                   color:var(--navy);background:none;padding-top:7px;}
+.sv{font-style:italic;color:var(--green);font-size:8.3pt;font-weight:600;}
+.note{border-left:3pt solid var(--navy2);padding:7px 12px;font-size:8.7pt;color:var(--muted);
+      margin:10px 0;background:var(--ow2);}
+.fuss{margin-top:12px;font-size:8.3pt;color:var(--muted);text-align:justify;}
+</style><style>
+@media screen{
+ :root{--sb-bg:#002147;--sb-text:#c7d2de;--sb-active:#45b973;--sb-hover:rgba(69,185,115,.12);}
+ body{background:#dfe3e8;}
+ .sidebar{position:fixed;top:0;left:0;width:250px;height:100vh;background:var(--sb-bg);
+   color:var(--sb-text);overflow-y:auto;z-index:100;font-family:'Inter',Helvetica,Arial,sans-serif;
+   display:flex;flex-direction:column;}
+ .sidebar-header{padding:20px 18px 14px;border-bottom:1px solid rgba(255,255,255,.08);}
+ .sidebar-brand{font-family:'Arvo','Georgia',serif;color:#fcfcfd;font-size:17pt;font-weight:700;letter-spacing:.18em;}
+ .sidebar-title{color:var(--sb-active);font-size:10pt;font-weight:600;margin-top:4px;}
+ .sidebar-address{color:#8ea3ba;font-size:8.4pt;margin-top:3px;line-height:1.4;}
+ .sidebar-group{padding:12px 0 4px;}
+ .sidebar-group-label{color:#7f93a9;font-size:7.6pt;letter-spacing:.16em;text-transform:uppercase;padding:0 18px 5px;}
+ .sidebar a{display:block;color:var(--sb-text);text-decoration:none;font-size:9.3pt;
+   padding:7px 18px;border-left:3px solid transparent;transition:background .12s,color .12s;}
+ .sidebar a:hover{background:var(--sb-hover);color:#fcfcfd;border-left-color:var(--sb-active);}
+ .sidebar a.active{background:rgba(69,185,115,.16);color:var(--sb-active);
+   border-left-color:var(--sb-active);font-weight:600;}
+ .sidebar-tools{margin-top:auto;padding:14px 16px 18px;border-top:1px solid rgba(255,255,255,.08);
+   display:flex;flex-direction:column;gap:8px;}
+ .sb-btn{background:var(--sb-active);color:#03261a;border:0;border-radius:6px;padding:8px 10px;
+   font-weight:600;font-size:9pt;cursor:pointer;font-family:'Inter',Helvetica,Arial,sans-serif;}
+ .sb-btn.ghost{background:transparent;color:#c7d2de;border:1px solid rgba(255,255,255,.22);}
+ .sb-btn:hover{filter:brightness(1.07);}
+ .sb-hint{color:#7f93a9;font-size:7.6pt;line-height:1.45;}
+ main#doc{margin-left:250px;padding:30px 0;display:flex;flex-direction:column;align-items:center;gap:22px;}
+ main#doc .page{width:210mm;min-height:297mm;background:var(--ow);padding:20mm 22mm;
+   box-shadow:0 3px 18px rgba(0,33,71,.13);border-radius:2px;page-break-after:auto;}
+ body.editing main#doc .page{outline:2px dashed var(--sb-active);outline-offset:5px;}
+ [contenteditable="true"]:focus{outline:none;background:rgba(69,185,115,.06);}
+}
+@media print{ .sidebar{display:none!important;} main#doc{margin:0;padding:0;display:block;} }
+</style></head><body><nav class="sidebar"><div class="sidebar-header"><div class="sidebar-brand">CERTA</div><div class="sidebar-title">Wertgutachten</div><div class="sidebar-address">Marktplatz 3, 99423 Weimar</div></div><div class="sidebar-group"><div class="sidebar-group-label">Kundenfassung</div><a href="#k0">Deckblatt</a><a href="#k1">1 · Ergebnisübersicht</a><a href="#k2">2 · Verfahrenswahl</a><a href="#k3">3 · Bodenwertermittlung</a><a href="#k4">4 · Ertragswertverfahren</a><a href="#k5">5 · Vergleichswert (Plausi.)</a><a href="#k6">6 · Schlusserklärung</a></div><div class="sidebar-tools"><button class="sb-btn" id="editToggle" onclick="toggleEdit()">&#9998; Bearbeiten</button><button class="sb-btn ghost" onclick="window.print()">&#11015; Als PDF drucken</button><div class="sb-hint">Text direkt im Dokument korrigieren · mit „Als PDF drucken" sichern.</div><button class="sb-btn" id="uploadBtn" onclick="uploadGutachten()">&#11014; In CERTA Value hochladen</button><div class="sb-hint" id="uploadStatus">Lädt das fertige Gutachten als neue Version ins Team-Dashboard. Die lokale Datei bleibt danach bearbeitbar.</div></div></nav><main id="doc"><div class="page" id="k0">
+      <div class="lh"><div class="brand">CERTA</div>
+        <div class="contact"><b style="color:#002147">CERTA GmbH</b><br>
+        Habsburgerring 1, 50674 Köln<br>Telefon 06131 4909020 | Mail office@certa-gutachten.de | Handelsregister-Nr HRB 123892 | www.certa-gutachten.de</div></div>
+      <div class="accent"></div>
+      <div class="kicker">Kompaktes Wertgutachten</div>
+      <div class="titel">Wertgutachten</div>
+      <div class="titel-sub">Ermittlung des Verkehrswerts (Marktwert) i.S.d. § 194 BauGB · nach ImmoWertV</div>
+      <div class="objzeile">Marktplatz 3, 99423 Weimar<br>
+        <span class="oart">Grundstück, bebaut mit einem Wohn- und Geschäftshaus</span></div>
+      <div class="vw">
+        <div class="l">Verkehrswert (Marktwert), rd.</div>
+        <div class="z"><span data-out="ergebnis" data-fmt="eur">489.000 €</span></div>
+        <div class="w"><span data-out="worte" data-fmt="worte">vierhundertneunundachtzigtausend Euro</span></div>
+      </div>
+      <div class="metagrid"><div class="m"><div class="l">Auftraggeber</div><div class="v">Privateigentümer</div></div><div class="m"><div class="l">Wertermittlungs- / Qualitätsstichtag</div><div class="v">01.06.2026</div></div><div class="m"><div class="l">Gutachtenzweck</div><div class="v">Verkehrswertermittlung (Marktwert) gem. § 194 BauGB</div></div><div class="m"><div class="l">Gutachten-Nr. / Ausfertigung</div><div class="v">WG-2026-MAR · Nr. 1 von 1</div></div><div class="m"><div class="l">Angewandtes Verfahren</div><div class="v">Ertragswertverfahren</div></div><div class="m"><div class="l">Erstellt durch</div><div class="v">A. Higgen</div></div></div>
+      <div class="firma"><b>CERTA GmbH</b> · Habsburgerring 1, 50674 Köln</div>
+      
+    </div><div class="page" id="k1"><div class="kopf"><span class="b">CERTA</span><span>Abschnitt I – Wertermittlung</span></div>
+      <div class="h1"><span class="nr">1.</span>Ergebnisübersicht</div><div class="sub">– Tabellarische Darstellung – Ertragswertverfahren –</div><div class="rule"></div>
+      <div class="h2">1.1 Objektart</div><table class="kv"><tr><td class="l">Objektart</td><td class="v">Wohn- und Geschäftshaus</td></tr><tr><td class="l">Wohn- / Nutzfläche</td><td class="v"><span data-out="wohnflaeche" data-fmt="m2">430,0 m²</span></td></tr></table>
+      <div class="h2">1.2 Grundstück</div><table class="kv"><tr><td class="l">Grundstücksgröße</td><td class="v"><span data-out="grundstuecksflaeche" data-fmt="m2i">300 m²</span></td></tr><tr><td class="l">Bodenrichtwert</td><td class="v"><span data-out="bodenrichtwert" data-fmt="eurqm">620 €/m²</span></td></tr><tr><td class="l">Ausstattungsstandard</td><td class="v">–</td></tr></table>
+      <div class="h2">1.3 Bauliche Anlagen</div><table class="kv"><tr><td class="l">Baujahr</td><td class="v">1908</td></tr><tr><td class="l">Nutzungsdauer</td><td class="v"><span data-out="nutzungsdauer" data-fmt="txt">70 Jahre (GND), 28 Jahre (RND)</span></td></tr></table>
+      <div class="h2">1.4 Ergebnis</div><table class="kv"><tr><td class="l">Verkehrswert</td><td class="v"><b><span data-out="ergebnis" data-fmt="eur">489.000 €</span></b></td></tr><tr><td class="l">Verkehrswert / m²</td><td class="v"><span data-out="eqm" data-fmt="txt">714 €/m² Wfl.</span></td></tr><tr><td class="l">Anzahl Einheiten</td><td class="v"><span data-out="anzahl_einheiten" data-fmt="int">5</span></td></tr><tr><td class="l">Werterm.- / Qualitätsstichtag</td><td class="v">01.06.2026</td></tr></table>
+      <div class="h2">1.5 Kennzahlen</div><table class="kv"><tr><td class="l">Gebäude</td><td class="v">Wohn- und Geschäftshaus</td></tr><tr><td class="l">Rohertrag / Jahr</td><td class="v"><span data-out="jahresrohertrag" data-fmt="eur">42.623 €</span></td></tr><tr><td class="l">Bewirtschaftungskosten / Jahr</td><td class="v"><span data-out="bewirtschaftungskosten" data-fmt="eur">8.796 €</span></td></tr><tr><td class="l">Reinertrag / Jahr</td><td class="v"><span data-out="reinertrag" data-fmt="eur">33.827 €</span></td></tr><tr><td class="l">Liegenschaftszinssatz</td><td class="v"><span data-out="lizi_prozent" data-fmt="prozent">5,00 %</span> / Jahr</td></tr><tr><td class="l">Bruttorendite / Kaufpreisfaktor</td><td class="v"><span data-out="brutto_rendite" data-fmt="prozent">8,72 %</span> · Faktor <span data-out="kaufpreisfaktor" data-fmt="faktor1">11,5</span></td></tr></table>
+    </div><div class="page" id="k2"><div class="kopf"><span class="b">CERTA</span><span>Abschnitt I – Wertermittlung</span></div>
+      <div class="h1"><span class="nr">2.</span>Wertermittlungsverfahren – Begründung der Verfahrenswahl</div><div class="sub">– Gemäß § 6 ImmoWertV –</div><div class="rule"></div>
+      <p class="t">Die Verfahren sind nach der Art des Wertermittlungsobjekts unter Berücksichtigung der im
+      gewöhnlichen Geschäftsverkehr bestehenden Gepflogenheiten und der sonstigen Umstände des Einzelfalls zu
+      wählen; die Wahl ist zu begründen.</p>
+      <div class="h2">2.1 Begründung</div>
+      <p class="t">Das Ertragswertverfahren (§§ 27–34 ImmoWertV) basiert auf der Annahme, dass der Wert einer Immobilie durch ihre zukünftigen Erträge bestimmt wird. Da beim Erwerb vergleichbarer Objekte (Wohn- und Geschäftshaus) üblicherweise die zu erzielende Rendite im Vordergrund steht, wird das Ertragswertverfahren als vorrangig anzuwendendes Verfahren angesehen.</p>
+    </div><div class="page" id="k3"><div class="kopf"><span class="b">CERTA</span><span>Abschnitt I – Wertermittlung</span></div>
+      <div class="h1"><span class="nr">3.</span>Bodenwertermittlung – Berechnung</div><div class="sub">– Gemäß § 40 bis § 45 ImmoWertV –</div><div class="rule"></div>
+      <p class="t">Der Bodenwert wird aus dem amtlichen Bodenrichtwert (Gutachterausschuss) und der
+      Grundstücksfläche abgeleitet. Objektspezifische Anpassungen (z. B. WEG-/Gartenland-Abschlag,
+      Vorderland-/Hinterland-Aufteilung) sind als Sachverständigen-Entscheidung gekennzeichnet.</p>
+      
+      <div class="h2">3.2 Berechnung</div><table class="kv"><tr><td class="l">Bodenrichtwert / m²</td><td class="v"><span data-out="bodenrichtwert" data-fmt="eur">620 €</span></td></tr><tr><td class="l">Grundstücksgröße</td><td class="v"><span data-out="grundstuecksflaeche" data-fmt="m2i">300 m²</span></td></tr><tr><td class="l">Objektspezifisch angepasster Bodenrichtwert</td><td class="v"><span data-out="bodenrichtwert" data-fmt="eur">620 €</span></td></tr><tr class="sum"><td class="l">Bodenwert des Grundstückes</td><td class="v"><b><span data-out="bodenwert_rentierlich" data-fmt="eur">176.985 €</span></b></td></tr></table>
+    </div><div class="page" id="k4"><div class="kopf"><span class="b">CERTA</span><span>Abschnitt I – Wertermittlung</span></div>
+      <div class="h1"><span class="nr">4.</span>Ertragswertverfahren – Berechnung</div><div class="sub">– Allgemeines Ertragswertverfahren – Gemäß § 27 bis § 34 ImmoWertV –</div><div class="rule"></div>
+      
+      <table class="kv"><tr><td class="l">Jährlicher Rohertrag</td><td class="v"><span data-out="jahresrohertrag" data-fmt="eur">42.623 €</span></td></tr><tr><td class="l">abzgl. Bewirtschaftungskosten / Jahr</td><td class="v"><span data-out="bewirtschaftungskosten" data-fmt="negeur">−8.796 €</span></td></tr><tr class="sum"><td class="l">Jährlicher Reinertrag</td><td class="v"><span data-out="reinertrag" data-fmt="eur">33.827 €</span></td></tr><tr><td class="l">abzgl. Bodenwertverzinsungsbetrag</td><td class="v"><span data-out="bodenwertverzinsung" data-fmt="negeur">−7.079 €</span></td></tr><tr class="sum"><td class="l">Reinertragsanteil der baulichen Anlagen</td><td class="v"><span data-out="reinertrag_baulich" data-fmt="eur">26.748 €</span></td></tr><tr><td class="l">Kapitalisierungsfaktor (LiZi <span data-out="lizi_prozent" data-fmt="prozent">5,00 %</span>, RND <span data-out="rnd" data-fmt="int">28</span> J.)</td><td class="v"><span data-out="barwertfaktor" data-fmt="faktor">11,6523</span></td></tr><tr><td class="l">Ertragswert der baulichen Anlagen</td><td class="v"><span data-out="ertragswert_baulich" data-fmt="eur">311.674 €</span></td></tr><tr><td class="l">Bodenwert des Grundstückes</td><td class="v"><span data-out="bodenwert_gesamt" data-fmt="eur">176.985 €</span></td></tr><tr class="sum"><td class="l">Vorläufiger Ertragswert</td><td class="v"><span data-out="ertragswert" data-fmt="eur">488.659 €</span></td></tr><tr><td class="l">Besondere objektspezifische Grundstücksmerkmale</td><td class="v">0 €</td></tr><tr class="sum"><td class="l">Ertragswert der Immobilie zum Stichtag</td><td class="v"><b><span data-out="ergebnis" data-fmt="eur">489.000 €</span></b></td></tr></table>
+      <div class="note">Kapitalisierungsfaktor = ((1+i)^n − 1) / ((1+i)^n · i), i = Liegenschaftszinssatz, n = Restnutzungsdauer. Mit „SV“ markierte Größen sind Sachverständigen-Festlegungen.</div>
+    </div><div class="page" id="k5"><div class="kopf"><span class="b">CERTA</span><span>Abschnitt I – Wertermittlung</span></div>
+      <div class="h1"><span class="nr">5.</span>Vergleichswertverfahren (zur Plausibilisierung)</div><div class="sub">– Nachrangiger Marktvergleich zur Bestätigung des Hauptverfahrens –</div><div class="rule"></div>
+      <div class="h2">5.1 Grundlagen und Rolle des Verfahrens</div><p class="t">Im Vergleichswertverfahren (§§ 24–26 ImmoWertV) wird der Wert aus tatsächlich realisierten Kaufpreisen hinreichend vergleichbarer Objekte abgeleitet, bezogen auf eine Bezugseinheit — bei Wohngebäuden regelmäßig der Quadratmeter Wohnfläche (€/m²).</p><p class="t">Im vorliegenden Fall dient es <b>nicht als führendes Verfahren</b>, sondern allein der Plausibilisierung des im Ertragswertverfahren ermittelten Verkehrswerts. Herangezogen werden die Vergleichsdaten des Grundstücksmarktberichts.</p><p class="t">Für die einschlägige Objektklasse liegen im Grundstücksmarktbericht keine Vergleichs-/Wohnflächenpreise vor; eine vergleichswertbasierte Plausibilisierung entfällt.</p>
+    </div><div class="page" id="k6"><div class="kopf"><span class="b">CERTA</span><span>Abschnitt I – Wertermittlung</span></div>
+      <div class="h1"><span class="nr">6.</span>Schlusserklärung</div><div class="sub">– Würdigung des Bewertungsergebnisses –</div><div class="rule"></div>
+      <div class="h2">6.1 Bedeutung des Verkehrswerts nach § 194 BauGB</div>
+      <p class="t">Der Verkehrswert (Marktwert) wird durch den Preis bestimmt, der in dem Zeitpunkt, auf den sich die Ermittlung bezieht, im gewöhnlichen Geschäftsverkehr nach den rechtlichen Gegebenheiten und tatsächlichen Eigenschaften, der sonstigen Beschaffenheit und der Lage des Grundstücks ohne Rücksicht auf ungewöhnliche oder persönliche Verhältnisse zu erzielen wäre.</p>
+      <div class="h2">6.2 Ergebnis aus dem angewandten Verfahren</div>
+      <table class="kv"><tr class="sum"><td class="l">Ertragswertverfahren (angewandtes Verfahren)</td><td class="v"><b><span data-out="ergebnis" data-fmt="eur">489.000 €</span></b></td></tr></table>
+      <div class="h2">6.3 Verkehrswert gemäß diesem Gutachten zum Wertermittlungsstichtag 01.06.2026</div>
+      <div class="vw" style="margin-top:6px">
+        <div class="z"><span data-out="ergebnis" data-fmt="eur">489.000 €</span></div><div class="w"><span data-out="worte" data-fmt="worte">vierhundertneunundachtzigtausend Euro</span></div></div>
+      <p class="fuss">Dieses Gutachten wurde unparteiisch, weisungsfrei und nach bestem Wissen und Gewissen unter Beachtung der geltenden Grundsätze für die Wertermittlung von Immobilien erstellt. Es ist ausschließlich für den im Auftrag genannten Zweck und Adressatenkreis bestimmt. Eine darüber hinausgehende Nutzung, Veröffentlichung oder Vervielfältigung – auch auszugsweise – bedarf der vorherigen schriftlichen Zustimmung des Sachverständigen.</p>
+      
+    </div></main><script id="wg-kerndaten" type="application/json" data-endpoint="https://certavalue.onrender.com/api/wertgutachten-import">{"fall_id": "D-WEI3750", "adresse": "Marktplatz 3, 99423 Weimar", "objektart": "Wohn- und Geschäftshaus", "verfahren": "ertragswert", "wert_gerundet": 489000, "euro_pro_qm": 714, "qualitaetsstichtag": "01.06.2026", "auftraggeber": "Privateigentümer", "gutachten_nr": "WG-2026-MAR", "sachverstaendiger": "A. Higgen", "felder": {"wohnflaeche_m2": 430.0, "grundstuecksflaeche_m2": 300, "bodenrichtwert_eur_m2": 620.0, "baujahr": 1908, "gesamtnutzungsdauer": 70, "restnutzungsdauer": 28}, "rechenweg": {"jahresrohertrag": 42622.9632, "bewirtschaftungskosten": 8795.713263999998, "reinertrag": 33827.249936, "bodenwertverzinsung": 7079.400000000001, "reinertrag_baulich": 26747.849936, "barwertfaktor": 11.652295607853969, "ertragswert_baulich": 311673.85432878986, "bodenwert_rentierlich": 176985.0, "bodenwert_nicht_rentierlich": 0.0, "ertragswert": 488658.85432878986, "ertragswert_gerundet": 489000}, "entscheidungspunkte": [{"feld": "liegenschaftszinssatz", "grund": "IVD-Empfehlung, Spannenmitte (Klasse: B 1, gewerbl. Anteil 0 %) — SV bestätigt.", "vorschlag": 0.04, "quelle_vorschlag": "IVD 2026 (Fallback)"}, {"feld": "grundbuch_adresse", "grund": "Grundbuch-Adressabgleich (gehört das Grundbuch zum Objekt?) noch nicht vollständig automatisiert — SV prüft das Grundbuch manuell gegen die Objekt-Adresse.", "vorschlag": null, "quelle_vorschlag": "Grundbuch-Auszug"}, {"feld": "bodenrichtwert_eur_m2", "grund": "BRW-Auszug passt zur Objektadresse (Vorschlag 345 €/m², Stichtag 2026-01-01). Live-Zeitreihe (BORIS) zum Abgleich: 01.01.2026: 345 €/m² (+0,0 %) · 01.01.2024: 345 €/m² (+0,0 %) · 01.01.2022: 345 €/m² (+15,0 %) · 31.12.2020: 300 €/m². SV bestätigt den Wert oder wählt einen Stichtag.", "vorschlag": 345.0, "quelle_vorschlag": "BRW-Auszug (BRW-Auszug.pdf)"}, {"feld": "restnutzungsdauer", "grund": "RND aus Baujahr/GND (Modernisierung ggf. ergänzen) — SV bestätigt.", "vorschlag": 16, "quelle_vorschlag": "modernisierung_rechenkern (ImmoWertV 2022 Anlage 2)"}, {"feld": "bodenrichtwert_eur_m2", "grund": "Bodenrichtwert — SV wählt aus 4 Datenpunkten; Default = amtlicher Auszug bevorzugt (BRW-Auszug / GMB, Stichtag 2026-01-01, 345 €/m²). Wert fließt roh (ohne § 9-Index-Anpassung).", "vorschlag": 345.0, "quelle_vorschlag": "BRW-Auszug / GMB"}, {"feld": "weg_abschlag_prozent", "grund": "BRW-Zone auf WEG-Prägung prüfen: bei nicht aufgeteiltem MFH in WEG-geprägter Zone BRW-Abschlag bis 30 % (GMB/Gutachterausschuss) — SV beziffert (0 wenn keine Prägung).", "vorschlag": 0, "quelle_vorschlag": "roher BRW (vorläufig)"}, {"feld": "wgfz_objekt", "grund": "GFZ-Umrechnung des BRW (Kap. 9.2.2): entweder die abgelesenen Koeffizienten direkt eintragen (gfz_koeffizient_objekt/-richtwert) ODER WGFZ von Objekt und Richtwertgrundstück angeben — dann rechnet der Kern mit der erkannten Gemeinde-Tabelle, sonst mit Anlage 11 WertR. Gleiche WGFZ = keine Anpassung.", "vorschlag": null, "quelle_vorschlag": ""}, {"feld": "vorderland_flaeche_m2", "grund": "Aufteilung rentierliches Vorderland / nicht-rentierliches Hinterland (Gartenland-Abschlag) ist SV-Entscheidung.", "vorschlag": 513, "quelle_vorschlag": "ganze Fläche als Vorderland (vorläufig)"}, {"feld": "lage_markt", "grund": "Lage-/Marktbeschreibung aus Bericht.pdf + Umkreisanalyse + GMB-Einschätzung entworfen — SV liest gegen, korrigiert, gibt frei.", "vorschlag": null, "quelle_vorschlag": "GeoMap-Standortanalyse + OpenStreetMap + Grundstücksmarktbericht (Gutachterausschuss)"}, {"feld": "weg_abschlag_prozent", "grund": "BRW-Zone auf WEG-Prägung prüfen: bei nicht aufgeteiltem MFH in WEG-geprägter Zone BRW-Abschlag bis 30 % (GMB/Gutachterausschuss) — SV beziffert (0 wenn keine Prägung).", "vorschlag": 0, "quelle_vorschlag": "roher BRW (vorläufig)"}, {"feld": "wgfz_objekt", "grund": "GFZ-Umrechnung des BRW (Kap. 9.2.2): entweder die abgelesenen Koeffizienten direkt eintragen (gfz_koeffizient_objekt/-richtwert) ODER WGFZ von Objekt und Richtwertgrundstück angeben — dann rechnet der Kern mit der erkannten Gemeinde-Tabelle, sonst mit Anlage 11 WertR. Gleiche WGFZ = keine Anpassung.", "vorschlag": null, "quelle_vorschlag": ""}, {"feld": "vorderland_flaeche_m2", "grund": "Aufteilung rentierliches Vorderland / nicht-rentierliches Hinterland (Gartenland-Abschlag) ist SV-Entscheidung.", "vorschlag": 513, "quelle_vorschlag": "ganze Fläche als Vorderland (vorläufig)"}]}</script><script>
+function toggleEdit(){var d=document.getElementById('doc');var on=!d.isContentEditable;
+ d.contentEditable=on;document.body.classList.toggle('editing',on);
+ var b=document.getElementById('editToggle');if(b)b.innerHTML=on?'&#10003; Bearbeiten aktiv':'&#9998; Bearbeiten';}
+(function(){var links=[].slice.call(document.querySelectorAll('.sidebar a'));
+ var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+ if(!('IntersectionObserver' in window))return;
+ var obs=new IntersectionObserver(function(es){es.forEach(function(e){
+   if(e.isIntersecting){links.forEach(function(a){a.classList.remove('active');});
+     var a=map[e.target.id];if(a)a.classList.add('active');}});},
+   {rootMargin:'-45% 0px -50% 0px'});
+ document.querySelectorAll('main#doc .page').forEach(function(p){if(p.id)obs.observe(p);});})();
+</script><script>
+function uploadGutachten(){
+ var st=document.getElementById('uploadStatus');
+ var raw=document.getElementById('wg-kerndaten');
+ if(!raw){if(st)st.textContent='Fehler: keine Kerndaten im Dokument.';return;}
+ var kerndaten;
+ try{kerndaten=JSON.parse(raw.textContent);}catch(e){if(st)st.textContent='Fehler: Kerndaten unlesbar.';return;}
+ var endpoint=raw.getAttribute('data-endpoint');
+ var payload={fall_id:kerndaten.fall_id||null,kerndaten:kerndaten,
+   dokument:'<!DOCTYPE html>\n'+document.documentElement.outerHTML};
+ var btn=document.getElementById('uploadBtn');if(btn)btn.disabled=true;
+ if(st)st.textContent='Lädt hoch…';
+ fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+  .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json().catch(function(){return{};});})
+  .then(function(d){if(st)st.textContent='\u2713 Hochgeladen'+(d&&d.version?(' (Version '+d.version+')'):'')
+    +'. Dokument bleibt bearbeitbar.';})
+  .catch(function(e){if(st)st.textContent='Fehler beim Hochladen: '+e.message+' \u2014 Dokument unverändert.';})
+  .finally(function(){if(btn)btn.disabled=false;});
+}
+</script><script>
+window.__DEMO_BASE_VERSION=1;
+window.uploadGutachten=function(){
+ var st=document.getElementById('uploadStatus'), raw=document.getElementById('wg-kerndaten');
+ if(!raw)return; var kd; try{kd=JSON.parse(raw.textContent);}catch(e){return;}
+ var key='wgdemo:'+(kd.fall_id||kd.adresse);
+ var prev=null; try{prev=JSON.parse(localStorage.getItem(key)||'null');}catch(e){}
+ var ver=((prev&&prev.version)||window.__DEMO_BASE_VERSION||1)+1;
+ try{localStorage.setItem(key,JSON.stringify({version:ver,ts:Date.now(),adresse:kd.adresse,wert:kd.wert_gerundet}));}catch(e){}
+ if(st)st.textContent='\u2713 Hochgeladen (Version '+ver+'). Sichtbar im Team-Dashboard. Dokument bleibt bearbeitbar.';
+ var b=document.getElementById('uploadBtn'); if(b){b.textContent='\u2713 Hochgeladen (v'+ver+')';}
+};
+</script></body></html>
