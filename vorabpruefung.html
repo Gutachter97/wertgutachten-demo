@@ -76,12 +76,12 @@
 
   <main class="main">
     <div class="head"><div class="ic">⚖️</div><h1>Vorabprüfung</h1></div>
-    <p class="sub">Vom Sachverständigen lokal gerechnete Vorabprüfungen Finanzamt — für das ganze Team sichtbar. PDF je Version öffenbar.</p>
+    <p class="sub">Vom Sachverständigen lokal gerechnete Vorabprüfungen Finanzamt — für das ganze Team sichtbar. Dokument je Fall öffenbar.</p>
     <div class="kpis">
-      <div class="kpi"><div class="l">Gesamt</div><div class="v v-ink">9</div></div>
-      <div class="kpi"><div class="l">Positiv</div><div class="v v-green">5</div></div>
-      <div class="kpi"><div class="l">Grenzwertig</div><div class="v v-amber">2</div></div>
-      <div class="kpi"><div class="l">Negativ</div><div class="v v-gray">2</div></div>
+      <div class="kpi"><div class="l">Gesamt</div><div class="v v-ink">8</div></div>
+      <div class="kpi"><div class="l">Positiv</div><div class="v v-green">6</div></div>
+      <div class="kpi"><div class="l">Grenzwertig</div><div class="v v-amber">1</div></div>
+      <div class="kpi"><div class="l">Negativ</div><div class="v v-gray">1</div></div>
     </div>
     <div class="card">
       <div class="filterbar">
@@ -89,7 +89,7 @@
         <button class="pill">Positiv</button>
         <button class="pill">Grenzwertig</button>
         <button class="pill">Negativ</button>
-        <span class="count">9 Einträge</span>
+        <span class="count">8 Einträge</span>
       </div>
       <div style="overflow-x:auto">
         <table>
@@ -109,15 +109,14 @@
 const eur = n => new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
 const AMPEL = {pos:{l:"Positiv",c:"a-pos"},grenz:{l:"Grenzwertig",c:"a-grenz"},neg:{l:"Negativ",c:"a-neg"}};
 const DATA = [
-  {d:"30.06.2026",adr:"Musterstraße 12",ort:"99867 Gotha",fa:391799,vw:218000,a:"pos",v:1,neu:true,sv:"E. Landsmann"},
-  {d:"28.06.2026",adr:"Ahornweg 5",ort:"04275 Leipzig",fa:512000,vw:331000,a:"pos",v:1,sv:"A. Higgen"},
-  {d:"27.06.2026",adr:"Lindenallee 9",ort:"07743 Jena",fa:289000,vw:241000,a:"grenz",v:2,sv:"T. Krechel"},
-  {d:"26.06.2026",adr:"Marktplatz 3",ort:"99423 Weimar",fa:447000,vw:268000,a:"pos",v:1,sv:"F. Schellberg"},
-  {d:"24.06.2026",adr:"Domplatz 7",ort:"06108 Halle",fa:198000,vw:186000,a:"neg",v:1,sv:"A. Higgen"},
-  {d:"22.06.2026",adr:"Seestraße 30",ort:"09111 Chemnitz",fa:356000,vw:228000,a:"pos",v:1,sv:"F. Schellberg"},
-  {d:"20.06.2026",adr:"Ringstraße 14",ort:"99084 Erfurt",fa:274000,vw:236000,a:"grenz",v:1,sv:"M. Mertens"},
-  {d:"18.06.2026",adr:"Bachgasse 2",ort:"99867 Gotha",fa:163000,vw:158000,a:"neg",v:1,sv:"T. Krechel"},
-  {d:"15.06.2026",adr:"Schillerstraße 22",ort:"07545 Gera",fa:603000,vw:392000,a:"pos",v:1,sv:"A. Higgen"},
+  {d:"28.06.2026",adr:"Karcherallee 41",ort:"01277 Dresden",fa:1796600,vw:1290000,a:"grenz",v:1,neu:true,sv:"E. Landsmann",html:"vorab/karcherallee-41-dresden.html"},
+  {d:"27.06.2026",adr:"Dießener Str. 7",ort:"82399 Raisting",fa:850000,vw:570000,a:"pos",v:1,sv:"E. Landsmann",html:"vorab/diessener-str-7-raisting.html"},
+  {d:"25.06.2026",adr:"Hauptstraße 148",ort:"69242 Mühlhausen",fa:391799,vw:218000,a:"pos",v:1,sv:"E. Landsmann",html:"vorab/hauptstrasse-148-muehlhausen.html"},
+  {d:"22.06.2026",adr:"Moosburger Str. 6",ort:"84072 Au i.d. Hallertau",fa:333012,vw:170000,a:"pos",v:1,sv:"E. Landsmann",html:"vorab/moosburger-str-6-au.html"},
+  {d:"20.06.2026",adr:"Alt Seulberg 65",ort:"61381 Friedrichsdorf",fa:648694,vw:392000,a:"pos",v:1,sv:"E. Landsmann",html:"vorab/alt-seulberg-65-friedrichsdorf.html"},
+  {d:"18.06.2026",adr:"Rhönstraße 5",ort:"93057 Regensburg",fa:306000,vw:175000,a:"pos",v:1,sv:"E. Landsmann",html:"vorab/rhoenstrasse-5-regensburg.html"},
+  {d:"16.06.2026",adr:"Ziesarer Landstraße 157C",ort:"14776 Brandenburg a.d. Havel",fa:276845,vw:150000,a:"pos",v:1,sv:"E. Landsmann",html:"vorab/ziesarer-landstr-157c-brandenburg.html"},
+  {d:"15.06.2026",adr:"Brunnenstraße 31",ort:"53123 Bonn-Hardtberg",fa:703100,vw:698000,a:"neg",v:1,sv:"E. Landsmann",html:"vorab/brunnenstrasse-31-bonn.html"},
 ];
 document.getElementById('rows').innerHTML = DATA.map(x=>{
   const a=AMPEL[x.a];
@@ -133,7 +132,7 @@ document.getElementById('rows').innerHTML = DATA.map(x=>{
     <td><span class="badge ${a.c}"><span class="d"></span>${a.l}</span></td>
     <td>${ver}</td>
     <td style="color:var(--muted)">${x.sv}</td>
-    <td><a class="open-btn" href="${x.html||'vorab/beispiel-gotha.html'}" target="_blank" rel="noopener">↗ Öffnen</a><a class="pdf-link" href="${x.pdf||'pdf/vorab-beispiel-gotha.pdf'}" target="_blank" rel="noopener">PDF</a></td>
+    <td><a class="open-btn" href="${x.html}" target="_blank" rel="noopener">↗ Öffnen</a><a class="pdf-link" href="${x.html}" target="_blank" rel="noopener">Drucken → PDF</a></td>
   </tr>`;}).join('');
 </script>
 </body>
