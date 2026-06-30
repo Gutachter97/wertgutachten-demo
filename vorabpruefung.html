@@ -96,7 +96,7 @@
           <thead><tr>
             <th>Hochgeladen</th><th>Objekt</th>
             <th class="r">FA‑Bescheidwert</th><th class="r">Verkehrswert (rd.)</th>
-            <th class="r">Differenz</th><th>Empfehlung</th><th>Version</th><th>Bearbeiter</th>
+            <th class="r">Differenz</th><th>Empfehlung</th><th>Version</th><th>Bearbeiter</th><th>Dokument</th>
           </tr></thead>
           <tbody id="rows"></tbody>
         </table>
@@ -133,6 +133,7 @@ document.getElementById('rows').innerHTML = DATA.map(x=>{
     <td><span class="badge ${a.c}"><span class="d"></span>${a.l}</span></td>
     <td>${ver}</td>
     <td style="color:var(--muted)">${x.sv}</td>
+    <td><a class="open-btn" href="${x.html||'vorab/beispiel-gotha.html'}" target="_blank" rel="noopener">↗ Öffnen</a><a class="pdf-link" href="${x.pdf||'pdf/vorab-beispiel-gotha.pdf'}" target="_blank" rel="noopener">PDF</a></td>
   </tr>`;}).join('');
 </script>
 </body>

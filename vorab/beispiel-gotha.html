@@ -1,0 +1,528 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Vorabprüfung – Musterstraße 12, 99867 Gotha</title><link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+:root{--navy:#002147;--navy2:#637e9c;--green:#45b973;--ow:#fcfcfd;--ow2:#f0f2f4;
+      --zebra:#f5f7f9;--line:#d7dde4;--text:#002147;--muted:#5a6b7d;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+body{font-family:'Inter',Helvetica,Arial,sans-serif;color:var(--text);font-size:10pt;
+     line-height:1.55;background:var(--ow);}
+h1,h2,.brand,.titel,.kicker,.vw .z,.vw .a,.h1,.h2,table.kv tr.head td{
+     font-family:'Arvo','Georgia',serif;}
+.page{page-break-after:always;}
+.page:last-child{page-break-after:auto;}
+@page{size:A4;margin:18mm 22mm 20mm;}
+@media print{
+  .h1,.h2{break-after:avoid-page;}
+  tr,.vw,.metagrid,.note,.objzeile,.lh,table.kv tr.head{break-inside:avoid;}
+  table.kv{break-inside:auto;}
+  p.t,.fuss{orphans:3;widows:3;}
+  /* Ein Dokument, zwei Ansichten: interne Markierungen (SV-Tags, Prüfvermerke,
+     „maschinell erstellt"-Hinweis) und Auswahl-Radios verschwinden im Druck
+     → sauberes Kunden-PDF aus demselben, am Bildschirm bearbeiteten Wertgutachten. */
+  .intern-only,.sv{display:none!important;}
+  input[type=radio]{display:none!important;}
+}
+
+/* ---- Briefkopf (Deckblatt) + Kopfzeile (Innenseiten) ---- */
+.lh{display:flex;justify-content:space-between;align-items:flex-end;
+    border-bottom:1.5pt solid var(--navy);padding-bottom:6px;}
+.lh .brand{font-size:18pt;font-weight:700;color:var(--navy);letter-spacing:.2em;}
+.lh .contact{text-align:right;font-size:7.8pt;color:var(--muted);line-height:1.55;}
+.accent{height:2.5pt;background:var(--green);width:100%;margin-bottom:2px;}
+.kopf{display:flex;justify-content:space-between;align-items:flex-end;
+      border-bottom:1pt solid var(--navy);padding-bottom:4px;margin-bottom:16px;
+      font-size:7.8pt;color:var(--muted);}
+.kopf .b{color:var(--navy);letter-spacing:.16em;font-size:9pt;font-weight:700;}
+
+/* ---- Deckblatt ---- */
+.kicker{margin-top:26px;font-size:9.5pt;letter-spacing:.28em;color:var(--navy2);text-transform:uppercase;}
+.titel{font-size:23pt;font-weight:700;color:var(--navy);line-height:1.2;margin:4px 0 2px;}
+.titel-sub{font-size:10.5pt;color:var(--muted);margin-bottom:20px;}
+.objzeile{font-size:13pt;color:var(--navy);font-weight:600;border-top:.5pt solid var(--line);
+          padding-top:12px;margin-bottom:4px;}
+.objzeile .oart{font-size:10pt;color:var(--muted);font-weight:400;}
+.vw{background:var(--ow2);border-left:4pt solid var(--green);padding:18px 22px;margin:22px 0;}
+.vw .l{font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.vw .z{font-size:32pt;font-weight:700;color:var(--navy);line-height:1.1;margin:2px 0;}
+.vw .w{font-style:italic;font-size:10.5pt;color:var(--navy2);}
+.metagrid{display:grid;grid-template-columns:1fr 1fr;gap:4px 28px;margin-top:14px;}
+.metagrid .m{border-bottom:.5pt solid var(--line);padding:5px 0;}
+.metagrid .m .l{font-size:7.8pt;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.metagrid .m .v{font-size:10pt;color:var(--navy);}
+.firma{margin-top:16px;font-size:8.5pt;color:var(--muted);line-height:1.55;}
+.firma b{color:var(--navy);font-size:9.5pt;}
+
+/* ---- Abschnitts-Überschriften ---- */
+.h1{font-size:14pt;font-weight:700;color:var(--navy);border-left:3.5pt solid var(--green);
+    padding-left:10px;line-height:1.25;}
+.h1 .nr{margin-right:8px;}
+.sub{font-style:italic;color:var(--muted);font-size:9pt;margin:3px 0 10px;padding-left:14px;}
+.rule{display:none;}
+.h2{font-size:10.5pt;font-weight:700;color:var(--navy);margin:16px 0 5px;}
+p.t{margin:7px 0;text-align:justify;color:#26384a;}
+p.t b{font-weight:700;color:var(--navy);}
+
+/* ---- Label/Wert-Tabellen ---- */
+table.kv{width:100%;border-collapse:collapse;margin:4px 0 8px;}
+table.kv td{padding:5px 9px;border-bottom:.5pt solid var(--line);vertical-align:top;font-size:9.7pt;}
+table.kv td.l{width:60%;color:#26384a;}
+table.kv td.v{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--navy);}
+table.kv tr:nth-child(even) td{background:var(--zebra);}
+table.kv tr.head td{background:var(--navy);color:var(--ow);font-size:8.2pt;font-weight:700;
+                    letter-spacing:.05em;text-transform:uppercase;border:none;}
+table.kv tr.sum td{border-top:1.5pt solid var(--navy);border-bottom:none;font-weight:700;
+                   color:var(--navy);background:none;padding-top:7px;}
+.sv{font-style:italic;color:var(--green);font-size:8.3pt;font-weight:600;}
+.note{border-left:3pt solid var(--navy2);padding:7px 12px;font-size:8.7pt;color:var(--muted);
+      margin:10px 0;background:var(--ow2);}
+.fuss{margin-top:12px;font-size:8.3pt;color:var(--muted);text-align:justify;}
+
+.vp-grp{font-size:7.8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);
+  font-weight:700;margin:12px 0 3px;border-bottom:1pt solid var(--green);padding-bottom:2px;}
+.vp-grp-sub{color:var(--navy2);border-bottom:.5pt solid var(--line);margin:8px 0 2px;
+  letter-spacing:.1em;}
+/* Rahmenparameter 2-spaltig (kompaktes Arbeitsblatt); Subüberschriften + Mieten spannen voll. */
+.vp-params{display:grid;grid-template-columns:1fr 1fr;column-gap:30px;}
+.vp-params .vp-grp-sub,.vp-params #me-list{grid-column:1 / -1;}
+.vp-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:3px 0;
+  border-bottom:.5pt solid var(--line);min-height:24px;}
+.vp-row > span:first-child{color:#26384a;flex:1;}
+.vp-in{display:flex;align-items:center;gap:7px;white-space:nowrap;flex-shrink:0;}
+.vp-row input,.vp-row select{font-family:'Inter',Arial,sans-serif;font-size:9.7pt;font-weight:600;
+  color:var(--navy);border:1px solid var(--line);border-left:3px solid var(--green);
+  border-radius:5px;padding:4px 8px;background:#fff;}
+.vp-in input{width:118px;text-align:right;}
+.vp-row > input,.vp-row > select{width:190px;text-align:left;}
+.vp-row > input[type=number]{text-align:right;}
+.vp-row select{width:200px;}
+.vp-row .u{color:var(--muted);font-size:8.4pt;min-width:24px;text-align:left;}
+.vp-in .u{min-width:62px;}
+.me-row{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;
+  padding:5px 0;border-bottom:.5pt solid var(--line);}
+.me-row .me-bez{color:#26384a;}
+.me-row .inwrap{display:flex;align-items:center;gap:6px;white-space:nowrap;}
+.me-row input{width:96px;text-align:right;font-family:'Inter',Arial,sans-serif;font-size:9.7pt;
+  font-weight:600;color:var(--navy);border:1px solid var(--line);border-left:3px solid var(--green);
+  border-radius:5px;padding:4px 7px;background:#fff;}
+.me-row .u{color:var(--muted);font-size:8.4pt;}
+.out-row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;
+  border-bottom:.5pt solid var(--line);font-size:9.7pt;}
+.out-row .out-v{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap;}
+.out-row.big{margin-top:8px;border-top:1.5pt solid var(--navy);border-bottom:none;padding-top:10px;}
+.out-row.big .out-l{font-family:'Arvo',Georgia,serif;font-weight:700;font-size:12pt;}
+.out-row.big .out-v{font-family:'Arvo',Georgia,serif;font-size:18pt;font-weight:700;}
+.ampel{padding:14px 16px;border-radius:8px;margin-top:16px;font-weight:600;border-left:4pt solid var(--navy2);}
+.ampel .e{font-family:'Arvo',Georgia,serif;font-size:13pt;display:block;margin-bottom:2px;}
+.ampel .d{font-weight:400;color:var(--muted);font-size:9pt;}
+.brief-body p{margin:8px 0;text-align:justify;}
+.brief-body ul{margin:6px 0 6px 18px;}
+.brief-zus{width:100%;border-collapse:collapse;margin:10px 0;}
+.brief-zus td{padding:4px 8px;border-bottom:.5pt solid var(--line);font-size:9.5pt;}
+.brief-zus td.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.brief-signatur{margin-top:14px;font-size:9pt;color:var(--muted);}
+.brief-signatur-name{color:var(--navy);font-weight:700;font-size:10pt;}
+.brief-betreff{font-weight:700;color:var(--navy);margin:14px 0 6px;}
+@media print{ body.kundenfassung .seite-intern{display:none!important;} }
+</style><style>
+@media screen{
+ :root{--sb-bg:#002147;--sb-text:#c7d2de;--sb-active:#45b973;--sb-hover:rgba(69,185,115,.12);}
+ body{background:#dfe3e8;}
+ .sidebar{position:fixed;top:0;left:0;width:250px;height:100vh;background:var(--sb-bg);
+   color:var(--sb-text);overflow-y:auto;z-index:100;font-family:'Inter',Helvetica,Arial,sans-serif;
+   display:flex;flex-direction:column;}
+ .sidebar-header{padding:20px 18px 14px;border-bottom:1px solid rgba(255,255,255,.08);}
+ .sidebar-brand{font-family:'Arvo','Georgia',serif;color:#fcfcfd;font-size:17pt;font-weight:700;letter-spacing:.18em;}
+ .sidebar-title{color:var(--sb-active);font-size:10pt;font-weight:600;margin-top:4px;}
+ .sidebar-address{color:#8ea3ba;font-size:8.4pt;margin-top:3px;line-height:1.4;}
+ .sidebar-group{padding:12px 0 4px;}
+ .sidebar-group-label{color:#7f93a9;font-size:7.6pt;letter-spacing:.16em;text-transform:uppercase;padding:0 18px 5px;}
+ .sidebar a{display:block;color:var(--sb-text);text-decoration:none;font-size:9.3pt;
+   padding:7px 18px;border-left:3px solid transparent;transition:background .12s,color .12s;}
+ .sidebar a:hover{background:var(--sb-hover);color:#fcfcfd;border-left-color:var(--sb-active);}
+ .sidebar a.active{background:rgba(69,185,115,.16);color:var(--sb-active);
+   border-left-color:var(--sb-active);font-weight:600;}
+ .sidebar-tools{margin-top:auto;padding:14px 16px 18px;border-top:1px solid rgba(255,255,255,.08);
+   display:flex;flex-direction:column;gap:8px;}
+ .sb-btn{background:var(--sb-active);color:#03261a;border:0;border-radius:6px;padding:8px 10px;
+   font-weight:600;font-size:9pt;cursor:pointer;font-family:'Inter',Helvetica,Arial,sans-serif;}
+ .sb-btn.ghost{background:transparent;color:#c7d2de;border:1px solid rgba(255,255,255,.22);}
+ .sb-btn:hover{filter:brightness(1.07);}
+ .sb-hint{color:#7f93a9;font-size:7.6pt;line-height:1.45;}
+ main#doc{margin-left:250px;padding:30px 0;display:flex;flex-direction:column;align-items:center;gap:22px;}
+ main#doc .page{width:210mm;min-height:297mm;background:var(--ow);padding:20mm 22mm;
+   box-shadow:0 3px 18px rgba(0,33,71,.13);border-radius:2px;page-break-after:auto;}
+ body.editing main#doc .page{outline:2px dashed var(--sb-active);outline-offset:5px;}
+ [contenteditable="true"]:focus{outline:none;background:rgba(69,185,115,.06);}
+}
+@media print{ .sidebar{display:none!important;} main#doc{margin:0;padding:0;display:block;} }
+</style></head><body><nav class="sidebar"><div class="sidebar-header"><div class="sidebar-brand">CERTA</div><div class="sidebar-title">Vorabprüfung Finanzamt</div><div class="sidebar-address">Musterstraße 12, 99867 Gotha</div></div><div class="sidebar-group"><div class="sidebar-group-label">Sachwertverfahren · live</div><a href="#seite-deckblatt">Deckblatt (Kunde)</a><a href="#seite-datenblatt">Datenblatt</a><a href="#seite-berechnung">Berechnungsweg</a><a href="#seite-anschreiben">Anschreiben (Kunde)</a></div><div class="sidebar-tools"><button class="sb-btn" id="editToggle" onclick="toggleEdit()">&#9998; Bearbeiten</button><button class="sb-btn ghost" onclick="druckIntern()">&#11015; Drucken intern</button><button class="sb-btn ghost" onclick="druckKunde()">&#11015; Drucken für Kunden</button><button class="sb-btn" id="uploadBtn" onclick="uploadVorab()">&#11014; In CERTA Value hochladen</button><div class="sb-hint" id="uploadStatus">Parameter ändern → Verkehrswert, Ampel und Brief rechnen live. Drucken für Kunden = 2 Seiten (Deckblatt + Anschreiben).</div></div></nav><main id="doc"><div class="page seite-kunde" id="seite-deckblatt">
+  <div class="lh"><div class="brand">CERTA</div>
+    <div class="contact"><b style="color:#002147">CERTA GmbH</b><br>
+    Habsburgerring 1, 50674 Köln<br>Telefon 06131 4909020 | Mail office@certa-gutachten.de | Handelsregister-Nr HRB 123892 | www.certa-gutachten.de</div></div>
+  <div class="accent"></div>
+  <div class="kicker">Vorabprüfung Finanzamt</div>
+  <div class="titel">Vorabprüfung</div>
+  <div class="titel-sub">Überschlägige Einordnung des Verkehrswerts gegen den festgestellten Grundbesitzwert</div>
+  <div class="objzeile">Musterstraße 12, 99867 Gotha<br><span class="oart">Einfamilienhaus / Zweifamilienhaus</span></div>
+  <div class="vw"><div class="l">Verkehrswert (überschlägige Einordnung), rd.</div>
+    <div class="z" id="coverBand">–</div>
+    <div class="w">Bandbreite der Punktschätzung (± ca. 10–12 %)</div></div>
+  <div class="metagrid">
+    <div class="m"><div class="l">Auftraggeber</div><div class="v" id="coverName">–</div></div>
+    <div class="m"><div class="l">Bewertungsstichtag</div><div class="v" id="coverStichtag">–</div></div>
+    <div class="m"><div class="l">FA-Bescheidwert</div><div class="v" id="coverFa">–</div></div>
+    <div class="m"><div class="l">Empfehlung</div><div class="v" id="coverEmpf">–</div></div>
+  </div>
+  <div class="firma"><b>CERTA GmbH</b> · Habsburgerring 1, 50674 Köln</div>
+</div><div class="page seite-intern" id="seite-datenblatt">
+  <div class="kopf"><span class="b">CERTA</span><span>Vorabprüfung · INTERN</span></div>
+  <div class="h1"><span class="nr">I-1</span>Datenblatt</div>
+  <div class="sub">– Objektdaten, sachverständig zu ermittelnde Parameter und Finanzamt-Bescheid –</div>
+  <div class="vp-grp">Objektdaten</div><div class="vp-row"><span>Adresse</span><span>Musterstraße 12, 99867 Gotha</span></div><div class="vp-row"><span>Objektart</span><span>Einfamilienhaus / Zweifamilienhaus</span></div><div class="vp-row"><span>Baujahr</span><span>1902</span></div><div class="vp-row"><span>Wohnfläche</span><span>155.0 m²</span></div>
+  <div class="vp-grp">Rahmenparameter (editierbar – Verkehrswert rechnet live)</div>
+  <div class="vp-params"><div class="vp-grp vp-grp-sub">Grundstück / Boden</div><label class="vp-row"><span>Bodenrichtwert</span><span class="vp-in"><input type="number" step="1" id="bodenrichtwert_eur_m2" value="390" oninput="recompute()"><span class="u">€/m²</span></span></label><label class="vp-row"><span>Grundstücksfläche</span><span class="vp-in"><input type="number" step="1" id="grundstuecksflaeche_m2" value="517" oninput="recompute()"><span class="u">m²</span></span></label><label class="vp-row"><span>Bodenwert nicht-rentierlich (Hinterland)</span><span class="vp-in"><input type="number" step="100" id="boden_nr" value="0" oninput="recompute()"><span class="u">€</span></span></label><div class="vp-grp vp-grp-sub">Gebäude / Herstellung</div><label class="vp-row"><span>Brutto-Grundfläche (BGF)</span><span class="vp-in"><input type="number" step="0.1" id="bgf" value="201.5" oninput="recompute()"><span class="u">m²</span></span></label><label class="vp-row"><span>NHK 2010</span><span class="vp-in"><input type="number" step="1" id="nhk2010_eur_m2" value="550" oninput="recompute()"><span class="u">€/m²</span></span></label><label class="vp-row"><span>Baupreisindex (2010=100)</span><span class="vp-in"><input type="number" step="0.1" id="baupreisindex" value="100" oninput="recompute()"></span></label><label class="vp-row"><span>Regionalfaktor (BKI)</span><span class="vp-in"><input type="number" step="0.001" id="regionalfaktor" value="1" oninput="recompute()"></span></label><label class="vp-row"><span>Gesamtnutzungsdauer</span><span class="vp-in"><input type="number" step="1" id="gnd" value="80" oninput="recompute()"><span class="u">J</span></span></label><label class="vp-row"><span>Restnutzungsdauer</span><span class="vp-in"><input type="number" step="1" id="rnd" value="24" oninput="recompute()"><span class="u">J</span></span></label><div class="vp-grp vp-grp-sub">Sonstige Bauteile</div><label class="vp-row"><span>Garagen / Stellplätze</span><span class="vp-in"><input type="number" step="1" id="garagen_anzahl" value="0" oninput="recompute()"><span class="u">Stk</span></span></label><label class="vp-row"><span>Zeitwert je Garage</span><span class="vp-in"><input type="number" step="100" id="garagen_zeitwert_eur" value="0" oninput="recompute()"><span class="u">€</span></span></label><label class="vp-row"><span>Außenanlagen</span><span class="vp-in"><input type="number" step="0.5" id="aussenanlagen_prozent" value="0" oninput="recompute()"><span class="u">% v. Geb.</span></span></label><div class="vp-grp vp-grp-sub">Marktanpassung</div><label class="vp-row"><span>Sachwertfaktor</span><span class="vp-in"><input type="number" step="0.01" id="sachwertfaktor" value="0.93" oninput="recompute()"></span></label><label class="vp-row"><span>Instandhaltungsstau (Abzug)</span><span class="vp-in"><input type="number" step="100" id="instandhaltungsstau_eur" value="0" oninput="recompute()"><span class="u">€</span></span></label></div>
+  <div class="vp-grp">Finanzamt-Bescheid</div>
+<label class="vp-row"><span>Finanzamt</span><input type="text" id="finanzamt" value="Finanzamt Musterstadt" placeholder="z. B. Wiesbaden"></label>
+<label class="vp-row"><span>Bescheiddatum</span><input type="date" id="bescheiddatum" value="2026-02-20"></label>
+<label class="vp-row"><span>Bewertungsstichtag</span><input type="date" id="stichtag" value="2024-06-01" oninput="recompute()"></label>
+<label class="vp-row"><span>FA-Verfahren</span><select id="faVerfahren">
+  <option value="vergleich">Vergleichswert (§ 183 BewG)</option>
+  <option value="ertrag">Ertragswert (§ 184 BewG)</option>
+  <option value="sach" selected>Sachwert (§ 189 BewG)</option></select></label>
+<label class="vp-row"><span>FA-Bescheidwert</span><input type="number" step="1" id="faBescheidwert" value="391799" oninput="recompute()"><span class="u">€</span></label>
+<label class="vp-row"><span>Anteil (z. B. 3/4)</span><input type="text" id="anteil" value="1/1" oninput="recompute()"></label>
+<div class="sv" style="margin:4px 0 0">FA-Werte vorbefüllt aus dem Feststellungsbescheid (Vision) – bitte prüfen.</div>
+<div class="vp-grp">Auftraggeber</div>
+<label class="vp-row"><span>Name</span><input type="text" id="kundenName" value="Max Mustermann" oninput="recompute()"></label>
+<label class="vp-row"><span>E-Mail</span><input type="text" id="kundenEmail" value="max.mustermann@example.de"></label>
+</div><div class="page seite-intern" id="seite-berechnung">
+  <div class="kopf"><span class="b">CERTA</span><span>Vorabprüfung · INTERN</span></div>
+  <div class="h1"><span class="nr">I-2</span>Berechnungsweg (Sachwertverfahren)</div>
+  <div class="sub">– Überschlägige Punktschätzung; maßgeblich sind die im Datenblatt eingetragenen Parameter –</div>
+  <div class="out-row"><span class="out-l">Herstellungskosten (NHK, indexiert × Regionalfaktor)</span><span class="out-v" id="o_herstellungskosten">–</span></div><div class="out-row"><span class="out-l">Alterswertminderungsfaktor (RND/GND)</span><span class="out-v" id="o_alterswertminderungsfaktor">–</span></div><div class="out-row"><span class="out-l">Vorl. Gebäudesachwert (alterswertgemindert)</span><span class="out-v" id="o_vorl_sachwert_baulich">–</span></div><div class="out-row"><span class="out-l">Zeitwert sonstige Bauteile / Garagen</span><span class="out-v" id="o_bauwert_sonstiges">–</span></div><div class="out-row"><span class="out-l">Wert der Außenanlagen</span><span class="out-v" id="o_aussenanlagen">–</span></div><div class="out-row"><span class="out-l">Bodenwert (rentierlich)</span><span class="out-v" id="o_bodenwert_rentierlich">–</span></div><div class="out-row"><span class="out-l">Vorläufiger Sachwert</span><span class="out-v" id="o_vorl_sachwert_incl_boden">–</span></div><div class="out-row"><span class="out-l">Marktangepasster vorl. Sachwert (× Sachwertfaktor)</span><span class="out-v" id="o_marktangepasster_sachwert">–</span></div><div class="out-row"><span class="out-l">abzgl. Instandhaltungsstau</span><span class="out-v" id="o_abzug_instandhaltungsstau">–</span></div><div class="out-row big"><span class="out-l">Sachwert (Verkehrswert), gerundet</span><span class="out-v" id="o_sachwert_gerundet">–</span></div>
+  <div class="eqm" id="eqm" style="text-align:right;color:var(--muted);font-size:9pt;margin-top:4px;">–</div>
+  <div class="ampel" id="faErgebnis"><span class="e">–</span></div>
+  <div class="note">Bandbreite für den Kunden: <span id="o_band">–</span> · Punktschätzung ± ca. 10–12 %.
+  Alle Angaben beruhen auf den mitgeteilten Daten und öffentlich zugänglichen Marktdaten;
+  der genaue Verkehrswert wird erst im Gutachten bestimmt.</div>
+</div><div class="page seite-kunde" id="seite-anschreiben">
+  <div class="lh"><div class="brand">CERTA</div>
+    <div class="contact"><b style="color:#002147">CERTA GmbH</b><br>
+    Habsburgerring 1, 50674 Köln<br>Telefon 06131 4909020 | Mail office@certa-gutachten.de | Handelsregister-Nr HRB 123892 | www.certa-gutachten.de</div></div>
+  <div class="accent"></div>
+  <div class="brief-body" id="briefBody">–</div>
+</div></main><script id="wg-kerndaten" type="application/json" data-endpoint="https://certavalue.onrender.com/api/vorabpruefung-import">{"produkt": "vorabpruefung", "adresse": "Musterstraße 12, 99867 Gotha", "fall_id": "VP-DEMO-001"}</script><script id="vp-config" type="application/json">{"verfahren": "sachwert", "big_key": "sachwert_gerundet", "wfl": 155.0, "out_keys": ["herstellungskosten", "alterswertminderungsfaktor", "vorl_sachwert_baulich", "bauwert_sonstiges", "aussenanlagen", "bodenwert_rentierlich", "vorl_sachwert_incl_boden", "marktangepasster_sachwert", "abzug_instandhaltungsstau", "sachwert_gerundet"], "faktor_keys": ["alterswertminderungsfaktor"], "objektart": "Einfamilienhaus / Zweifamilienhaus", "baujahr": "1902", "adresse": "Musterstraße 12, 99867 Gotha", "vname": "Sachwertverfahren"}</script><script>/* realtech — Rechner-Engine (JS-Spiegel von rechenkern.py)
+ * ========================================================
+ * 1:1-Spiegel der reinen Funktionen sachwert() / ertragswert() / barwertfaktor()
+ * aus rechenkern.py. Bodenwert wird flach übergeben (boden_r = rentierlich,
+ * boden_nr = nicht-rentierlich) statt als Teilflaeche-Objekt.
+ *
+ * Parität gegen Python ist durch tests/test_rechner_paritaet.py abgesichert
+ * (Node-CLI vs. rechenkern.py auf identischen Golden-Eingaben). Drift = roter Test.
+ *
+ * Browser:  window.RT.sachwert(i) / window.RT.ertragswert(i)
+ * Node-CLI: node rechner_engine.js sachwert '<json>'  -> JSON auf stdout
+ */
+(function (root) {
+  "use strict";
+
+  function n(x) { return (x === null || x === undefined || x === "") ? 0 : +x; }
+
+  function rundeWert(wert, schritt) {
+    schritt = schritt || 1000;
+    return Math.round(wert / schritt) * schritt;
+  }
+
+  // Vervielfältiger (Barwertfaktor nachschüssige Rente), ImmoWertV Anlage 1:
+  //   V = (q^n - 1) / (q^n * p),  q = 1 + p,  p = LiZi, n = RND
+  function barwertfaktor(p, restnutzungsdauer) {
+    var q = 1.0 + p;
+    var qn = Math.pow(q, restnutzungsdauer);
+    return (qn - 1.0) / (qn * p);
+  }
+
+  // --- Sachwertverfahren (Spiegel rechenkern.sachwert) ---------------------
+  function sachwert(i) {
+    var korr_zfh = i.korr_zfh === undefined ? 1.0 : n(i.korr_zfh);
+    var korr_wg = i.korr_wohnungsgroesse === undefined ? 1.0 : n(i.korr_wohnungsgroesse);
+    var korr_gr = i.korr_grundrissart === undefined ? 1.0 : n(i.korr_grundrissart);
+    var regionalfaktor = i.regionalfaktor === undefined ? 1.0 : n(i.regionalfaktor);
+    var sachwertfaktor = i.sachwertfaktor === undefined ? 1.0 : n(i.sachwertfaktor);
+
+    var hk = n(i.nhk2010_eur_m2) * n(i.bgf) * n(i.baupreisindex) / 100.0
+             * korr_zfh * korr_wg * korr_gr;
+    var awm = n(i.rnd) / n(i.gnd);
+    var vorl_baulich = hk * regionalfaktor * awm;
+    var bauwert_sonst = n(i.garagen_anzahl) * n(i.garagen_zeitwert_eur)
+                        + n(i.besondere_bauteile_zeitwert_eur);
+    var summe_zw = vorl_baulich + bauwert_sonst;
+    var aussen = summe_zw * n(i.aussenanlagen_prozent) / 100.0;
+    var vorl_sw = summe_zw + aussen;
+    var boden_r = n(i.boden_r);
+    var vorl_incl = vorl_sw + boden_r;
+    var marktangepasst = vorl_incl * sachwertfaktor;
+    var boden_nr = n(i.boden_nr);
+    var sw = marktangepasst + n(i.minderung_baumaengel_eur) + n(i.minderung_bindungen_eur)
+             - n(i.instandhaltungsstau_eur) + boden_nr;
+    return {
+      herstellungskosten: hk,
+      alterswertminderungsfaktor: awm,
+      vorl_sachwert_baulich: vorl_baulich,
+      bauwert_sonstiges: bauwert_sonst,
+      summe_zeitwerte: summe_zw,
+      aussenanlagen: aussen,
+      vorl_sachwert: vorl_sw,
+      bodenwert_rentierlich: boden_r,
+      vorl_sachwert_incl_boden: vorl_incl,
+      marktangepasster_sachwert: marktangepasst,
+      abzug_instandhaltungsstau: n(i.instandhaltungsstau_eur),
+      bodenwert_nicht_rentierlich: boden_nr,
+      sachwert: sw,
+      sachwert_gerundet: rundeWert(sw, i.rundung_schritt)
+    };
+  }
+
+  // --- Ertragswertverfahren (Spiegel rechenkern.ertragswert) ---------------
+  // mieteinheiten: [{flaeche_m2, miete_eur_m2_monat}]
+  // stellplaetze:  [{anzahl, miete_eur_monat, instandhaltung_eur_stck}]
+  function ertragswert(i) {
+    var einh = i.mieteinheiten || [];
+    var sp = i.stellplaetze || [];
+    var flaeche_gesamt = 0, anzahl_sp = 0, rohertrag = 0, bwk_sp_ih = 0, roh_sp = 0;
+    einh.forEach(function (m) { flaeche_gesamt += n(m.flaeche_m2); });
+    sp.forEach(function (s) { anzahl_sp += n(s.anzahl); });
+    einh.forEach(function (m) { rohertrag += n(m.flaeche_m2) * n(m.miete_eur_m2_monat) * 12.0; });
+    sp.forEach(function (s) {
+      roh_sp += n(s.anzahl) * n(s.miete_eur_monat) * 12.0;
+      bwk_sp_ih += n(s.anzahl) * n(s.instandhaltung_eur_stck);
+    });
+    rohertrag += roh_sp + n(i.sonstige_ertraege_eur_monat) * 12.0;
+
+    var bwk = n(i.instandhaltung_eur_m2) * flaeche_gesamt
+              + bwk_sp_ih
+              + n(i.verwaltung_eur_je_einheit) * n(i.anzahl_wohneinheiten)
+              + n(i.verwaltung_eur_je_stellplatz) * anzahl_sp
+              + n(i.mietausfallwagnis_prozent) * rohertrag / 100.0
+              + n(i.sonstige_bk_eur_m2) * flaeche_gesamt;
+
+    var reinertrag = rohertrag - bwk;
+    var boden_r = n(i.boden_r);
+    var bw_verzinsung = boden_r * n(i.liegenschaftszinssatz);
+    var reinertrag_baulich = reinertrag - bw_verzinsung;
+    var v = barwertfaktor(n(i.liegenschaftszinssatz), n(i.restnutzungsdauer));
+    var ew_baulich = reinertrag_baulich * v;
+    var boden_nr = n(i.boden_nr);
+    var ew = ew_baulich + boden_r
+             + n(i.minderung_baumaengel_eur) + n(i.minderung_bindungen_eur) + boden_nr;
+    return {
+      jahresrohertrag: rohertrag,
+      bewirtschaftungskosten: bwk,
+      reinertrag: reinertrag,
+      bodenwertverzinsung: bw_verzinsung,
+      reinertrag_baulich: reinertrag_baulich,
+      barwertfaktor: v,
+      ertragswert_baulich: ew_baulich,
+      bodenwert_rentierlich: boden_r,
+      bodenwert_nicht_rentierlich: boden_nr,
+      ertragswert: ew,
+      ertragswert_gerundet: rundeWert(ew, i.rundung_schritt)
+    };
+  }
+
+  var API = { sachwert: sachwert, ertragswert: ertragswert, barwertfaktor: barwertfaktor, rundeWert: rundeWert };
+
+  // Browser-Export
+  if (typeof window !== "undefined") { window.RT = API; }
+  // Node-Export + CLI-Shim (für den Paritätstest)
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = API;
+    if (require.main === module) {
+      var verf = process.argv[2];
+      var inp = JSON.parse(process.argv[3] || "{}");
+      var r = verf === "ertragswert" ? ertragswert(inp) : sachwert(inp);
+      process.stdout.write(JSON.stringify(r));
+    }
+  }
+})(this);
+</script><script>// FA-Bewertungsschicht der Vorabprüfung — JS-Spiegel von vorabpruefung_fa.py.
+// ponytail: Wahrheit ist die Python-Seite; tests/test_vorabpruefung_paritaet.py wacht über Drift.
+(function (root) {
+  function anteilAlsFaktor(anteil) {
+    var s = (anteil || "").toString().trim();
+    if (!s) return 1.0;
+    try {
+      if (s.indexOf("/") >= 0) {
+        var p = s.split("/");
+        var n = parseFloat(p[1]);
+        return n ? parseFloat(p[0]) / n : 1.0;
+      }
+      var v = parseFloat(s.replace(",", "."));
+      return isNaN(v) ? 1.0 : v;
+    } catch (e) { return 1.0; }
+  }
+
+  function bewerteFa(verkehrswert, faWert, anteil) {
+    var differenz = faWert - verkehrswert;
+    var differenzProzent = faWert > 0 ? (differenz / faWert) * 100 : 0.0;
+    var ergebnis, empfehlung;
+    if (differenzProzent > 30) { ergebnis = "POSITIV"; empfehlung = "Verkehrswertgutachten empfohlen"; }
+    else if (differenzProzent > 10) { ergebnis = "GRENZWERTIG"; empfehlung = "Einzelfallprüfung durch Sachverständigen"; }
+    else { ergebnis = "NEGATIV"; empfehlung = "Gutachten wirtschaftlich nicht sinnvoll"; }
+    return {
+      differenz: differenz,
+      differenz_prozent: differenzProzent,
+      ergebnis: ergebnis,
+      empfehlung: empfehlung,
+      bandbreite_unten: Math.round(verkehrswert * 0.88 / 1000) * 1000,
+      bandbreite_oben: Math.round(verkehrswert * 1.12 / 1000) * 1000,
+      ersparnis_anteil: differenz * anteilAlsFaktor(anteil)
+    };
+  }
+
+  var API = { bewerteFa: bewerteFa, anteilAlsFaktor: anteilAlsFaktor };
+  if (typeof window !== "undefined") { window.VP = API; }
+  if (typeof module !== "undefined" && module.exports) { module.exports = API; }
+
+  // Node-CLI für die Paritätswache: node vorabpruefung_ui.js bewerte '<json>'
+  if (typeof process !== "undefined" && process.argv && process.argv[2] === "bewerte") {
+    var inp = JSON.parse(process.argv[3]);
+    process.stdout.write(JSON.stringify(bewerteFa(inp.verkehrswert, inp.fa_wert, inp.anteil)));
+  }
+})(this);
+</script><script>
+function toggleEdit(){var d=document.getElementById('doc');var on=!d.isContentEditable;
+ d.contentEditable=on;document.body.classList.toggle('editing',on);
+ var b=document.getElementById('editToggle');if(b)b.innerHTML=on?'&#10003; Bearbeiten aktiv':'&#9998; Bearbeiten';}
+(function(){var links=[].slice.call(document.querySelectorAll('.sidebar a'));
+ var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+ if(!('IntersectionObserver' in window))return;
+ var obs=new IntersectionObserver(function(es){es.forEach(function(e){
+   if(e.isIntersecting){links.forEach(function(a){a.classList.remove('active');});
+     var a=map[e.target.id];if(a)a.classList.add('active');}});},
+   {rootMargin:'-45% 0px -50% 0px'});
+ document.querySelectorAll('main#doc .page').forEach(function(p){if(p.id)obs.observe(p);});})();
+</script><script>
+var CFG = JSON.parse(document.getElementById('vp-config').textContent);
+function val(id){var e=document.getElementById(id);return e?(parseFloat(e.value)||0):0;}
+function txt(id){var e=document.getElementById(id);return e?e.value:'';}
+function setT(id,t){var e=document.getElementById(id);if(e)e.textContent=t;}
+function fmtEur(x){return new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(x||0);}
+function fmtNum(x){return new Intl.NumberFormat('de-DE',{maximumFractionDigits:0}).format(Math.round(x||0));}
+function fmtFak(x){return new Intl.NumberFormat('de-DE',{minimumFractionDigits:4,maximumFractionDigits:4}).format(x||0);}
+function fmtPct(x){return new Intl.NumberFormat('de-DE',{minimumFractionDigits:1,maximumFractionDigits:1}).format(x||0)+' %';}
+
+function gather(){
+  var brw=val('bodenrichtwert_eur_m2'),flae=val('grundstuecksflaeche_m2');
+  if(CFG.verfahren==='ertragswert'){
+    var me=[].slice.call(document.querySelectorAll('.me-row')).map(function(r){
+      return {flaeche_m2:parseFloat(r.querySelector('.me-flaeche').value)||0,
+              miete_eur_m2_monat:parseFloat(r.querySelector('.me-miete').value)||0};});
+    return {mieteinheiten:me,instandhaltung_eur_m2:val('instandhaltung_eur_m2'),
+      verwaltung_eur_je_einheit:val('verwaltung_eur_je_einheit'),anzahl_wohneinheiten:val('anzahl_wohneinheiten'),
+      mietausfallwagnis_prozent:val('mietausfallwagnis_prozent'),liegenschaftszinssatz:val('liegenschaftszinssatz'),
+      restnutzungsdauer:val('restnutzungsdauer'),boden_r:brw*flae,boden_nr:val('boden_nr')};
+  }
+  return {nhk2010_eur_m2:val('nhk2010_eur_m2'),bgf:val('bgf'),baupreisindex:val('baupreisindex'),
+    regionalfaktor:val('regionalfaktor')||1,gnd:val('gnd'),rnd:val('rnd'),
+    garagen_anzahl:val('garagen_anzahl'),garagen_zeitwert_eur:val('garagen_zeitwert_eur'),
+    aussenanlagen_prozent:val('aussenanlagen_prozent'),sachwertfaktor:val('sachwertfaktor')||1,
+    instandhaltungsstau_eur:val('instandhaltungsstau_eur'),boden_r:brw*flae,boden_nr:val('boden_nr')};
+}
+
+function buildBrief(fa, kontext){
+  // ponytail: Brief wird bei jeder Neuberechnung komplett neu erzeugt, damit die
+  // Tonalität (POSITIV/GRENZWERTIG/NEGATIV) live der Empfehlung folgt. SV-Texteingaben
+  // im Brief gehen bei Parameteränderung verloren — Reihenfolge: erst rechnen, dann Brief feilen.
+  var name=txt('kundenName'), mail=txt('kundenEmail');
+  var anrede = name ? ('Sehr geehrte/r '+name) : 'Sehr geehrte Damen und Herren';
+  var band = fmtNum(fa.bandbreite_unten)+' bis '+fmtNum(fa.bandbreite_oben)+' EUR';
+  var kurz = (CFG.adresse||'').split(',')[0].trim();
+  var h='';
+  h+='<div style="font-size:7.8pt;color:var(--muted);border-bottom:.5pt solid var(--line);padding-bottom:3px;">'
+    +'CERTA · '+ (CFG.adresse||'') +'</div>';
+  h+='<div style="margin:14px 0;">'+(name||'Empfänger')+'<br><span style="color:var(--muted)">'+(mail||'')+'</span></div>';
+  h+='<div class="brief-betreff">Ergebnis Ihrer Vorabprüfung – '+kurz+'</div>';
+  h+='<p>'+anrede+',</p>';
+  var zus='<table class="brief-zus"><tr><td>Objekttyp</td><td class="r">'+CFG.objektart+'</td></tr>'
+    +(CFG.baujahr?'<tr><td>Baujahr</td><td class="r">'+CFG.baujahr+'</td></tr>':'')
+    +(CFG.wfl>0?'<tr><td>Wohnfläche</td><td class="r">'+fmtNum(CFG.wfl)+' m²</td></tr>':'')
+    +'<tr><td>FA-Bescheidwert</td><td class="r">'+fmtNum(val('faBescheidwert'))+' EUR</td></tr>'
+    +'<tr><td>Verkehrswert (Einordnung)</td><td class="r">'+band+'</td></tr></table>';
+  if(fa.ergebnis==='NEGATIV'){
+    h+='<p>vielen Dank für Ihre Anfrage zur Überprüfung des Grundbesitzwertbescheids für Ihre Immobilie.</p>';
+    h+=zus;
+    h+='<p>Nach Prüfung der uns vorliegenden Daten kommen wir zu dem Ergebnis, dass der vom Finanzamt '
+      +'festgestellte Grundbesitzwert in einer plausiblen Größenordnung liegt. Die Abweichung beträgt lediglich rd. '
+      +fmtPct(fa.differenz_prozent)+'.</p>';
+    h+='<p>Bei einer Abweichung in dieser Größenordnung übersteigen die Kosten eines Verkehrswertgutachtens '
+      +'in der Regel die erzielbare Steuerersparnis. Ein Gutachten erscheint daher <strong>wirtschaftlich nicht sinnvoll</strong>.</p>';
+    h+='<p>Sollten Sie dennoch Fragen haben oder sich Ihre Situation ändern, stehen wir Ihnen gerne zur Verfügung.</p>';
+  } else {
+    h+='<p>vielen Dank für Ihre Anfrage zur Bewertung Ihrer Immobilie. Nach einer Analyse der verfügbaren Daten '
+      +'können wir Ihnen die folgenden Ergebnisse mitteilen.</p>';
+    h+=zus;
+    h+='<p>Auf Basis dieser Einordnung ergibt sich ein '+(fa.differenz_prozent>30?'erheblicher':'relevanter')
+      +' Unterschied zum festgestellten Grundbesitzwert des Finanzamtes. Dies kann sich erheblich auf Ihre steuerliche Belastung auswirken.</p>';
+    h+='<p>Um gegen den Bescheid des Finanzamts Einspruch einzulegen und mögliche Steuern zu sparen, empfehlen wir '
+      +'die Erstellung eines Verkehrswertgutachtens durch unsere zertifizierten Sachverständigen.</p>';
+    h+='<p><strong>Ihre Vorteile durch unser Gutachten:</strong></p><ul>'
+      +'<li><strong>Präzise Bewertung</strong> Ihrer Immobilie unter Berücksichtigung des individuellen Bauzustandes.</li>'
+      +'<li><strong>Rechtssicherheit</strong> – belastbares Dokument für Ihren Einspruch gegen den Feststellungsbescheid.</li>'
+      +'<li><strong>Steuerersparnis</strong> durch korrekte Wertermittlung.</li></ul>';
+    h+='<p>Wir würden uns freuen, Sie bei diesem Anliegen unterstützen zu dürfen, und stehen Ihnen für Rückfragen jederzeit zur Verfügung.</p>';
+  }
+  h+='<div class="brief-gruss" style="margin-top:14px;">'+SIGNATUR+'</div>';
+  return h;
+}
+var SIGNATUR = "Mit freundlichen Grüßen<div class=\"brief-signatur\"><div class=\"brief-signatur-name\">Elias Landsmann, M.Sc.</div>Immobilienbewertung<br>Tel. 06131 &ndash; 490 90 02<br>info@certa-gutachten.de</div>";
+
+function recompute(){
+  var inp=gather();
+  var r=CFG.verfahren==='ertragswert'?window.RT.ertragswert(inp):window.RT.sachwert(inp);
+  CFG.out_keys.forEach(function(k){
+    var v=r[k];
+    setT('o_'+k, CFG.faktor_keys.indexOf(k)>=0?fmtFak(v):fmtEur(v));
+  });
+  var vw=r[CFG.big_key]||0;
+  setT('eqm', CFG.wfl>0?('entspricht '+fmtEur(vw/CFG.wfl)+' / m² Wohnfläche'):'');
+  var fa=window.VP.bewerteFa(vw, val('faBescheidwert'), txt('anteil'));
+  var band=fmtNum(fa.bandbreite_unten)+' bis '+fmtNum(fa.bandbreite_oben)+' EUR';
+  setT('o_band', band);
+  // Ampel
+  var box=document.getElementById('faErgebnis');
+  box.innerHTML='<span class="e">'+fa.ergebnis+' — '+fa.empfehlung+'</span>'
+    +'<span class="d">Differenz zum FA-Bescheidwert: '+fmtPct(fa.differenz_prozent)
+    +' · Verkehrswert rd. '+fmtEur(vw)+'</span>';
+  var col=fa.ergebnis==='POSITIV'?['#e7f6ee','#45b973']:(fa.ergebnis==='GRENZWERTIG'?['#fff4e0','#d8a200']:['#f0f2f4','#637e9c']);
+  box.style.background=col[0]; box.style.borderLeftColor=col[1];
+  // Cover
+  setT('coverBand','rd. '+band);
+  setT('coverFa', fmtEur(val('faBescheidwert')));
+  setT('coverName', txt('kundenName')||'–');
+  setT('coverEmpf', fa.empfehlung);
+  var st=txt('stichtag'); setT('coverStichtag', st?st.split('-').reverse().join('.'):'–');
+  // Brief
+  document.getElementById('briefBody').innerHTML=buildBrief(fa,{});
+}
+
+function druckIntern(){document.body.classList.remove('kundenfassung');window.print();}
+function druckKunde(){document.body.classList.add('kundenfassung');window.print();
+  setTimeout(function(){document.body.classList.remove('kundenfassung');},600);}
+
+function uploadVorab(){
+  var st=document.getElementById('uploadStatus');
+  var raw=document.getElementById('wg-kerndaten');
+  if(!raw){if(st)st.textContent='Fehler: keine Kerndaten im Dokument.';return;}
+  var kerndaten; try{kerndaten=JSON.parse(raw.textContent);}catch(e){if(st)st.textContent='Fehler: Kerndaten unlesbar.';return;}
+  var endpoint=raw.getAttribute('data-endpoint');
+  var payload={fall_id:kerndaten.fall_id||null,kerndaten:kerndaten,
+    dokument:'<!DOCTYPE html>\n'+document.documentElement.outerHTML};
+  var btn=document.getElementById('uploadBtn');if(btn)btn.disabled=true;
+  if(st)st.textContent='Lädt hoch…';
+  fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+   .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json().catch(function(){return{};});})
+   .then(function(d){if(st)st.textContent='✓ Hochgeladen'+(d&&d.version?(' (Version '+d.version+')'):'')+'. Dokument bleibt bearbeitbar.';})
+   .catch(function(e){if(st)st.textContent='Fehler beim Hochladen: '+e.message+' — Dokument unverändert.';})
+   .finally(function(){if(btn)btn.disabled=false;});
+}
+document.addEventListener('DOMContentLoaded',recompute);
+</script></body></html>
