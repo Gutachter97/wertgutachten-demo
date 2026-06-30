@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Vorabprüfung – CERTA Value (Demo)</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{--teal:#14B8A6;--teal-bg:#F0FDFA;--teal-bg2:#ccfbf1;--ink:#1F2937;--muted:#6B7280;
+        --line:#F3F4F6;--line2:#E5E7EB;--page:#F9FAFB;}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+       color:var(--ink);background:var(--page);font-size:13px;line-height:1.5;display:flex;min-height:100vh;}
+  a{text-decoration:none;color:inherit;}
+  .sidebar{width:230px;background:#fff;border-right:1px solid var(--line2);flex-shrink:0;
+           display:flex;flex-direction:column;position:sticky;top:0;height:100vh;}
+  .sb-brand{padding:20px 18px;font-weight:700;font-size:15px;color:var(--ink);border-bottom:1px solid var(--line);}
+  .sb-brand span{color:var(--teal);}
+  .sb-nav{padding:12px 10px;display:flex;flex-direction:column;gap:2px;}
+  .sb-nav a{padding:9px 12px;border-radius:8px;font-size:13px;color:var(--muted);font-weight:500;
+            display:flex;align-items:center;gap:9px;}
+  .sb-nav a:hover{background:var(--line);color:var(--ink);}
+  .sb-nav a.active{background:var(--teal-bg);color:var(--teal);font-weight:600;}
+  .sb-dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0;opacity:.7;}
+  .sb-note{margin-top:auto;padding:14px 16px;font-size:11px;color:#9CA3AF;border-top:1px solid var(--line);line-height:1.5;}
+  .main{flex:1;padding:32px;max-width:1280px;}
+  .head{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+  .head .ic{width:36px;height:36px;border-radius:10px;background:var(--teal-bg);color:var(--teal);
+            display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+  .head h1{font-size:20px;font-weight:600;}
+  .sub{font-size:13px;color:var(--muted);margin:0 0 28px 48px;}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
+  .kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+  .kpi .l{font-size:12px;color:var(--muted);margin-bottom:4px;}
+  .kpi .v{font-size:24px;font-weight:700;}
+  .v-ink{color:var(--ink);} .v-green{color:#15803D;} .v-amber{color:#B45309;} .v-gray{color:#6B7280;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.04);overflow:hidden;}
+  .filterbar{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .pill{padding:6px 14px;border-radius:999px;font-size:12px;font-weight:500;border:0;cursor:pointer;background:var(--line);color:var(--muted);}
+  .pill.active{background:var(--teal);color:#fff;}
+  .count{margin-left:auto;font-size:12px;color:var(--muted);}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  thead tr{border-bottom:1px solid var(--line);background:#FAFAFB;}
+  th{text-align:left;padding:11px 16px;font-weight:500;color:var(--muted);font-size:12px;white-space:nowrap;}
+  th.r{text-align:right;}
+  tbody tr{border-bottom:1px solid var(--line);} tbody tr:last-child{border-bottom:0;}
+  td{padding:11px 16px;vertical-align:middle;white-space:nowrap;}
+  td.r{text-align:right;font-variant-numeric:tabular-nums;}
+  .obj-1{color:var(--ink);font-weight:500;} .obj-2{font-size:11px;color:var(--muted);}
+  .open-btn{display:inline-flex;align-items:center;gap:6px;background:var(--teal-bg);color:var(--teal);font-size:12px;font-weight:600;padding:6px 12px;border-radius:8px;}
+  .pdf-link{margin-left:8px;font-size:11px;color:var(--muted);}
+  .badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;font-size:11px;font-weight:600;padding:3px 9px;}
+  .badge .d{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+  .a-pos{background:#DCFCE7;color:#15803D;} .a-pos .d{background:#22C55E;}
+  .a-grenz{background:#FEF3C7;color:#B45309;} .a-grenz .d{background:#F59E0B;}
+  .a-neg{background:#E5E7EB;color:#6B7280;} .a-neg .d{background:#9CA3AF;}
+  .wert{font-weight:600;color:var(--ink);}
+  .diff{font-weight:600;} .diff.pos{color:#15803D;} .diff.neg{color:#9CA3AF;}
+  .ver{display:inline-flex;align-items:center;gap:6px;}
+  .ver .tag{background:var(--teal-bg);color:var(--teal);border-radius:6px;padding:1px 7px;font-size:11px;font-weight:600;}
+  .ver .neu{font-size:10px;color:var(--teal);font-weight:600;}
+  .protohint{margin-top:18px;font-size:11.5px;color:#9CA3AF;} .protohint b{color:var(--muted);}
+</style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sb-brand">CERTA <span>Value</span></div>
+    <nav class="sb-nav">
+      <a href="#" class="active"><span class="sb-dot"></span>Vorabprüfung</a>
+      <a href="#"><span class="sb-dot"></span>Verkehrswert</a>
+      <a href="#"><span class="sb-dot"></span>Mietwert</a>
+      <a href="index.html"><span class="sb-dot"></span>Wertgutachten</a>
+      <a href="#"><span class="sb-dot"></span>Restnutzungsdauer</a>
+      <a href="#"><span class="sb-dot"></span>Einstellungen</a>
+    </nav>
+    <div class="sb-note">Demo · Reiter „Vorabprüfung". Überschlägiger Verkehrswert gegen den FA‑Bescheidwert — lohnt sich ein Gutachten?</div>
+  </aside>
+
+  <main class="main">
+    <div class="head"><div class="ic">⚖️</div><h1>Vorabprüfung</h1></div>
+    <p class="sub">Vom Sachverständigen lokal gerechnete Vorabprüfungen Finanzamt — für das ganze Team sichtbar. PDF je Version öffenbar.</p>
+    <div class="kpis">
+      <div class="kpi"><div class="l">Gesamt</div><div class="v v-ink">9</div></div>
+      <div class="kpi"><div class="l">Positiv</div><div class="v v-green">5</div></div>
+      <div class="kpi"><div class="l">Grenzwertig</div><div class="v v-amber">2</div></div>
+      <div class="kpi"><div class="l">Negativ</div><div class="v v-gray">2</div></div>
+    </div>
+    <div class="card">
+      <div class="filterbar">
+        <button class="pill active">Alle</button>
+        <button class="pill">Positiv</button>
+        <button class="pill">Grenzwertig</button>
+        <button class="pill">Negativ</button>
+        <span class="count">9 Einträge</span>
+      </div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr>
+            <th>Hochgeladen</th><th>Objekt</th>
+            <th class="r">FA‑Bescheidwert</th><th class="r">Verkehrswert (rd.)</th>
+            <th class="r">Differenz</th><th>Empfehlung</th><th>Version</th><th>Bearbeiter</th>
+          </tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </div>
+    <p class="protohint"><b>Demo:</b> real gerechnete Vorabprüfungen durch den realtech‑ImmoWertV‑Kern. „↗ Öffnen" zeigt das lebende Dokument — dort der Button <b>„In CERTA Value hochladen"</b>: klicken → ✓ neue Version → erscheint hier als „gerade hochgeladen".</p>
+  </main>
+
+<script>
+const eur = n => new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
+const AMPEL = {pos:{l:"Positiv",c:"a-pos"},grenz:{l:"Grenzwertig",c:"a-grenz"},neg:{l:"Negativ",c:"a-neg"}};
+const DATA = [
+  {d:"30.06.2026",adr:"Musterstraße 12",ort:"99867 Gotha",fa:391799,vw:218000,a:"pos",v:1,neu:true,sv:"E. Landsmann"},
+  {d:"28.06.2026",adr:"Ahornweg 5",ort:"04275 Leipzig",fa:512000,vw:331000,a:"pos",v:1,sv:"A. Higgen"},
+  {d:"27.06.2026",adr:"Lindenallee 9",ort:"07743 Jena",fa:289000,vw:241000,a:"grenz",v:2,sv:"T. Krechel"},
+  {d:"26.06.2026",adr:"Marktplatz 3",ort:"99423 Weimar",fa:447000,vw:268000,a:"pos",v:1,sv:"F. Schellberg"},
+  {d:"24.06.2026",adr:"Domplatz 7",ort:"06108 Halle",fa:198000,vw:186000,a:"neg",v:1,sv:"A. Higgen"},
+  {d:"22.06.2026",adr:"Seestraße 30",ort:"09111 Chemnitz",fa:356000,vw:228000,a:"pos",v:1,sv:"F. Schellberg"},
+  {d:"20.06.2026",adr:"Ringstraße 14",ort:"99084 Erfurt",fa:274000,vw:236000,a:"grenz",v:1,sv:"M. Mertens"},
+  {d:"18.06.2026",adr:"Bachgasse 2",ort:"99867 Gotha",fa:163000,vw:158000,a:"neg",v:1,sv:"T. Krechel"},
+  {d:"15.06.2026",adr:"Schillerstraße 22",ort:"07545 Gera",fa:603000,vw:392000,a:"pos",v:1,sv:"A. Higgen"},
+];
+document.getElementById('rows').innerHTML = DATA.map(x=>{
+  const a=AMPEL[x.a];
+  const diffPct=Math.round((x.fa-x.vw)/x.fa*100);
+  const diffCls=x.a==='neg'?'neg':'pos';
+  const ver=`<span class="ver"><span class="tag">v${x.v}</span>`+(x.neu?`<span class="neu">gerade hochgeladen</span>`:``)+`</span>`;
+  return `<tr>
+    <td style="color:var(--muted)">${x.d}</td>
+    <td><div class="obj-1">${x.adr}</div><div class="obj-2">${x.ort}</div></td>
+    <td class="r">${eur(x.fa)}</td>
+    <td class="r wert">${eur(x.vw)}</td>
+    <td class="r diff ${diffCls}">${diffPct} %</td>
+    <td><span class="badge ${a.c}"><span class="d"></span>${a.l}</span></td>
+    <td>${ver}</td>
+    <td style="color:var(--muted)">${x.sv}</td>
+  </tr>`;}).join('');
+</script>
+</body>
+</html>
