@@ -1,0 +1,206 @@
+<title>CERTA Wertgutachten — Einrichtung & Nutzung</title>
+<meta name="description" content="Schritt-für-Schritt-Leitfaden fürs Team: Wertgutachten-Tool einrichten und benutzen — fast alles in Claude Code.">
+<style>
+  /* ponytail: CI-Fallback-Schriften (Georgia/System-Sans) statt eingebetteter Arvo/Inter-Data-URIs — interner Leitfaden */
+  :root{
+    --navy:#002147; --mid:#637e9c; --green:#45b973;
+    --bg:#f0f2f4; --paper:#fcfcfd; --line:#d8dde3;
+    --ink:#002147; --muted:#4a5a6e;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:Inter,Helvetica,Arial,sans-serif;line-height:1.55;
+    -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:760px;margin:0 auto;padding:48px 24px 72px;}
+  h1,h2,h3{font-family:Arvo,Georgia,serif;text-wrap:balance;line-height:1.2;}
+
+  header{border-left:5px solid var(--green);padding-left:20px;margin-bottom:30px;}
+  .eyebrow{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--mid);font-weight:600;margin:0 0 8px;}
+  h1{font-size:1.85rem;margin:0 0 8px;color:var(--navy);}
+  .lead{margin:0;color:var(--muted);max-width:60ch;}
+
+  /* Orientierungs-Box: die zwei Orte */
+  .orient{background:var(--navy);color:#f0f2f4;border-radius:12px;padding:22px 26px;margin:0 0 8px;}
+  .orient h3{margin:0 0 14px;font-size:1rem;color:var(--paper);}
+  .orient .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .orient .o{background:#0a2c52;border-radius:9px;padding:14px 16px;}
+  .orient .o .lbl{font-weight:700;font-size:.95rem;margin-bottom:4px;}
+  .orient .o.web .lbl{color:#a9c2dd;}
+  .orient .o.cc .lbl{color:var(--green);}
+  .orient .o p{margin:0;font-size:.85rem;color:#c3ccd6;}
+  .orient .note{margin:14px 0 0;font-size:.83rem;color:#9fb0c2;}
+
+  .phase{text-align:center;color:var(--mid);font-weight:600;letter-spacing:.1em;
+    text-transform:uppercase;font-size:.75rem;margin:38px 0 4px;}
+
+  section{background:var(--paper);border:1px solid var(--line);border-radius:10px;
+    padding:22px 30px 26px;margin:18px 0;}
+  .where{display:inline-flex;align-items:center;gap:6px;font-size:.68rem;font-weight:700;
+    letter-spacing:.08em;text-transform:uppercase;padding:4px 11px;border-radius:999px;margin-bottom:14px;}
+  .w-cc{background:var(--green);color:var(--navy);}
+  .w-web{background:var(--mid);color:#fff;}
+
+  h2{font-size:1.12rem;margin:0 0 4px;color:var(--navy);
+    display:flex;align-items:baseline;gap:12px;}
+  .num{font-size:.85rem;font-weight:700;color:var(--paper);background:var(--navy);
+    width:1.7em;height:1.7em;flex:0 0 auto;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;font-family:Inter,sans-serif;}
+  .sub{color:var(--mid);font-size:.88rem;margin:2px 0 14px 2.7em;}
+  .body{margin-left:2.7em;}
+  .body p{margin:0 0 10px;}
+  .body p:last-child{margin-bottom:0;}
+  strong{color:var(--navy);}
+  a{color:#2c6e49;font-weight:600;text-decoration:none;border-bottom:1px solid var(--green);}
+  a:hover{background:#e7f4ec;}
+
+  ol.links{margin:0;padding-left:1.25em;}
+  ol.links li{margin:0 0 12px;}
+  ol.links li:last-child{margin:0;}
+
+  code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+    background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:1px 6px;color:var(--navy);font-size:.86em;}
+  .cmd{display:block;font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+    background:var(--navy);color:#f0f2f4;border-radius:7px;
+    padding:13px 15px;margin:10px 0;white-space:pre-wrap;font-size:.85rem;line-height:1.6;}
+
+  .tip{background:#e7f4ec;border-left:4px solid var(--green);border-radius:0 8px 8px 0;
+    padding:10px 16px;margin:12px 0 0;color:#1f5236;font-size:.86rem;}
+  .tip strong{color:#1f5236;}
+
+  .use{background:var(--navy);color:#f0f2f4;border:none;}
+  .use .w-cc{background:var(--green);color:var(--navy);}
+  .use h2{color:var(--paper);}
+  .use .num{background:var(--green);color:var(--navy);}
+  .use .cmd{background:#001731;border:1px solid #244065;}
+  .use .body p{color:#c3ccd6;}
+  .use strong{color:var(--green);}
+
+  .result{display:grid;gap:0;}
+  .result .row{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--line);}
+  .result .row:first-child{border-top:none;}
+  .dot{flex:0 0 auto;width:10px;height:10px;border-radius:50%;background:var(--green);margin-top:7px;}
+  .result .row p{margin:0;}
+  .result .row .t{font-weight:600;color:var(--navy);}
+  .result .row .d{color:var(--muted);font-size:.92rem;}
+
+  table.help{width:100%;border-collapse:collapse;margin-top:6px;font-size:.92rem;}
+  table.help th,table.help td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  table.help th{color:var(--mid);font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;}
+  table.help td:first-child{color:var(--muted);white-space:nowrap;}
+
+  footer{margin-top:36px;color:var(--mid);font-size:.82rem;text-align:center;}
+  @media(max-width:540px){.wrap{padding:32px 16px}.sub,.body{margin-left:0}.orient .two{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">CERTA · Team-Leitfaden</p>
+    <h1>Wertgutachten-Tool: einrichten & benutzen</h1>
+    <p class="lead">Einmal einrichten (ca. 15 Min.), danach pro Fall ein Befehl. Du arbeitest fast nur in einem Programm — Claude Code. Ein Terminal brauchst du nicht.</p>
+  </header>
+
+  <div class="orient">
+    <h3>Es gibt nur zwei Orte — achte oben auf jedem Schritt auf das farbige Schild:</h3>
+    <div class="two">
+      <div class="o web">
+        <div class="lbl">🌐 Browser</div>
+        <p>Nur zum einmaligen Anmelden (GitHub, Claude, API-Key) und für die Einladungs-Mail.</p>
+      </div>
+      <div class="o cc">
+        <div class="lbl">▣ Claude Code</div>
+        <p>Die Desktop-App. Hier passiert alles andere — Einrichtung und später jedes Gutachten.</p>
+      </div>
+    </div>
+    <p class="note">Claude Code erledigt die Installation selbst. Du sagst ihm in normalen Worten, was es tun soll — kein Terminal, keine Programmierbefehle.</p>
+  </div>
+
+  <p class="phase">Teil 1 · Einmal anmelden</p>
+
+  <section>
+    <span class="where w-web">🌐 Im Browser</span>
+    <h2 style="display:block">Drei Konten anlegen</h2>
+    <div class="body" style="margin-left:0">
+      <ol class="links">
+        <li><strong>GitHub-Konto</strong> mit deiner Gmail anlegen → <a href="https://github.com/signup">github.com/signup</a>. Danach deinen Benutzernamen an Elias schicken, damit er dich einlädt.</li>
+        <li><strong>Claude Code installieren</strong> (Desktop-App) und mit deinem Claude-Konto anmelden → <a href="https://claude.ai/download">claude.ai/download</a>. <em>Die Web-Version auf claude.ai reicht nicht — es muss die App sein.</em></li>
+        <li><strong>API-Key erzeugen</strong> → <a href="https://console.anthropic.com/settings/keys">console.anthropic.com/settings/keys</a> → „Create Key". Die Zeichenkette (beginnt mit <code>sk-ant-…</code>) kopieren und kurz sichern — du brauchst sie in Teil 2, Schritt 3.</li>
+      </ol>
+    </div>
+  </section>
+
+  <p class="phase">Teil 2 · Einrichten — in Claude Code</p>
+
+  <section>
+    <span class="where w-cc">▣ In Claude Code</span>
+    <h2><span class="num">1</span>Claude Code öffnen</h2>
+    <div class="body">
+      <p>Öffne die <strong>Claude-Code-App</strong>. Sie fragt dich nach einem Ordner zum Arbeiten — wähl z. B. deinen <strong>Dokumente</strong>-Ordner. Mehr ist hier nicht zu tun.</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="where w-web">🌐 Im Browser</span>
+    <h2><span class="num">2</span>Einladung annehmen</h2>
+    <div class="body">
+      <p>Öffne die <strong>E-Mail von Elias</strong>, die dich ins private Repo eingeladen hat, und klick auf <strong>„Accept invitation"</strong>. Fertig — du musst dort nichts weiter tun. (Das schaltet deinen Zugang frei.)</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="where w-cc">▣ In Claude Code</span>
+    <h2><span class="num">3</span>Einrichtungsprompt eingeben</h2>
+    <p class="sub">Kopier diesen Text und schick ihn an Claude Code. Setz ganz hinten deinen API-Key ein. Claude erledigt Download und Einrichtung dann selbst — bestätige nur, wenn es nachfragt.</p>
+    <div class="body">
+      <span class="cmd">Lade das Repo https://github.com/Gutachter97/wertgutachten_v1_elias.git in diesen Ordner herunter, führe danach ./setup.sh aus und trag meinen Claude-API-Key in die Datei plugins/certa/tool/.env ein. Falls Python oder Git fehlen, installier sie bitte. Mein API-Key ist: sk-ant-DEIN-KEY-HIER</span>
+      <p>Das dauert ein paar Minuten (es lädt u. a. ~300 MB fürs PDF). Wenn Claude um Erlaubnis fragt, immer auf <strong>„Allow"</strong> klicken — und einfach durchlaufen lassen.</p>
+      <div class="tip"><strong>Nur beim allerersten Mal auf einem neuen Mac:</strong> Es kann sein, dass <em>macOS selbst</em> einmal ein Fenster „Befehlszeilentools installieren" zeigt (→ „Installieren" klicken) oder nach deinem <strong>Mac-Passwort</strong> fragt (→ eintippen). Das ist normal, passiert höchstens einmal, und du bleibst dabei in Claude Code. War der Mac schon mal in Benutzung, kommt das meist gar nicht.</div>
+    </div>
+  </section>
+
+  <section>
+    <span class="where w-cc">▣ In Claude Code</span>
+    <h2><span class="num">4</span>Plugin aktivieren</h2>
+    <p class="sub">Zum Schluss zwei kurze Befehle — einzeln nacheinander in die Eingabezeile tippen.</p>
+    <div class="body">
+      <span class="cmd">/plugin marketplace add wertgutachten_v1_elias
+/plugin install certa@certa-skills</span>
+      <p>Kontrolle: <code>/reload-plugins</code> meldet <strong>1 Plugin · 1 Skill</strong>. Dann ein <strong>neues Claude-Code-Fenster</strong> öffnen — fertig eingerichtet.</p>
+      <div class="tip"><strong>Unsicher beim Pfad?</strong> Frag Claude einfach: „Wie lautet der Pfad zum Ordner wertgutachten_v1_elias?" — und setz die Antwort beim ersten Befehl statt des Namens ein.</div>
+    </div>
+  </section>
+
+  <p class="phase">Teil 3 · Im Alltag — pro Fall</p>
+
+  <section class="use">
+    <span class="where w-cc">▣ In Claude Code</span>
+    <h2><span class="num">→</span>Gutachten rechnen</h2>
+    <p class="sub" style="color:var(--mid)">Ein Befehl, der Fallordner-Pfad dahinter.</p>
+    <div class="body">
+      <span class="cmd">/certa:wertgutachten "&lt;Pfad zum Fallordner&gt;"</span>
+      <p>Claude prüft die Unterlagen, holt den Bodenrichtwert online, rechnet nach ImmoWertV 2021 (Sach-/Ertrags-/Vergleichswert) und hält bei den Entscheidungspunkten kurz für deine Freigabe an.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 style="display:block">Was rauskommt</h2>
+    <div class="result">
+      <div class="row"><span class="dot"></span><p><span class="t">Bearbeitbares HTML-Wertgutachten</span><br><span class="d">Zahlen und Texte passen sich live an, wenn du etwas änderst. Am Bildschirm Arbeitsfassung mit SV-Markierungen, im Druck das saubere Kunden-PDF.</span></p></div>
+      <div class="row"><span class="dot"></span><p><span class="t">PDF drucken</span><br><span class="d">Aus dem HTML direkt das fertige Kunden-PDF erzeugen.</span></p></div>
+      <div class="row"><span class="dot"></span><p><span class="t">In CERTA Value hochladen</span><br><span class="d">Die Daten lassen sich anschließend in CERTA Value übernehmen.</span></p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 style="display:block">Wenn's hakt</h2>
+    <table class="help">
+      <tr><th>Problem</th><th>Lösung</th></tr>
+      <tr><td>„Kein Zugang" / Download scheitert</td><td>Einladung noch nicht angenommen (Teil 2, Schritt 2) — Mail von Elias prüfen</td></tr>
+      <tr><td>Claude meldet, etwas fehlt</td><td>Antworte einfach „ja, bitte installieren" — Claude macht's selbst</td></tr>
+      <tr><td><code>/reload-plugins</code> zeigt 0</td><td>Schritt 4 wiederholen: <code>/plugin install certa@certa-skills</code></td></tr>
+      <tr><td>Slash-Befehl reagiert nicht</td><td>Nur ein <code>/</code>, Befehle einzeln, neues Fenster offen?</td></tr>
+    </table>
+  </section>
+
+  <footer>CERTA Gutachten · interner Leitfaden · Wertgutachten v1 — läuft nur in der Claude-Code-App (Mac)</footer>
+</div>
