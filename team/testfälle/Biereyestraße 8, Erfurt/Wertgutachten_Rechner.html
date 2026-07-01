@@ -1,0 +1,273 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wertgutachten-Rechner – Biereyestraße 8, Erfurt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#002147;--navy2:#637e9c;--green:#45b973;--ow:#fcfcfd;--ow2:#f0f2f4;--line:#d7dde4;--muted:#5a6b7d;--bg:#dfe3e8;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',Helvetica,Arial,sans-serif;color:var(--navy);background:var(--bg);font-size:14px;line-height:1.5;}
+.top{background:var(--navy);color:var(--ow2);padding:16px 26px;display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;}
+.top .brand{font-family:'Arvo',Georgia,serif;font-weight:700;letter-spacing:.18em;font-size:18px;color:#fff;}
+.top .titel{font-weight:600;color:var(--green);}
+.top .adr{color:#9fb3c9;font-size:12.5px;}
+.top .verf{margin-left:auto;font-size:12.5px;color:#9fb3c9;}
+.wrap{display:grid;grid-template-columns:minmax(360px,1fr) minmax(360px,1.1fr);gap:22px;padding:24px 26px;max-width:1180px;margin:0 auto;align-items:start;}
+.card{background:var(--ow);border:1px solid var(--line);border-radius:10px;box-shadow:0 3px 16px rgba(0,33,71,.07);overflow:hidden;}
+.card-h{font-family:'Arvo',Georgia,serif;font-weight:700;color:var(--navy);padding:14px 18px;border-bottom:2px solid var(--green);background:var(--ow2);font-size:15px;}
+.card-b{padding:8px 18px 16px;}
+.grp{margin-top:12px;}
+.grp-h{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy2);font-weight:700;margin:10px 0 4px;}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:5px 0;border-bottom:.5px solid var(--line);}
+.row .lbl{color:#26384a;font-size:13.5px;}
+.inwrap{display:flex;align-items:center;gap:6px;white-space:nowrap;}
+.inwrap .u{color:var(--muted);font-size:11.5px;min-width:30px;}
+input[type=number]{width:118px;text-align:right;font-variant-numeric:tabular-nums;font-family:'Inter',Arial,sans-serif;
+  font-size:14px;font-weight:600;color:var(--navy);border:1px solid var(--line);border-left:3px solid var(--green);
+  border-radius:5px;padding:5px 8px;background:#fff;}
+input[type=number]:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(69,185,115,.15);}
+.me-row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:5px 0;border-bottom:.5px solid var(--line);}
+.me-row .me-bez{color:#26384a;font-size:13px;}
+.me-row input{width:96px;}
+.out-row{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:.5px solid var(--line);font-size:13.5px;}
+.out-row .out-l{color:#26384a;}
+.out-row .out-v{font-variant-numeric:tabular-nums;font-weight:600;color:var(--navy);white-space:nowrap;}
+.out-row.big{margin-top:8px;border-top:2px solid var(--navy);border-bottom:none;padding-top:12px;align-items:baseline;}
+.out-row.big .out-l{font-family:'Arvo',Georgia,serif;font-weight:700;color:var(--navy);font-size:15px;}
+.out-row.big .out-v{font-family:'Arvo',Georgia,serif;font-size:27px;font-weight:700;color:var(--navy);}
+.eqm{text-align:right;color:var(--muted);font-size:12.5px;margin-top:4px;}
+.hint{background:var(--ow2);border-left:3px solid var(--navy2);color:var(--muted);font-size:12px;padding:8px 12px;margin:14px 18px 0;border-radius:0 6px 6px 0;}
+.uebernahme{margin:18px 26px 30px;max-width:1180px;}
+.ub-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px;}
+.btn{background:var(--green);color:#03261a;border:0;border-radius:6px;padding:8px 14px;font-weight:600;font-size:13px;cursor:pointer;font-family:'Inter',Arial,sans-serif;}
+.btn.ghost{background:transparent;color:var(--navy);border:1px solid var(--line);}
+.btn:hover{filter:brightness(1.05);}
+.ub-note{color:var(--muted);font-size:12px;}
+pre#overrides{background:var(--navy);color:#dbe7d6;border-radius:8px;padding:14px 16px;font-size:12px;
+  font-family:'SF Mono',ui-monospace,Menlo,monospace;overflow:auto;line-height:1.5;}
+@media(max-width:820px){.wrap{grid-template-columns:1fr;}}
+</style></head>
+<body>
+<div class="top"><span class="brand">CERTA</span><span class="titel">Wertgutachten-Rechner</span>
+  <span class="adr">Biereyestraße 8, Erfurt</span><span class="verf">Ertragswertverfahren · live</span></div>
+
+<div class="wrap">
+  <div class="card"><div class="card-h">Rahmenparameter (editierbar)</div>
+    <div class="card-b"><div class="grp"><div class="grp-h">Grundstück / Boden</div><label class="row"><span class="lbl">Bodenrichtwert</span><span class="inwrap"><input type="number" step="1" id="bodenrichtwert_eur_m2" value="345" oninput="recompute()"><span class="u">€/m²</span></span></label><label class="row"><span class="lbl">Grundstücksfläche</span><span class="inwrap"><input type="number" step="1" id="grundstuecksflaeche_m2" value="513" oninput="recompute()"><span class="u">m²</span></span></label><label class="row"><span class="lbl">Bodenwert nicht-rentierlich (Hinterland)</span><span class="inwrap"><input type="number" step="100" id="boden_nr" value="0" oninput="recompute()"><span class="u">€</span></span></label></div><div class="grp"><div class="grp-h">Bewirtschaftung</div><label class="row"><span class="lbl">Instandhaltung</span><span class="inwrap"><input type="number" step="0.1" id="instandhaltung_eur_m2" value="11.7" oninput="recompute()"><span class="u">€/m²</span></span></label><label class="row"><span class="lbl">Verwaltung je Einheit</span><span class="inwrap"><input type="number" step="1" id="verwaltung_eur_je_einheit" value="298" oninput="recompute()"><span class="u">€</span></span></label><label class="row"><span class="lbl">Anzahl Wohneinheiten</span><span class="inwrap"><input type="number" step="1" id="anzahl_wohneinheiten" value="7" oninput="recompute()"><span class="u">Stk</span></span></label><label class="row"><span class="lbl">Mietausfallwagnis</span><span class="inwrap"><input type="number" step="0.1" id="mietausfallwagnis_prozent" value="2" oninput="recompute()"><span class="u">% v. Rohertrag</span></span></label></div><div class="grp"><div class="grp-h">Kapitalisierung</div><label class="row"><span class="lbl">Liegenschaftszinssatz</span><span class="inwrap"><input type="number" step="0.001" id="liegenschaftszinssatz" value="0.04" oninput="recompute()"><span class="u">(0,023 = 2,3 %)</span></span></label><label class="row"><span class="lbl">Restnutzungsdauer</span><span class="inwrap"><input type="number" step="1" id="restnutzungsdauer" value="16" oninput="recompute()"><span class="u">J</span></span></label></div><div class="grp"><div class="grp-h">Mieteinheiten (Rohertrag)</div><div id="me-list"><div class="me-row" data-me="0"><span class="me-bez">1. OG links</span><span class="inwrap"><input type="number" step="0.1" class="me-flaeche" value="86.44" oninput="recompute()"><span class="u">m²</span></span><span class="inwrap"><input type="number" step="0.1" class="me-miete" value="6.86" oninput="recompute()"><span class="u">€/m²·Mon</span></span></div><div class="me-row" data-me="1"><span class="me-bez">1. OG rechts (neu verm.)</span><span class="inwrap"><input type="number" step="0.1" class="me-flaeche" value="79" oninput="recompute()"><span class="u">m²</span></span><span class="inwrap"><input type="number" step="0.1" class="me-miete" value="9.11" oninput="recompute()"><span class="u">€/m²·Mon</span></span></div><div class="me-row" data-me="2"><span class="me-bez">2. OG links</span><span class="inwrap"><input type="number" step="0.1" class="me-flaeche" value="86.44" oninput="recompute()"><span class="u">m²</span></span><span class="inwrap"><input type="number" step="0.1" class="me-miete" value="6.21" oninput="recompute()"><span class="u">€/m²·Mon</span></span></div><div class="me-row" data-me="3"><span class="me-bez">2. OG rechts</span><span class="inwrap"><input type="number" step="0.1" class="me-flaeche" value="79.5" oninput="recompute()"><span class="u">m²</span></span><span class="inwrap"><input type="number" step="0.1" class="me-miete" value="7.01" oninput="recompute()"><span class="u">€/m²·Mon</span></span></div><div class="me-row" data-me="4"><span class="me-bez">3. OG links</span><span class="inwrap"><input type="number" step="0.1" class="me-flaeche" value="45.28" oninput="recompute()"><span class="u">m²</span></span><span class="inwrap"><input type="number" step="0.1" class="me-miete" value="6.1" oninput="recompute()"><span class="u">€/m²·Mon</span></span></div><div class="me-row" data-me="5"><span class="me-bez">3. OG rechts</span><span class="inwrap"><input type="number" step="0.1" class="me-flaeche" value="59.71" oninput="recompute()"><span class="u">m²</span></span><span class="inwrap"><input type="number" step="0.1" class="me-miete" value="5.88" oninput="recompute()"><span class="u">€/m²·Mon</span></span></div><div class="me-row" data-me="6"><span class="me-bez">Dachgeschoss</span><span class="inwrap"><input type="number" step="0.1" class="me-flaeche" value="64.25" oninput="recompute()"><span class="u">m²</span></span><span class="inwrap"><input type="number" step="0.1" class="me-miete" value="8.06" oninput="recompute()"><span class="u">€/m²·Mon</span></span></div></div></div></div>
+    <div class="hint">Werte ändern – das Ergebnis rechts aktualisiert sofort. So lassen sich die
+    wertbestimmenden Größen sachverständig einordnen. Maßgeblich für die Ausfertigung sind die
+    übernommenen Werte unten.</div>
+  </div>
+  <div class="card"><div class="card-h">Rechenweg &amp; Ergebnis (live)</div>
+    <div class="card-b"><div class="out-row"><span class="out-l">Jährlicher Rohertrag</span><span class="out-v" id="o_jahresrohertrag">–</span></div><div class="out-row"><span class="out-l">abzgl. Bewirtschaftungskosten</span><span class="out-v" id="o_bewirtschaftungskosten">–</span></div><div class="out-row"><span class="out-l">Jährlicher Reinertrag</span><span class="out-v" id="o_reinertrag">–</span></div><div class="out-row"><span class="out-l">abzgl. Bodenwertverzinsung</span><span class="out-v" id="o_bodenwertverzinsung">–</span></div><div class="out-row"><span class="out-l">Reinertragsanteil baulicher Anlagen</span><span class="out-v" id="o_reinertrag_baulich">–</span></div><div class="out-row"><span class="out-l">Barwertfaktor (Vervielfältiger)</span><span class="out-v" id="o_barwertfaktor">–</span></div><div class="out-row"><span class="out-l">Ertragswert der baulichen Anlagen</span><span class="out-v" id="o_ertragswert_baulich">–</span></div><div class="out-row"><span class="out-l">Bodenwert (rentierlich)</span><span class="out-v" id="o_bodenwert_rentierlich">–</span></div><div class="out-row big"><span class="out-l">Ertragswert (Verkehrswert), gerundet</span><span class="out-v" id="o_ertragswert_gerundet">–</span></div><div class="eqm" id="eqm">–</div></div>
+  </div>
+</div>
+
+<div class="uebernahme">
+  <div class="ub-bar">
+    <button class="btn" onclick="copyOverrides()">Parameter kopieren</button>
+    <button class="btn ghost" onclick="downloadOverrides()">overrides.json herunterladen</button>
+    <span class="ub-note">Diese Werte 1:1 ins Gutachten übernehmen (Sachverständigen-Festlegung).</span>
+  </div>
+  <pre id="overrides">–</pre>
+</div>
+
+<script>/* realtech — Rechner-Engine (JS-Spiegel von rechenkern.py)
+ * ========================================================
+ * 1:1-Spiegel der reinen Funktionen sachwert() / ertragswert() / barwertfaktor()
+ * aus rechenkern.py. Bodenwert wird flach übergeben (boden_r = rentierlich,
+ * boden_nr = nicht-rentierlich) statt als Teilflaeche-Objekt.
+ *
+ * Parität gegen Python ist durch tests/test_rechner_paritaet.py abgesichert
+ * (Node-CLI vs. rechenkern.py auf identischen Golden-Eingaben). Drift = roter Test.
+ *
+ * Browser:  window.RT.sachwert(i) / window.RT.ertragswert(i)
+ * Node-CLI: node rechner_engine.js sachwert '<json>'  -> JSON auf stdout
+ */
+(function (root) {
+  "use strict";
+
+  function n(x) { return (x === null || x === undefined || x === "") ? 0 : +x; }
+
+  function rundeWert(wert, schritt) {
+    schritt = schritt || 1000;
+    return Math.round(wert / schritt) * schritt;
+  }
+
+  // Vervielfältiger (Barwertfaktor nachschüssige Rente), ImmoWertV Anlage 1:
+  //   V = (q^n - 1) / (q^n * p),  q = 1 + p,  p = LiZi, n = RND
+  function barwertfaktor(p, restnutzungsdauer) {
+    var q = 1.0 + p;
+    var qn = Math.pow(q, restnutzungsdauer);
+    return (qn - 1.0) / (qn * p);
+  }
+
+  // --- Sachwertverfahren (Spiegel rechenkern.sachwert) ---------------------
+  function sachwert(i) {
+    var korr_zfh = i.korr_zfh === undefined ? 1.0 : n(i.korr_zfh);
+    var korr_wg = i.korr_wohnungsgroesse === undefined ? 1.0 : n(i.korr_wohnungsgroesse);
+    var korr_gr = i.korr_grundrissart === undefined ? 1.0 : n(i.korr_grundrissart);
+    var regionalfaktor = i.regionalfaktor === undefined ? 1.0 : n(i.regionalfaktor);
+    var sachwertfaktor = i.sachwertfaktor === undefined ? 1.0 : n(i.sachwertfaktor);
+
+    var hk = n(i.nhk2010_eur_m2) * n(i.bgf) * n(i.baupreisindex) / 100.0
+             * korr_zfh * korr_wg * korr_gr;
+    var awm = n(i.rnd) / n(i.gnd);
+    var vorl_baulich = hk * regionalfaktor * awm;
+    var bauwert_sonst = n(i.garagen_anzahl) * n(i.garagen_zeitwert_eur)
+                        + n(i.besondere_bauteile_zeitwert_eur);
+    var summe_zw = vorl_baulich + bauwert_sonst;
+    var aussen = summe_zw * n(i.aussenanlagen_prozent) / 100.0;
+    var vorl_sw = summe_zw + aussen;
+    var boden_r = n(i.boden_r);
+    var vorl_incl = vorl_sw + boden_r;
+    var marktangepasst = vorl_incl * sachwertfaktor;
+    var boden_nr = n(i.boden_nr);
+    var sw = marktangepasst + n(i.minderung_baumaengel_eur) + n(i.minderung_bindungen_eur)
+             - n(i.instandhaltungsstau_eur) + boden_nr;
+    return {
+      herstellungskosten: hk,
+      alterswertminderungsfaktor: awm,
+      vorl_sachwert_baulich: vorl_baulich,
+      bauwert_sonstiges: bauwert_sonst,
+      summe_zeitwerte: summe_zw,
+      aussenanlagen: aussen,
+      vorl_sachwert: vorl_sw,
+      bodenwert_rentierlich: boden_r,
+      vorl_sachwert_incl_boden: vorl_incl,
+      marktangepasster_sachwert: marktangepasst,
+      abzug_instandhaltungsstau: n(i.instandhaltungsstau_eur),
+      bodenwert_nicht_rentierlich: boden_nr,
+      sachwert: sw,
+      sachwert_gerundet: rundeWert(sw, i.rundung_schritt)
+    };
+  }
+
+  // --- Ertragswertverfahren (Spiegel rechenkern.ertragswert) ---------------
+  // mieteinheiten: [{flaeche_m2, miete_eur_m2_monat}]
+  // stellplaetze:  [{anzahl, miete_eur_monat, instandhaltung_eur_stck}]
+  function ertragswert(i) {
+    var einh = i.mieteinheiten || [];
+    var sp = i.stellplaetze || [];
+    var flaeche_gesamt = 0, anzahl_sp = 0, rohertrag = 0, bwk_sp_ih = 0, roh_sp = 0;
+    einh.forEach(function (m) { flaeche_gesamt += n(m.flaeche_m2); });
+    sp.forEach(function (s) { anzahl_sp += n(s.anzahl); });
+    einh.forEach(function (m) { rohertrag += n(m.flaeche_m2) * n(m.miete_eur_m2_monat) * 12.0; });
+    sp.forEach(function (s) {
+      roh_sp += n(s.anzahl) * n(s.miete_eur_monat) * 12.0;
+      bwk_sp_ih += n(s.anzahl) * n(s.instandhaltung_eur_stck);
+    });
+    rohertrag += roh_sp + n(i.sonstige_ertraege_eur_monat) * 12.0;
+
+    var bwk = n(i.instandhaltung_eur_m2) * flaeche_gesamt
+              + bwk_sp_ih
+              + n(i.verwaltung_eur_je_einheit) * n(i.anzahl_wohneinheiten)
+              + n(i.verwaltung_eur_je_stellplatz) * anzahl_sp
+              + n(i.mietausfallwagnis_prozent) * rohertrag / 100.0
+              + n(i.sonstige_bk_eur_m2) * flaeche_gesamt;
+
+    var reinertrag = rohertrag - bwk;
+    var boden_r = n(i.boden_r);
+    var bw_verzinsung = boden_r * n(i.liegenschaftszinssatz);
+    var reinertrag_baulich = reinertrag - bw_verzinsung;
+    var v = barwertfaktor(n(i.liegenschaftszinssatz), n(i.restnutzungsdauer));
+    var ew_baulich = reinertrag_baulich * v;
+    var boden_nr = n(i.boden_nr);
+    var ew = ew_baulich + boden_r
+             + n(i.minderung_baumaengel_eur) + n(i.minderung_bindungen_eur) + boden_nr;
+    return {
+      jahresrohertrag: rohertrag,
+      bewirtschaftungskosten: bwk,
+      reinertrag: reinertrag,
+      bodenwertverzinsung: bw_verzinsung,
+      reinertrag_baulich: reinertrag_baulich,
+      barwertfaktor: v,
+      ertragswert_baulich: ew_baulich,
+      bodenwert_rentierlich: boden_r,
+      bodenwert_nicht_rentierlich: boden_nr,
+      ertragswert: ew,
+      ertragswert_gerundet: rundeWert(ew, i.rundung_schritt)
+    };
+  }
+
+  var API = { sachwert: sachwert, ertragswert: ertragswert, barwertfaktor: barwertfaktor, rundeWert: rundeWert };
+
+  // Browser-Export
+  if (typeof window !== "undefined") { window.RT = API; }
+  // Node-Export + CLI-Shim (für den Paritätstest)
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = API;
+    if (require.main === module) {
+      var verf = process.argv[2];
+      var inp = JSON.parse(process.argv[3] || "{}");
+      var r = verf === "ertragswert" ? ertragswert(inp) : sachwert(inp);
+      process.stdout.write(JSON.stringify(r));
+    }
+  }
+})(this);
+</script>
+<script>
+var VERFAHREN="ertragswert";
+var WFL=685.0;
+var OUT_KEYS=["jahresrohertrag","bewirtschaftungskosten","reinertrag","bodenwertverzinsung","reinertrag_baulich","barwertfaktor","ertragswert_baulich","bodenwert_rentierlich","ertragswert_gerundet"];
+var FAKTOR_KEYS=["barwertfaktor"];
+var BIG_KEY="ertragswert_gerundet";
+function val(id){var e=document.getElementById(id);return e?(parseFloat(e.value)||0):0;}
+function fmtEur(x){return new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(x);}
+function fmtFak(x){return new Intl.NumberFormat('de-DE',{minimumFractionDigits:4,maximumFractionDigits:4}).format(x);}
+function setT(id,t){var e=document.getElementById(id);if(e)e.textContent=t;}
+
+function gatherSachwert(){
+  var brw=val('bodenrichtwert_eur_m2'),flae=val('grundstuecksflaeche_m2');
+  return {nhk2010_eur_m2:val('nhk2010_eur_m2'),bgf:val('bgf'),baupreisindex:val('baupreisindex'),
+    regionalfaktor:val('regionalfaktor'),gnd:val('gnd'),rnd:val('rnd'),
+    garagen_anzahl:val('garagen_anzahl'),garagen_zeitwert_eur:val('garagen_zeitwert_eur'),
+    aussenanlagen_prozent:val('aussenanlagen_prozent'),sachwertfaktor:val('sachwertfaktor'),
+    instandhaltungsstau_eur:val('instandhaltungsstau_eur'),boden_r:brw*flae,boden_nr:val('boden_nr')};
+}
+function gatherErtragswert(){
+  var brw=val('bodenrichtwert_eur_m2'),flae=val('grundstuecksflaeche_m2');
+  var me=[].slice.call(document.querySelectorAll('.me-row')).map(function(r){
+    return {flaeche_m2:parseFloat(r.querySelector('.me-flaeche').value)||0,
+             miete_eur_m2_monat:parseFloat(r.querySelector('.me-miete').value)||0};});
+  return {mieteinheiten:me,instandhaltung_eur_m2:val('instandhaltung_eur_m2'),
+    verwaltung_eur_je_einheit:val('verwaltung_eur_je_einheit'),anzahl_wohneinheiten:val('anzahl_wohneinheiten'),
+    mietausfallwagnis_prozent:val('mietausfallwagnis_prozent'),liegenschaftszinssatz:val('liegenschaftszinssatz'),
+    restnutzungsdauer:val('restnutzungsdauer'),boden_r:brw*flae,boden_nr:val('boden_nr')};
+}
+function recompute(){
+  var inp=VERFAHREN==='ertragswert'?gatherErtragswert():gatherSachwert();
+  var r=VERFAHREN==='ertragswert'?RT.ertragswert(inp):RT.sachwert(inp);
+  OUT_KEYS.forEach(function(k){
+    var v=r[k];
+    setT('o_'+k, FAKTOR_KEYS.indexOf(k)>=0?fmtFak(v):fmtEur(v));
+  });
+  var big=r[BIG_KEY];
+  setT('eqm', WFL>0?('entspricht '+fmtEur(big/WFL)+' / m² Wohnfläche'):'');
+  document.getElementById('overrides').textContent=JSON.stringify(buildOverrides(inp),null,2);
+}
+function buildOverrides(inp){
+  if(VERFAHREN==='ertragswert'){
+    return {verfahren:'ertragswert',felder:{
+      bodenrichtwert_eur_m2:val('bodenrichtwert_eur_m2'),grundstuecksflaeche_m2:val('grundstuecksflaeche_m2'),
+      instandhaltung_eur_m2:inp.instandhaltung_eur_m2,verwaltung_eur_je_einheit:inp.verwaltung_eur_je_einheit,
+      anzahl_wohneinheiten:inp.anzahl_wohneinheiten,mietausfallwagnis_prozent:inp.mietausfallwagnis_prozent,
+      liegenschaftszinssatz:inp.liegenschaftszinssatz,restnutzungsdauer:inp.restnutzungsdauer,
+      mieteinheiten:inp.mieteinheiten,boden_nr:inp.boden_nr}};
+  }
+  return {verfahren:'sachwert',felder:{
+    bodenrichtwert_eur_m2:val('bodenrichtwert_eur_m2'),grundstuecksflaeche_m2:val('grundstuecksflaeche_m2'),
+    bgf_m2:inp.bgf,nhk2010_eur_m2:inp.nhk2010_eur_m2,baupreisindex:inp.baupreisindex,
+    regionalfaktor:inp.regionalfaktor,gesamtnutzungsdauer:inp.gnd,restnutzungsdauer:inp.rnd,
+    garagen_anzahl:inp.garagen_anzahl,garagen_zeitwert_eur:inp.garagen_zeitwert_eur,
+    aussenanlagen_prozent:inp.aussenanlagen_prozent,sachwertfaktor:inp.sachwertfaktor,
+    instandhaltungsstau_eur:inp.instandhaltungsstau_eur,boden_nr:inp.boden_nr}};
+}
+function copyOverrides(){navigator.clipboard.writeText(document.getElementById('overrides').textContent);}
+function downloadOverrides(){
+  var b=new Blob([document.getElementById('overrides').textContent],{type:'application/json'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='overrides.json';a.click();
+}
+recompute();
+</script>
+</body></html>

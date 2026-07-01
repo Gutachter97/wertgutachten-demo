@@ -1,0 +1,380 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">
+<title>Wertgutachten – Biereyestraße 8, Erfurt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#002147;--navy2:#637e9c;--green:#45b973;--ow:#fcfcfd;--ow2:#f0f2f4;
+      --zebra:#f5f7f9;--line:#d7dde4;--text:#002147;--muted:#5a6b7d;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+body{font-family:'Inter',Helvetica,Arial,sans-serif;color:var(--text);font-size:10pt;
+     line-height:1.55;background:var(--ow);}
+h1,h2,.brand,.titel,.kicker,.vw .z,.vw .a,.h1,.h2,table.kv tr.head td{
+     font-family:'Arvo','Georgia',serif;}
+.page{page-break-after:always;}
+.page:last-child{page-break-after:auto;}
+@page{size:A4;margin:18mm 22mm 20mm;}
+@media print{
+  .h1,.h2{break-after:avoid-page;}
+  tr,.vw,.metagrid,.note,.objzeile,.lh,table.kv tr.head{break-inside:avoid;}
+  table.kv{break-inside:auto;}
+  p.t,.fuss{orphans:3;widows:3;}
+  /* Ein Dokument, zwei Ansichten: interne Markierungen (SV-Tags, Prüfvermerke,
+     „maschinell erstellt"-Hinweis) und Auswahl-Radios verschwinden im Druck
+     → sauberes Kunden-PDF aus demselben, am Bildschirm bearbeiteten Wertgutachten. */
+  .intern-only,.sv{display:none!important;}
+  input[type=radio]{display:none!important;}
+}
+
+/* ---- Briefkopf (Deckblatt) + Kopfzeile (Innenseiten) ---- */
+.lh{display:flex;justify-content:space-between;align-items:flex-end;
+    border-bottom:1.5pt solid var(--navy);padding-bottom:6px;}
+.lh .brand{font-size:18pt;font-weight:700;color:var(--navy);letter-spacing:.2em;}
+.lh .contact{text-align:right;font-size:7.8pt;color:var(--muted);line-height:1.55;}
+.accent{height:2.5pt;background:var(--green);width:100%;margin-bottom:2px;}
+.kopf{display:flex;justify-content:space-between;align-items:flex-end;
+      border-bottom:1pt solid var(--navy);padding-bottom:4px;margin-bottom:16px;
+      font-size:7.8pt;color:var(--muted);}
+.kopf .b{color:var(--navy);letter-spacing:.16em;font-size:9pt;font-weight:700;}
+
+/* ---- Deckblatt ---- */
+.kicker{margin-top:26px;font-size:9.5pt;letter-spacing:.28em;color:var(--navy2);text-transform:uppercase;}
+.titel{font-size:23pt;font-weight:700;color:var(--navy);line-height:1.2;margin:4px 0 2px;}
+.titel-sub{font-size:10.5pt;color:var(--muted);margin-bottom:20px;}
+.objzeile{font-size:13pt;color:var(--navy);font-weight:600;border-top:.5pt solid var(--line);
+          padding-top:12px;margin-bottom:4px;}
+.objzeile .oart{font-size:10pt;color:var(--muted);font-weight:400;}
+.vw{background:var(--ow2);border-left:4pt solid var(--green);padding:18px 22px;margin:22px 0;}
+.vw .l{font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.vw .z{font-size:32pt;font-weight:700;color:var(--navy);line-height:1.1;margin:2px 0;}
+.vw .w{font-style:italic;font-size:10.5pt;color:var(--navy2);}
+.metagrid{display:grid;grid-template-columns:1fr 1fr;gap:4px 28px;margin-top:14px;}
+.metagrid .m{border-bottom:.5pt solid var(--line);padding:5px 0;}
+.metagrid .m .l{font-size:7.8pt;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.metagrid .m .v{font-size:10pt;color:var(--navy);}
+.firma{margin-top:16px;font-size:8.5pt;color:var(--muted);line-height:1.55;}
+.firma b{color:var(--navy);font-size:9.5pt;}
+
+/* ---- Abschnitts-Überschriften ---- */
+.h1{font-size:14pt;font-weight:700;color:var(--navy);border-left:3.5pt solid var(--green);
+    padding-left:10px;line-height:1.25;}
+.h1 .nr{margin-right:8px;}
+.sub{font-style:italic;color:var(--muted);font-size:9pt;margin:3px 0 10px;padding-left:14px;}
+.rule{display:none;}
+.h2{font-size:10.5pt;font-weight:700;color:var(--navy);margin:16px 0 5px;}
+p.t{margin:7px 0;text-align:justify;color:#26384a;}
+p.t b{font-weight:700;color:var(--navy);}
+
+/* ---- Label/Wert-Tabellen ---- */
+table.kv{width:100%;border-collapse:collapse;margin:4px 0 8px;}
+table.kv td{padding:5px 9px;border-bottom:.5pt solid var(--line);vertical-align:top;font-size:9.7pt;}
+table.kv td.l{width:60%;color:#26384a;}
+table.kv td.v{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--navy);}
+table.kv tr:nth-child(even) td{background:var(--zebra);}
+table.kv tr.head td{background:var(--navy);color:var(--ow);font-size:8.2pt;font-weight:700;
+                    letter-spacing:.05em;text-transform:uppercase;border:none;}
+table.kv tr.sum td{border-top:1.5pt solid var(--navy);border-bottom:none;font-weight:700;
+                   color:var(--navy);background:none;padding-top:7px;}
+.sv{font-style:italic;color:var(--green);font-size:8.3pt;font-weight:600;}
+.note{border-left:3pt solid var(--navy2);padding:7px 12px;font-size:8.7pt;color:var(--muted);
+      margin:10px 0;background:var(--ow2);}
+.fuss{margin-top:12px;font-size:8.3pt;color:var(--muted);text-align:justify;}
+</style><style>
+@media screen{
+ :root{--sb-bg:#002147;--sb-text:#c7d2de;--sb-active:#45b973;--sb-hover:rgba(69,185,115,.12);}
+ body{background:#dfe3e8;}
+ .sidebar{position:fixed;top:0;left:0;width:250px;height:100vh;background:var(--sb-bg);
+   color:var(--sb-text);overflow-y:auto;z-index:100;font-family:'Inter',Helvetica,Arial,sans-serif;
+   display:flex;flex-direction:column;}
+ .sidebar-header{padding:20px 18px 14px;border-bottom:1px solid rgba(255,255,255,.08);}
+ .sidebar-brand{font-family:'Arvo','Georgia',serif;color:#fcfcfd;font-size:17pt;font-weight:700;letter-spacing:.18em;}
+ .sidebar-title{color:var(--sb-active);font-size:10pt;font-weight:600;margin-top:4px;}
+ .sidebar-address{color:#8ea3ba;font-size:8.4pt;margin-top:3px;line-height:1.4;}
+ .sidebar-group{padding:12px 0 4px;}
+ .sidebar-group-label{color:#7f93a9;font-size:7.6pt;letter-spacing:.16em;text-transform:uppercase;padding:0 18px 5px;}
+ .sidebar a{display:block;color:var(--sb-text);text-decoration:none;font-size:9.3pt;
+   padding:7px 18px;border-left:3px solid transparent;transition:background .12s,color .12s;}
+ .sidebar a:hover{background:var(--sb-hover);color:#fcfcfd;border-left-color:var(--sb-active);}
+ .sidebar a.active{background:rgba(69,185,115,.16);color:var(--sb-active);
+   border-left-color:var(--sb-active);font-weight:600;}
+ .sidebar-tools{margin-top:auto;padding:14px 16px 18px;border-top:1px solid rgba(255,255,255,.08);
+   display:flex;flex-direction:column;gap:8px;}
+ .sb-btn{background:var(--sb-active);color:#03261a;border:0;border-radius:6px;padding:8px 10px;
+   font-weight:600;font-size:9pt;cursor:pointer;font-family:'Inter',Helvetica,Arial,sans-serif;}
+ .sb-btn.ghost{background:transparent;color:#c7d2de;border:1px solid rgba(255,255,255,.22);}
+ .sb-btn:hover{filter:brightness(1.07);}
+ .sb-hint{color:#7f93a9;font-size:7.6pt;line-height:1.45;}
+ main#doc{margin-left:250px;padding:30px 0;display:flex;flex-direction:column;align-items:center;gap:22px;}
+ main#doc .page{width:210mm;min-height:297mm;background:var(--ow);padding:20mm 22mm;
+   box-shadow:0 3px 18px rgba(0,33,71,.13);border-radius:2px;page-break-after:auto;}
+ body.editing main#doc .page{outline:2px dashed var(--sb-active);outline-offset:5px;}
+ [contenteditable="true"]:focus{outline:none;background:rgba(69,185,115,.06);}
+}
+@media print{ .sidebar{display:none!important;} main#doc{margin:0;padding:0;display:block;} }
+</style><style>
+.live-eingang .le-grp{font-size:8.2pt;letter-spacing:.14em;text-transform:uppercase;color:var(--navy2);
+  font-weight:700;margin:11px 0 3px;}
+.live-eingang .le-row{display:grid;grid-template-columns:1fr 128px 52px;
+  align-items:center;column-gap:10px;padding:3.5px 0;border-bottom:.5pt solid var(--line);}
+.live-eingang .me-row{display:grid;grid-template-columns:1fr 96px 38px 96px 44px;
+  align-items:center;column-gap:8px;padding:3.5px 0;border-bottom:.5pt solid var(--line);}
+.live-eingang .le-l,.live-eingang .me-bez{color:#26384a;font-size:9.6pt;}
+.live-eingang .le-u,.live-eingang .me-row .u{color:var(--muted);font-size:8.5pt;}
+.live-eingang input[data-in],.live-eingang .me-row input{width:100%;text-align:right;font-variant-numeric:tabular-nums;
+  font-family:'Inter',Helvetica,Arial,sans-serif;font-size:9.8pt;font-weight:600;color:var(--navy);}
+.live-eingang .me-row .inwrap{display:contents;}
+@media screen{
+ .live-eingang{background:var(--ow2);border:1px solid var(--line);border-radius:6px;padding:6px 14px 10px;margin:8px 0 14px;}
+ .live-eingang input[data-in],.live-eingang .me-row input{border:1px solid var(--line);border-left:3px solid var(--green);
+  border-radius:4px;padding:3px 7px;background:#fff;}
+ .live-eingang input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(69,185,115,.15);}
+}
+@media print{
+ .live-eingang input[data-in],.live-eingang .me-row input{border:none;background:none;padding:0;
+  font:inherit;color:var(--navy);-webkit-appearance:none;appearance:none;}
+ .live-eingang{background:none;border:none;padding:0;}
+}
+</style></head><body><nav class="sidebar"><div class="sidebar-header"><div class="sidebar-brand">CERTA</div><div class="sidebar-title">Wertgutachten</div><div class="sidebar-address">Biereyestraße 8, Erfurt</div></div><div class="sidebar-group"><div class="sidebar-group-label">Interne Arbeits-/Prüffassung</div><a href="#k0">Deckblatt</a><a href="#k1">1 · Ergebnisübersicht</a><a href="#klg">Lage &amp; Marktumfeld</a><a href="#k2">2 · Verfahrenswahl</a><a href="#k3">3 · Bodenwertermittlung</a><a href="#k4">4 · Ertragswertverfahren</a><a href="#k5">5 · Vergleichswert (Plausi.)</a><a href="#k6">6 · Schlusserklärung</a></div><div class="sidebar-tools"><button class="sb-btn" id="editToggle" onclick="toggleEdit()">&#9998; Bearbeiten</button><button class="sb-btn ghost" onclick="window.print()">&#11015; Als PDF drucken</button><div class="sb-hint">Text direkt im Dokument korrigieren · mit „Als PDF drucken" sichern.</div></div></nav><main id="doc"><div class="page" id="k0">
+      <div class="lh"><div class="brand">CERTA</div>
+        <div class="contact"><b style="color:#002147">CERTA GmbH</b><br>
+        Habsburgerring 1, 50674 Köln<br>Telefon 06131 4909020 | Mail office@certa-gutachten.de | Handelsregister-Nr HRB 123892 | www.certa-gutachten.de</div></div>
+      <div class="accent"></div>
+      <div class="kicker">Kompaktes Wertgutachten</div>
+      <div class="titel">Wertgutachten</div>
+      <div class="titel-sub">Ermittlung des Verkehrswerts (Marktwert) i.S.d. § 194 BauGB · nach ImmoWertV</div>
+      <div class="objzeile">Biereyestraße 8, Erfurt<br>
+        <span class="oart">Grundstück, bebaut mit einem Mehrfamilienhaus</span></div>
+      <div class="vw">
+        <div class="l">Verkehrswert (Marktwert), rd.</div>
+        <div class="z"><span data-out="ergebnis" data-fmt="eur">489.000 €</span></div>
+        <div class="w">vierhundertneunundachtzigtausend Euro</div>
+      </div>
+      <div class="metagrid"><div class="m"><div class="l">Auftraggeber</div><div class="v">[vom Sachverständigen zu ergänzen]</div></div><div class="m"><div class="l">Wertermittlungs- / Qualitätsstichtag</div><div class="v">[vom Sachverständigen zu ergänzen]</div></div><div class="m"><div class="l">Gutachtenzweck</div><div class="v">[vom Sachverständigen zu ergänzen]</div></div><div class="m"><div class="l">Gutachten-Nr. / Ausfertigung</div><div class="v">[vom Sachverständigen zu ergänzen] · Nr. 1 von 1</div></div><div class="m"><div class="l">Angewandtes Verfahren</div><div class="v">Ertragswertverfahren</div></div><div class="m"><div class="l">Erstellt durch</div><div class="v">[vom Sachverständigen zu ergänzen]</div></div></div>
+      <div class="firma"><b>CERTA GmbH</b> · Habsburgerring 1, 50674 Köln</div>
+      <div class="note intern-only" style="margin-top:16px">Maschinell erstellte Wertermittlung (realtech, calc-only). Die mit „SV“ gekennzeichneten Wertungsfaktoren (Verfahren, Restnutzungsdauer, Liegenschaftszins, Sachwertfaktor, Bodenwertanpassung) sind durch den Sachverständigen zu bestätigen.</div>
+    </div><div class="page" id="k1"><div class="kopf"><span class="b">CERTA</span><span>Abschnitt I – Wertermittlung</span></div>
+      <div class="h1"><span class="nr">1.</span>Ergebnisübersicht</div><div class="sub">– Tabellarische Darstellung – Ertragswertverfahren –</div><div class="rule"></div>
+      <div class="h2">1.1 Objektart</div><table class="kv"><tr><td class="l">Objektart</td><td class="v">Mehrfamilienhaus</td></tr><tr><td class="l">Wohn- / Nutzfläche</td><td class="v">685,0 m²</td></tr></table>
+      <div class="h2">1.2 Grundstück</div><table class="kv"><tr><td class="l">Grundstücksgröße</td><td class="v">513 m²</td></tr><tr><td class="l">Bodenrichtwert</td><td class="v">345 €/m²</td></tr><tr><td class="l">Ausstattungsstandard</td><td class="v">–</td></tr></table>
+      <div class="h2">1.3 Bauliche Anlagen</div><table class="kv"><tr><td class="l">Baujahr</td><td class="v">1925</td></tr><tr><td class="l">Nutzungsdauer</td><td class="v">80 Jahre (GND), 16 Jahre (RND)</td></tr></table>
+      <div class="h2">1.4 Ergebnis</div><table class="kv"><tr><td class="l">Verkehrswert</td><td class="v"><b><span data-out="ergebnis" data-fmt="eur">489.000 €</span></b></td></tr><tr><td class="l">Verkehrswert / m²</td><td class="v"><span data-out="eqm" data-fmt="txt">714 €/m² Wfl.</span></td></tr><tr><td class="l">Anzahl Einheiten</td><td class="v">7</td></tr><tr><td class="l">Werterm.- / Qualitätsstichtag</td><td class="v">[vom Sachverständigen zu ergänzen]</td></tr></table>
+      <div class="h2">1.5 Kennzahlen</div><table class="kv"><tr><td class="l">Gebäude</td><td class="v">Mehrfamilienhaus</td></tr><tr><td class="l">Rohertrag / Jahr</td><td class="v">42.623 €</td></tr><tr><td class="l">Bewirtschaftungskosten / Jahr</td><td class="v">8.796 €</td></tr><tr><td class="l">Reinertrag / Jahr</td><td class="v">33.827 €</td></tr><tr><td class="l">Liegenschaftszinssatz</td><td class="v">4,00 % / Jahr</td></tr><tr><td class="l">Bruttorendite / Kaufpreisfaktor</td><td class="v">8,72 % · Faktor 11,5</td></tr></table>
+    </div><div class="page" id="klg"><div class="kopf"><span class="b">CERTA</span><span>Abschnitt I – Wertermittlung</span></div>
+      <div class="h1"><span class="nr">L.</span>Lage &amp; Marktumfeld</div><div class="sub">– Standortbeschreibung, Markteinordnung und Infrastruktur im Umkreis –</div><div class="rule"></div>
+      <div class="h2">Lage</div><p class="t">Erfurt ist die Landeshauptstadt des Freistaates Thüringen und zugleich dessen bevölkerungsreichste Stadt. Sie erfüllt als Oberzentrum überregionale Verwaltungs-, Wirtschafts- und Bildungsfunktionen und ist über den Erfurter Hauptbahnhof, der sich in einer Entfernung von rund 1,9 km befindet, an das Fernverkehrsnetz der Deutschen Bahn angebunden; die Autobahnanschlussstelle Erfurt-Ringelberg ist in etwa 4,6 km erreichbar. Das Bewertungsobjekt befindet sich in einem innenstadtnahen Stadtbereich mit gewachsener Wohnnutzung. Die fußläufige Nahversorgung ist als gut einzustufen: Ein Supermarkt ist in rund 180 m erreichbar, eine ÖPNV-Haltestelle am Gutenbergplatz liegt unmittelbar in 118 m Entfernung, und medizinische sowie soziale Infrastruktur (Apotheke, Arztpraxis, Kindertagesstätte, Schule) ist innerhalb von etwa 900 m vorhanden.</p><div class="h2">Markteinordnung</div><p class="t">Laut der Immobilienmarktinformation 2024 des Gutachterausschusses für Grundstückswerte der kreisfreien Stadt Erfurt bildet die Kaufpreissammlung der Geschäftsstelle die Grundlage aller Marktanalysen; ausgewiesene Durchschnittswerte beruhen auf harmonisierten und bereinigten Daten aus dem gewöhnlichen Geschäftsverkehr. Der Gutachterausschuss weist ausdrücklich darauf hin, dass die Immobilienmarktinformation keine Prognosen für künftige Marktentwicklungen enthält. Zur differenzierteren Beurteilung des Marktes hat der Gutachterausschuss für das Stadtgebiet Erfurt Wohnlagenklassen ermittelt, die in die vier Stufen einfach, mittel, gut und sehr gut unterteilt sind und mit den Bodenrichtwerten zum 01.01.2024 beschlossen wurden.</p><div class="h2">Infrastruktur im Umkreis</div><p class="t"><b>bis 3 km</b></p><ul><li>ÖPNV: Gutenbergplatz <span class="fuss">(118 m)</span></li><li>Supermarkt: Rewe <span class="fuss">(178 m)</span></li><li>Hausarzt: Gynäkologie <span class="fuss">(438 m)</span></li><li>Apotheke: Arnika-Apotheke <span class="fuss">(473 m)</span></li><li>Kita: Domkindergarten St. Marien <span class="fuss">(859 m)</span></li><li>Schule: learn science <span class="fuss">(924 m)</span></li><li>Bahnhof: Erfurt Hauptbahnhof <span class="fuss">(1868 m)</span></li></ul><p class="t"><b>3–5 km</b></p><ul><li>Autobahnauffahrt: Erfurt-Ringelberg <span class="fuss">(4568 m)</span></li></ul><p class="note">SV liest die Beschreibung gegen, korrigiert und gibt sie frei.</p>
+    </div><div class="page" id="k2"><div class="kopf"><span class="b">CERTA</span><span>Abschnitt I – Wertermittlung</span></div>
+      <div class="h1"><span class="nr">2.</span>Wertermittlungsverfahren – Begründung der Verfahrenswahl</div><div class="sub">– Gemäß § 6 ImmoWertV –</div><div class="rule"></div>
+      <p class="t">Die Verfahren sind nach der Art des Wertermittlungsobjekts unter Berücksichtigung der im
+      gewöhnlichen Geschäftsverkehr bestehenden Gepflogenheiten und der sonstigen Umstände des Einzelfalls zu
+      wählen; die Wahl ist zu begründen.</p>
+      <div class="h2">2.1 Begründung</div>
+      <p class="t">Das Ertragswertverfahren (§§ 27–34 ImmoWertV) basiert auf der Annahme, dass der Wert einer Immobilie durch ihre zukünftigen Erträge bestimmt wird. Da beim Erwerb vergleichbarer Objekte (Mehrfamilienhaus) üblicherweise die zu erzielende Rendite im Vordergrund steht, wird das Ertragswertverfahren als vorrangig anzuwendendes Verfahren angesehen.</p>
+    </div><div class="page" id="k3"><div class="kopf"><span class="b">CERTA</span><span>Abschnitt I – Wertermittlung</span></div>
+      <div class="h1"><span class="nr">3.</span>Bodenwertermittlung – Berechnung</div><div class="sub">– Gemäß § 40 bis § 45 ImmoWertV –</div><div class="rule"></div>
+      <p class="t">Der Bodenwert wird aus dem amtlichen Bodenrichtwert (Gutachterausschuss) und der
+      Grundstücksfläche abgeleitet. Objektspezifische Anpassungen (z. B. WEG-/Gartenland-Abschlag,
+      Vorderland-/Hinterland-Aufteilung) sind als Sachverständigen-Entscheidung gekennzeichnet.</p>
+      <div class="h2">3.1 Bodenrichtwert — Datenlage & Auswahl</div><p class="t">Es liegen mehrere Bodenrichtwerte vor (amtlicher Auszug bzw. Grundstücksmarktbericht und die BORIS-Live-Auskunft). Der Sachverständige wählt den maßgeblichen Wert; voreingestellt ist der aktuellste Stichtag:</p><div style="border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:6px 0 4px"><label style="display:flex;align-items:baseline;gap:11px;padding:8px 12px;border-bottom:.5pt solid var(--line);cursor:pointer"><input type="radio" name="brwsel" value="345" checked onclick="brwPick(this)"><span style="flex:1"><b>345 € /m²</b>  <span style="color:var(--green);font-weight:700;font-size:8pt;letter-spacing:.05em">AKTUELL</span><br><span style="font-size:8.4pt;color:#556">BRW-Auszug / GMB · Stichtag 01.01.2026 · Allgemeines Wohngebiet (WA), Mehrfamilienhäuser (MFH)</span></span></label><label style="display:flex;align-items:baseline;gap:11px;padding:8px 12px;border-bottom:.5pt solid var(--line);cursor:pointer"><input type="radio" name="brwsel" value="345"  onclick="brwPick(this)"><span style="flex:1"><b>345 € /m²</b> <br><span style="font-size:8.4pt;color:#556">BORIS (Live-Auskunft) · Stichtag 01.01.2024 · WA</span></span></label><label style="display:flex;align-items:baseline;gap:11px;padding:8px 12px;border-bottom:.5pt solid var(--line);cursor:pointer"><input type="radio" name="brwsel" value="345"  onclick="brwPick(this)"><span style="flex:1"><b>345 € /m²</b> <br><span style="font-size:8.4pt;color:#556">BORIS (Live-Auskunft) · Stichtag 01.01.2022 · WA</span></span></label><label style="display:flex;align-items:baseline;gap:11px;padding:8px 12px;border-bottom:.5pt solid var(--line);cursor:pointer"><input type="radio" name="brwsel" value="300"  onclick="brwPick(this)"><span style="flex:1"><b>300 € /m²</b> <br><span style="font-size:8.4pt;color:#556">BORIS (Live-Auskunft) · Stichtag 31.12.2020 · WA</span></span></label></div><p class="t" style="font-size:8.6pt;color:#556">Die Auswahl setzt den Bodenrichtwert live; der gewählte Wert fließt roh (ohne § 9-Index-Anpassung).</p><script>function brwPick(r){var i=document.getElementById("bodenrichtwert_eur_m2");if(i){i.value=r.value;if(typeof recompute==="function")recompute();}var f=new Intl.NumberFormat("de-DE",{style:"currency",currency:"EUR",maximumFractionDigits:0});var m=document.querySelectorAll("[data-brwm2]");for(var k=0;k<m.length;k++)m[k].textContent=f.format(parseFloat(r.value)||0);}</script>
+      <div class="h2">3.2 Berechnung</div><table class="kv"><tr><td class="l">Bodenrichtwert / m²</td><td class="v"><span data-brwm2>345 €</span></td></tr><tr><td class="l">Grundstücksgröße</td><td class="v">513 m²</td></tr><tr><td class="l">Objektspezifisch angepasster Bodenrichtwert<div class="sv">SV</div></td><td class="v"><span data-brwm2>345 €</span></td></tr><tr class="sum"><td class="l">Bodenwert des Grundstückes</td><td class="v"><b><span data-out="bodenwert_rentierlich" data-fmt="eur">176.985 €</span></b></td></tr></table>
+    </div><div class="page" id="k4"><div class="kopf"><span class="b">CERTA</span><span>Abschnitt I – Wertermittlung</span></div>
+      <div class="h1"><span class="nr">4.</span>Ertragswertverfahren – Berechnung</div><div class="sub">– Allgemeines Ertragswertverfahren – Gemäß § 27 bis § 34 ImmoWertV –</div><div class="rule"></div>
+      <div class="h2">4.0 Eingangsgrößen — live (SV-Stellgrößen)</div><div class="live-eingang" id="live-eingang"><div class="le-grp">Grundstück / Boden</div><div class="le-row"><span class="le-l">Bodenrichtwert</span><input type="number" step="1" data-in id="bodenrichtwert_eur_m2" value="345"><span class="le-u">€/m²</span></div><div class="le-row"><span class="le-l">Grundstücksfläche</span><input type="number" step="1" data-in id="grundstuecksflaeche_m2" value="513"><span class="le-u">m²</span></div><div class="le-row"><span class="le-l">Bodenwert nicht-rentierlich (Hinterland)</span><input type="number" step="100" data-in id="boden_nr" value="0"><span class="le-u">€</span></div><div class="le-grp">Bewirtschaftung</div><div class="le-row"><span class="le-l">Instandhaltung</span><input type="number" step="0.1" data-in id="instandhaltung_eur_m2" value="11.7"><span class="le-u">€/m²</span></div><div class="le-row"><span class="le-l">Verwaltung je Einheit</span><input type="number" step="1" data-in id="verwaltung_eur_je_einheit" value="298"><span class="le-u">€</span></div><div class="le-row"><span class="le-l">Anzahl Wohneinheiten</span><input type="number" step="1" data-in id="anzahl_wohneinheiten" value="7"><span class="le-u">Stk</span></div><div class="le-row"><span class="le-l">Mietausfallwagnis</span><input type="number" step="0.1" data-in id="mietausfallwagnis_prozent" value="2"><span class="le-u">% v. Rohertrag</span></div><div class="le-grp">Kapitalisierung</div><div class="le-row"><span class="le-l">Liegenschaftszinssatz</span><input type="number" step="0.001" data-in id="liegenschaftszinssatz" value="0.04"><span class="le-u">(0,023 = 2,3 %)</span></div><div class="le-row"><span class="le-l">Restnutzungsdauer</span><input type="number" step="1" data-in id="restnutzungsdauer" value="16"><span class="le-u">J</span></div><div class="le-grp">Mieteinheiten (Fläche · €/m²·Monat)</div><div id="me-list"><div class="me-row" data-me="0"><span class="me-bez">1. OG links</span><span class="inwrap"><input type="number" step="0.1" class="me-flaeche" value="86.44" oninput="recompute()"><span class="u">m²</span></span><span class="inwrap"><input type="number" step="0.1" class="me-miete" value="6.86" oninput="recompute()"><span class="u">€/m²·Mon</span></span></div><div class="me-row" data-me="1"><span class="me-bez">1. OG rechts (neu verm.)</span><span class="inwrap"><input type="number" step="0.1" class="me-flaeche" value="79" oninput="recompute()"><span class="u">m²</span></span><span class="inwrap"><input type="number" step="0.1" class="me-miete" value="9.11" oninput="recompute()"><span class="u">€/m²·Mon</span></span></div><div class="me-row" data-me="2"><span class="me-bez">2. OG links</span><span class="inwrap"><input type="number" step="0.1" class="me-flaeche" value="86.44" oninput="recompute()"><span class="u">m²</span></span><span class="inwrap"><input type="number" step="0.1" class="me-miete" value="6.21" oninput="recompute()"><span class="u">€/m²·Mon</span></span></div><div class="me-row" data-me="3"><span class="me-bez">2. OG rechts</span><span class="inwrap"><input type="number" step="0.1" class="me-flaeche" value="79.5" oninput="recompute()"><span class="u">m²</span></span><span class="inwrap"><input type="number" step="0.1" class="me-miete" value="7.01" oninput="recompute()"><span class="u">€/m²·Mon</span></span></div><div class="me-row" data-me="4"><span class="me-bez">3. OG links</span><span class="inwrap"><input type="number" step="0.1" class="me-flaeche" value="45.28" oninput="recompute()"><span class="u">m²</span></span><span class="inwrap"><input type="number" step="0.1" class="me-miete" value="6.1" oninput="recompute()"><span class="u">€/m²·Mon</span></span></div><div class="me-row" data-me="5"><span class="me-bez">3. OG rechts</span><span class="inwrap"><input type="number" step="0.1" class="me-flaeche" value="59.71" oninput="recompute()"><span class="u">m²</span></span><span class="inwrap"><input type="number" step="0.1" class="me-miete" value="5.88" oninput="recompute()"><span class="u">€/m²·Mon</span></span></div><div class="me-row" data-me="6"><span class="me-bez">Dachgeschoss</span><span class="inwrap"><input type="number" step="0.1" class="me-flaeche" value="64.25" oninput="recompute()"><span class="u">m²</span></span><span class="inwrap"><input type="number" step="0.1" class="me-miete" value="8.06" oninput="recompute()"><span class="u">€/m²·Mon</span></span></div></div><div class="note">Werte hier ändern → Rechenweg und alle Ergebnisse (Deckblatt, Kap. 1, 4, 5) rechnen sofort durch. Im Druck als Festwerte eingefroren.</div></div>
+      <table class="kv"><tr><td class="l">Jährlicher Rohertrag</td><td class="v"><span data-out="jahresrohertrag" data-fmt="eur">42.623 €</span></td></tr><tr><td class="l">abzgl. Bewirtschaftungskosten / Jahr</td><td class="v"><span data-out="bewirtschaftungskosten" data-fmt="negeur">−8.796 €</span></td></tr><tr class="sum"><td class="l">Jährlicher Reinertrag</td><td class="v"><span data-out="reinertrag" data-fmt="eur">33.827 €</span></td></tr><tr><td class="l">abzgl. Bodenwertverzinsungsbetrag</td><td class="v"><span data-out="bodenwertverzinsung" data-fmt="negeur">−7.079 €</span></td></tr><tr class="sum"><td class="l">Reinertragsanteil der baulichen Anlagen</td><td class="v"><span data-out="reinertrag_baulich" data-fmt="eur">26.748 €</span></td></tr><tr><td class="l">Kapitalisierungsfaktor (LiZi 4,00 %, RND 16 J.)<div class="sv">SV</div></td><td class="v"><span data-out="barwertfaktor" data-fmt="faktor">11,6523</span></td></tr><tr><td class="l">Ertragswert der baulichen Anlagen</td><td class="v"><span data-out="ertragswert_baulich" data-fmt="eur">311.674 €</span></td></tr><tr><td class="l">Bodenwert des Grundstückes</td><td class="v"><span data-out="bodenwert_gesamt" data-fmt="eur">176.985 €</span></td></tr><tr class="sum"><td class="l">Vorläufiger Ertragswert</td><td class="v"><span data-out="ertragswert" data-fmt="eur">488.659 €</span></td></tr><tr><td class="l">Besondere objektspezifische Grundstücksmerkmale</td><td class="v">0 €</td></tr><tr class="sum"><td class="l">Ertragswert der Immobilie zum Stichtag</td><td class="v"><b><span data-out="ergebnis" data-fmt="eur">489.000 €</span></b></td></tr></table>
+      <div class="note">Kapitalisierungsfaktor = ((1+i)^n − 1) / ((1+i)^n · i), i = Liegenschaftszinssatz, n = Restnutzungsdauer. Mit „SV“ markierte Größen sind Sachverständigen-Festlegungen.</div>
+    </div><div class="page" id="k5"><div class="kopf"><span class="b">CERTA</span><span>Abschnitt I – Wertermittlung</span></div>
+      <div class="h1"><span class="nr">5.</span>Vergleichswertverfahren (zur Plausibilisierung)</div><div class="sub">– Nachrangiger Marktvergleich zur Bestätigung des Hauptverfahrens –</div><div class="rule"></div>
+      <div class="h2">5.1 Grundlagen und Rolle des Verfahrens</div><p class="t">Im Vergleichswertverfahren (§§ 24–26 ImmoWertV) wird der Wert aus Kaufpreisen hinreichend vergleichbarer Objekte abgeleitet, bezogen auf den Quadratmeter Wohnfläche (€/m²). Es dient hier <b>nicht als führendes Verfahren</b>, sondern der Plausibilisierung des im Ertragswertverfahren ermittelten Verkehrswerts. Mangels normierter Vergleichsfaktoren des Gutachterausschusses für die einschlägige Objektklasse werden die im Recherche-Ordner vorliegenden Marktdaten herangezogen (GeoMap-Kaufangebote, Grundstücksmarkt-/Modellwerte) — sie zeigen ein Marktpreisniveau, jedoch keine normierten Vergleichsfaktoren.</p><div class="h2">5.2 Marktdatenvergleich (Plausibilisierung)</div><p class="t">Gegenüberstellung des Bewertungsergebnisses mit den verfügbaren Marktdaten. Alle Werte in <b>€/m² Wohnfläche</b>; Angebotspreise <b>roh, ohne Abschlag</b>. Der Median ist als ausreißer-robuste Lagekennzahl ausgewiesen.</p><table class="kv"><tr class="head"><td class="l">Quelle / Objektklasse</td><td class="v">Angebote/Fälle</td><td class="v">Median €/m²</td><td class="v">Spanne €/m²</td></tr><tr style="background:var(--navy);color:#fff"><td class="l" style="color:#fff"><b>Dieses Gutachten — Ertragswertverfahren (ganzes Objekt)</b><br><span style="font-size:8.2pt;color:#cdd6e0">Verkehrswert 489.000 € · Ergebnis</span></td><td class="v" style="color:#fff">–</td><td class="v" style="color:#fff"><b>714</b></td><td class="v" style="color:#fff">–</td></tr><tr><td class="l">GeoMap-Kaufangebote (Umkreis)<br><span style="font-size:8.2pt;color:#667">Mehrfamilienhäuser (ganze Objekte) · Angebote, roh</span></td><td class="v">32</td><td class="v"><b>2.051</b></td><td class="v">1.098 – 16.579</td></tr><tr><td class="l">GeoMap-Kaufangebote (Umkreis)<br><span style="font-size:8.2pt;color:#667">Eigentumswohnungen · Angebote, roh</span></td><td class="v">75</td><td class="v"><b>2.885</b></td><td class="v">1.545 – 5.397</td></tr><tr><td class="l">GeoMap-Kaufangebote (Umkreis)<br><span style="font-size:8.2pt;color:#667">sonstige Objekte · Angebote, roh</span></td><td class="v">51</td><td class="v"><b>3.000</b></td><td class="v">1.875 – 146.000</td></tr></table><div class="h2">5.3 Einordnung</div><p class="t">Das im Ertragswertverfahren ermittelte Ergebnis entspricht 714 €/m² Wohnfläche. Vergleichbare Mehrfamilienhäuser (ganze Objekte) werden im Umkreis zu im Median 2.051 €/m² angeboten (GeoMap. roh. ohne Abschlag). Das Ergebnis liegt damit deutlich unter dem Angebotsniveau — bei Ertragsobjekten regelmäßig durch unter dem Markt liegende Bestandsmieten und eine kurze Restnutzungsdauer erklärbar; Angebotspreise enthalten zudem Verhandlungsspielraum.</p><p class="t intern-only" style="border-left:3px solid #45b973;padding:6px 12px;background:#f3faf6;margin-top:8px"><b>SV-Hinweis:</b> Der deutliche Abstand zum Angebotsniveau ist zu würdigen — Ansatz nachhaltig erzielbarer Marktmieten (Mietsteigerungspotenzial) und die RND-Festlegung prüfen; andernfalls den ertragsbedingten Abschlag begründet dokumentieren.</p>
+    </div><div class="page" id="k6"><div class="kopf"><span class="b">CERTA</span><span>Abschnitt I – Wertermittlung</span></div>
+      <div class="h1"><span class="nr">6.</span>Schlusserklärung</div><div class="sub">– Würdigung des Bewertungsergebnisses –</div><div class="rule"></div>
+      <div class="h2">6.1 Bedeutung des Verkehrswerts nach § 194 BauGB</div>
+      <p class="t">Der Verkehrswert (Marktwert) wird durch den Preis bestimmt, der in dem Zeitpunkt, auf den sich die Ermittlung bezieht, im gewöhnlichen Geschäftsverkehr nach den rechtlichen Gegebenheiten und tatsächlichen Eigenschaften, der sonstigen Beschaffenheit und der Lage des Grundstücks ohne Rücksicht auf ungewöhnliche oder persönliche Verhältnisse zu erzielen wäre.</p>
+      <div class="h2">6.2 Ergebnis aus dem angewandten Verfahren</div>
+      <table class="kv"><tr class="sum"><td class="l">Ertragswertverfahren (angewandtes Verfahren)</td><td class="v"><b><span data-out="ergebnis" data-fmt="eur">489.000 €</span></b></td></tr></table>
+      <div class="h2">6.3 Verkehrswert gemäß diesem Gutachten zum Wertermittlungsstichtag [vom Sachverständigen zu ergänzen]</div>
+      <div class="vw" style="margin-top:6px">
+        <div class="z"><span data-out="ergebnis" data-fmt="eur">489.000 €</span></div><div class="w">vierhundertneunundachtzigtausend Euro</div></div>
+      <p class="fuss">Dieses Gutachten wurde unparteiisch, weisungsfrei und nach bestem Wissen und Gewissen unter Beachtung der geltenden Grundsätze für die Wertermittlung von Immobilien erstellt. Es ist ausschließlich für den im Auftrag genannten Zweck und Adressatenkreis bestimmt. Eine darüber hinausgehende Nutzung, Veröffentlichung oder Vervielfältigung – auch auszugsweise – bedarf der vorherigen schriftlichen Zustimmung des Sachverständigen.</p>
+      <p class="fuss intern-only"><b>Hinweis:</b> Maschinell erstellte Wertermittlung (realtech, calc-only). Die mit „SV“ gekennzeichneten Wertungsfaktoren (Verfahren, Restnutzungsdauer, Liegenschaftszins, Sachwertfaktor, Bodenwertanpassung) sind durch den Sachverständigen zu bestätigen.</p>
+    </div></main><script>
+function toggleEdit(){var d=document.getElementById('doc');var on=!d.isContentEditable;
+ d.contentEditable=on;document.body.classList.toggle('editing',on);
+ var b=document.getElementById('editToggle');if(b)b.innerHTML=on?'&#10003; Bearbeiten aktiv':'&#9998; Bearbeiten';}
+(function(){var links=[].slice.call(document.querySelectorAll('.sidebar a'));
+ var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+ if(!('IntersectionObserver' in window))return;
+ var obs=new IntersectionObserver(function(es){es.forEach(function(e){
+   if(e.isIntersecting){links.forEach(function(a){a.classList.remove('active');});
+     var a=map[e.target.id];if(a)a.classList.add('active');}});},
+   {rootMargin:'-45% 0px -50% 0px'});
+ document.querySelectorAll('main#doc .page').forEach(function(p){if(p.id)obs.observe(p);});})();
+</script><script>/* realtech — Rechner-Engine (JS-Spiegel von rechenkern.py)
+ * ========================================================
+ * 1:1-Spiegel der reinen Funktionen sachwert() / ertragswert() / barwertfaktor()
+ * aus rechenkern.py. Bodenwert wird flach übergeben (boden_r = rentierlich,
+ * boden_nr = nicht-rentierlich) statt als Teilflaeche-Objekt.
+ *
+ * Parität gegen Python ist durch tests/test_rechner_paritaet.py abgesichert
+ * (Node-CLI vs. rechenkern.py auf identischen Golden-Eingaben). Drift = roter Test.
+ *
+ * Browser:  window.RT.sachwert(i) / window.RT.ertragswert(i)
+ * Node-CLI: node rechner_engine.js sachwert '<json>'  -> JSON auf stdout
+ */
+(function (root) {
+  "use strict";
+
+  function n(x) { return (x === null || x === undefined || x === "") ? 0 : +x; }
+
+  function rundeWert(wert, schritt) {
+    schritt = schritt || 1000;
+    return Math.round(wert / schritt) * schritt;
+  }
+
+  // Vervielfältiger (Barwertfaktor nachschüssige Rente), ImmoWertV Anlage 1:
+  //   V = (q^n - 1) / (q^n * p),  q = 1 + p,  p = LiZi, n = RND
+  function barwertfaktor(p, restnutzungsdauer) {
+    var q = 1.0 + p;
+    var qn = Math.pow(q, restnutzungsdauer);
+    return (qn - 1.0) / (qn * p);
+  }
+
+  // --- Sachwertverfahren (Spiegel rechenkern.sachwert) ---------------------
+  function sachwert(i) {
+    var korr_zfh = i.korr_zfh === undefined ? 1.0 : n(i.korr_zfh);
+    var korr_wg = i.korr_wohnungsgroesse === undefined ? 1.0 : n(i.korr_wohnungsgroesse);
+    var korr_gr = i.korr_grundrissart === undefined ? 1.0 : n(i.korr_grundrissart);
+    var regionalfaktor = i.regionalfaktor === undefined ? 1.0 : n(i.regionalfaktor);
+    var sachwertfaktor = i.sachwertfaktor === undefined ? 1.0 : n(i.sachwertfaktor);
+
+    var hk = n(i.nhk2010_eur_m2) * n(i.bgf) * n(i.baupreisindex) / 100.0
+             * korr_zfh * korr_wg * korr_gr;
+    var awm = n(i.rnd) / n(i.gnd);
+    var vorl_baulich = hk * regionalfaktor * awm;
+    var bauwert_sonst = n(i.garagen_anzahl) * n(i.garagen_zeitwert_eur)
+                        + n(i.besondere_bauteile_zeitwert_eur);
+    var summe_zw = vorl_baulich + bauwert_sonst;
+    var aussen = summe_zw * n(i.aussenanlagen_prozent) / 100.0;
+    var vorl_sw = summe_zw + aussen;
+    var boden_r = n(i.boden_r);
+    var vorl_incl = vorl_sw + boden_r;
+    var marktangepasst = vorl_incl * sachwertfaktor;
+    var boden_nr = n(i.boden_nr);
+    var sw = marktangepasst + n(i.minderung_baumaengel_eur) + n(i.minderung_bindungen_eur)
+             - n(i.instandhaltungsstau_eur) + boden_nr;
+    return {
+      herstellungskosten: hk,
+      alterswertminderungsfaktor: awm,
+      vorl_sachwert_baulich: vorl_baulich,
+      bauwert_sonstiges: bauwert_sonst,
+      summe_zeitwerte: summe_zw,
+      aussenanlagen: aussen,
+      vorl_sachwert: vorl_sw,
+      bodenwert_rentierlich: boden_r,
+      vorl_sachwert_incl_boden: vorl_incl,
+      marktangepasster_sachwert: marktangepasst,
+      abzug_instandhaltungsstau: n(i.instandhaltungsstau_eur),
+      bodenwert_nicht_rentierlich: boden_nr,
+      sachwert: sw,
+      sachwert_gerundet: rundeWert(sw, i.rundung_schritt)
+    };
+  }
+
+  // --- Ertragswertverfahren (Spiegel rechenkern.ertragswert) ---------------
+  // mieteinheiten: [{flaeche_m2, miete_eur_m2_monat}]
+  // stellplaetze:  [{anzahl, miete_eur_monat, instandhaltung_eur_stck}]
+  function ertragswert(i) {
+    var einh = i.mieteinheiten || [];
+    var sp = i.stellplaetze || [];
+    var flaeche_gesamt = 0, anzahl_sp = 0, rohertrag = 0, bwk_sp_ih = 0, roh_sp = 0;
+    einh.forEach(function (m) { flaeche_gesamt += n(m.flaeche_m2); });
+    sp.forEach(function (s) { anzahl_sp += n(s.anzahl); });
+    einh.forEach(function (m) { rohertrag += n(m.flaeche_m2) * n(m.miete_eur_m2_monat) * 12.0; });
+    sp.forEach(function (s) {
+      roh_sp += n(s.anzahl) * n(s.miete_eur_monat) * 12.0;
+      bwk_sp_ih += n(s.anzahl) * n(s.instandhaltung_eur_stck);
+    });
+    rohertrag += roh_sp + n(i.sonstige_ertraege_eur_monat) * 12.0;
+
+    var bwk = n(i.instandhaltung_eur_m2) * flaeche_gesamt
+              + bwk_sp_ih
+              + n(i.verwaltung_eur_je_einheit) * n(i.anzahl_wohneinheiten)
+              + n(i.verwaltung_eur_je_stellplatz) * anzahl_sp
+              + n(i.mietausfallwagnis_prozent) * rohertrag / 100.0
+              + n(i.sonstige_bk_eur_m2) * flaeche_gesamt;
+
+    var reinertrag = rohertrag - bwk;
+    var boden_r = n(i.boden_r);
+    var bw_verzinsung = boden_r * n(i.liegenschaftszinssatz);
+    var reinertrag_baulich = reinertrag - bw_verzinsung;
+    var v = barwertfaktor(n(i.liegenschaftszinssatz), n(i.restnutzungsdauer));
+    var ew_baulich = reinertrag_baulich * v;
+    var boden_nr = n(i.boden_nr);
+    var ew = ew_baulich + boden_r
+             + n(i.minderung_baumaengel_eur) + n(i.minderung_bindungen_eur) + boden_nr;
+    return {
+      jahresrohertrag: rohertrag,
+      bewirtschaftungskosten: bwk,
+      reinertrag: reinertrag,
+      bodenwertverzinsung: bw_verzinsung,
+      reinertrag_baulich: reinertrag_baulich,
+      barwertfaktor: v,
+      ertragswert_baulich: ew_baulich,
+      bodenwert_rentierlich: boden_r,
+      bodenwert_nicht_rentierlich: boden_nr,
+      ertragswert: ew,
+      ertragswert_gerundet: rundeWert(ew, i.rundung_schritt)
+    };
+  }
+
+  var API = { sachwert: sachwert, ertragswert: ertragswert, barwertfaktor: barwertfaktor, rundeWert: rundeWert };
+
+  // Browser-Export
+  if (typeof window !== "undefined") { window.RT = API; }
+  // Node-Export + CLI-Shim (für den Paritätstest)
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = API;
+    if (require.main === module) {
+      var verf = process.argv[2];
+      var inp = JSON.parse(process.argv[3] || "{}");
+      var r = verf === "ertragswert" ? ertragswert(inp) : sachwert(inp);
+      process.stdout.write(JSON.stringify(r));
+    }
+  }
+})(this);
+</script>
+<script>(function(){
+ var VERFAHREN="ertragswert", WFL=685.0, BIG="ertragswert_gerundet";
+ function val(id){var e=document.getElementById(id);return e?(parseFloat(e.value)||0):0;}
+ function fmtEur(x){return new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(x);}
+ function fmtFak(x){return new Intl.NumberFormat('de-DE',{minimumFractionDigits:4,maximumFractionDigits:4}).format(x);}
+ function gatherS(){var brw=val('bodenrichtwert_eur_m2'),fl=val('grundstuecksflaeche_m2');
+  return {nhk2010_eur_m2:val('nhk2010_eur_m2'),bgf:val('bgf'),baupreisindex:val('baupreisindex'),
+  regionalfaktor:val('regionalfaktor'),gnd:val('gnd'),rnd:val('rnd'),garagen_anzahl:val('garagen_anzahl'),
+  garagen_zeitwert_eur:val('garagen_zeitwert_eur'),aussenanlagen_prozent:val('aussenanlagen_prozent'),
+  sachwertfaktor:val('sachwertfaktor'),instandhaltungsstau_eur:val('instandhaltungsstau_eur'),
+  boden_r:brw*fl,boden_nr:val('boden_nr')};}
+ function gatherE(){var brw=val('bodenrichtwert_eur_m2'),fl=val('grundstuecksflaeche_m2');
+  var me=[].slice.call(document.querySelectorAll('.me-row')).map(function(r){
+   return {flaeche_m2:parseFloat(r.querySelector('.me-flaeche').value)||0,
+            miete_eur_m2_monat:parseFloat(r.querySelector('.me-miete').value)||0};});
+  return {mieteinheiten:me,instandhaltung_eur_m2:val('instandhaltung_eur_m2'),
+  verwaltung_eur_je_einheit:val('verwaltung_eur_je_einheit'),anzahl_wohneinheiten:val('anzahl_wohneinheiten'),
+  mietausfallwagnis_prozent:val('mietausfallwagnis_prozent'),liegenschaftszinssatz:val('liegenschaftszinssatz'),
+  restnutzungsdauer:val('restnutzungsdauer'),boden_r:brw*fl,boden_nr:val('boden_nr')};}
+ function recompute(){
+  var inp=VERFAHREN==='ertragswert'?gatherE():gatherS();
+  var r=VERFAHREN==='ertragswert'?RT.ertragswert(inp):RT.sachwert(inp);
+  var big=r[BIG];
+  document.querySelectorAll('[data-out]').forEach(function(el){
+   var k=el.getAttribute('data-out'),fmt=el.getAttribute('data-fmt')||'eur',v;
+   if(k==='ergebnis'){el.textContent=fmtEur(big);return;}
+   if(k==='eqm'){el.textContent=WFL>0?(fmtEur(big/WFL)+'/m² Wfl.'):'–';return;}
+   if(k==='bodenwert_gesamt'){v=(r.bodenwert_rentierlich||0)+(r.bodenwert_nicht_rentierlich||0);}
+   else{v=r[k];}
+   if(v===undefined||v===null)return;
+   el.textContent=(fmt==='faktor')?fmtFak(v):(fmt==='negeur')?('−'+fmtEur(Math.abs(v))):fmtEur(v);
+  });
+ }
+ function init(){document.querySelectorAll('#live-eingang input').forEach(function(e){e.addEventListener('input',recompute);});recompute();}
+ if(document.readyState!=='loading')init();else window.addEventListener('DOMContentLoaded',init);
+})();</script></body></html>
