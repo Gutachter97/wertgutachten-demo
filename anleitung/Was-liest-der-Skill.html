@@ -3,27 +3,114 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>/certa:wertgutachten — Datenfluss</title>
+<title>/certa:wertgutachten — Onboarding</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Farben und Schriften kommen aus der CERTA-Bildschirm-CI, nicht aus dieser
+     Datei. Wer die Marke aendern will, aendert certa-ci.css — nicht hier. -->
 <style>
+/* ===========================================================================
+   CERTA · Bildschirm-CI — die eine Quelle
+   ===========================================================================
+
+   Gilt fuer alles, was am Bildschirm bedient wird: Onboarding-Seite, Dashboard,
+   Web-Werkzeuge. NICHT fuer das gedruckte Kundendokument — das Wertgutachten
+   traegt seit 08/2026 ein eigenes, monochromes Kleid (Spectral + IBM Plex,
+   render.py). Die Trennung ist gewollt:
+
+       Bildschirm = Marke.        Papier = Dokument.
+
+   Werte belegt aus CERTAs eigenen Repos (certa-affiliate, rnd-sales-calculator,
+   certa-value): Navy #002147, Gruen #45b973, Arvo + Inter. Wer hier etwas
+   aendert, aendert die Marke — nicht das Layout einer einzelnen Seite.
+
+   Einbinden (relativ, Datei liegt bei Logo und Schriften):
+       <link rel="stylesheet" href="<pfad>/assets/certa-ci.css">
+
+   ponytail: Tokens und ein paar Primitive, kein Framework. Layout bleibt Sache
+   der jeweiligen Seite — die CI gibt Farbe, Schrift und Kanten vor, nicht Raster.
+   ------------------------------------------------------------------------ */
+
+/* Schriften ueber Google Fonts wie in CERTAs eigenen Produkten. Ceiling: ohne
+   Netz greift der Fallback-Stack (Georgia / Helvetica) — fuer Bildschirmseiten
+   hinnehmbar. Muss eine Flaeche offline stehen, Schnitte lokal einbetten wie
+   render.py es fuers Dokument tut. */
+@import url('https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  /* --- Marke ---------------------------------------------------------- */
+  --certa-navy:#002147;        /* Leitfarbe: Kopf, Ueberschriften, Flaechen */
+  --certa-navy-2:#013063;      /* Verlaufspartner des Kopfs */
+  --certa-green:#45b973;       /* Akzent, sparsam: Bestaetigung, Kante, Marker */
+  --certa-green-ink:#04331c;   /* Text auf Gruen */
+  --certa-green-dark:#1f7a47;  /* Gruen als Textfarbe (Kontrast) */
+  --certa-green-bg:#dff3e7;    /* Gruen als Flaeche hinter Text */
+
+  /* --- Grund und Linien ----------------------------------------------- */
+  --certa-off:#fcfcfd;         /* Karten, Blaetter — statt reinweiss */
+  --certa-warm:#f0f2f4;        /* Seitengrund */
+  --certa-line:#e3e8ee;        /* Rahmen, Trenner */
+  --certa-tint:#eef2f7;        /* getoente Zeile, Code-Hinterlegung */
+
+  /* --- Text ------------------------------------------------------------ */
+  --certa-text:#002147;        /* Fliesstext = Leitfarbe, nicht Schwarz */
+  --certa-text-2:#3d5670;      /* Sekundaertext */
+  --certa-text-3:#5a7187;      /* Tertiaer, Quellenangaben */
+
+  /* --- Signal (traegt eine Aussage, ist kein Schmuck) ------------------ */
+  --certa-warn:#7a4e00;
+  --certa-warn-bg:#fff8ec;
+  --certa-warn-line:#f1e2c4;
+
+  /* --- Schrift --------------------------------------------------------- */
+  /* Merksatz: Ueberschriften Arvo, Fliesstext Inter. */
+  --certa-display:Arvo,Georgia,serif;
+  --certa-body:Inter,Helvetica,Arial,sans-serif;
+  --certa-mono:"SF Mono",Menlo,Consolas,monospace;
+}
+
+/* --- Primitive, die jede CERTA-Bildschirmflaeche gleich braucht --------- */
+
+body.certa{margin:0;font-family:var(--certa-body);color:var(--certa-text);
+  background:var(--certa-warm);line-height:1.55;-webkit-font-smoothing:antialiased}
+body.certa h1,body.certa h2,body.certa h3{font-family:var(--certa-display);
+  line-height:1.22;margin:0}
+
+/* Briefkopf: Wortmarke links, Kontakt rechts — wie auf dem Deckblatt. */
+.certa-lh{display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
+.certa-lh .brand-logo{height:44px;width:auto;display:block}
+.certa-lh .contact{text-align:right;font-size:11px;line-height:1.7}
+@media(max-width:620px){.certa-lh{flex-direction:column}
+  .certa-lh .contact{text-align:left}}
+
+/* Dateiname / Befehl im Fliesstext. */
+.certa-fn{font-family:var(--certa-mono);font-size:12.5px;color:var(--certa-navy);
+  background:var(--certa-tint);padding:2px 7px;border-radius:5px}
+
+</style>
+<style>
+  /* Kurznamen auf die CI-Tokens. Die Seite behaelt ihre eigenen Layout-Regeln,
+     zieht Farbe und Schrift aber ausschliesslich aus der CI. */
   :root{
-    --navy:#002147; --blue:#637e9c; --green:#45b973;
-    --off:#fcfcfd; --warm:#f0f2f4; --line:#e3e8ee;
+    --navy:var(--certa-navy); --green:var(--certa-green);
+    --off:var(--certa-off); --warm:var(--certa-warm); --line:var(--certa-line);
     --mac-bg:#2b2b2e; --mac-line:#3a3a3d; --mac-sel:#0a63f0; --mac-txt:#e6e7ea;
   }
   *{box-sizing:border-box}
-  body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif;color:var(--navy);
+  body{margin:0;font-family:var(--certa-body);color:var(--navy);
        background:var(--warm);line-height:1.55;-webkit-font-smoothing:antialiased}
-  h1,h2,h3{font-family:Arvo,Georgia,serif;line-height:1.22;margin:0}
+  h1,h2,h3{font-family:var(--certa-display);line-height:1.22;margin:0}
   .wrap{max-width:1100px;margin:0 auto;padding:0 28px}
 
-  /* Header */
-  header{background:linear-gradient(160deg,#002147 0%,#013063 100%);color:var(--off);
-         padding:44px 0 38px}
+  /* Header — Navy-Briefkopf mit Wortmarke, wie in den uebrigen CERTA-Werkzeugen */
+  header{background:linear-gradient(160deg,var(--certa-navy) 0%,var(--certa-navy-2) 100%);
+         color:var(--off);padding:34px 0 38px}
+  header .certa-lh .brand-logo{filter:brightness(0) invert(1)}
+  header .certa-lh .contact{color:#a9bace}
+  header .certa-lh .contact b{color:var(--off)}
+  .kopf-linie{height:1px;background:rgba(255,255,255,.18);margin:22px 0 26px}
   .eyebrow{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--green);font-weight:700}
   header h1{font-size:31px;margin:10px 0 10px;max-width:850px}
-  header p{margin:0;color:#cdd8e4;max-width:780px;font-size:15.5px}
+  header p{margin:0;color:#cdd8e4;max-width:800px;font-size:15.5px}
   .stand{margin-top:20px;display:inline-flex;align-items:center;gap:8px;font-size:12.5px;
          color:#a9bace;background:rgba(255,255,255,.06);padding:6px 13px;border-radius:20px}
   .stand .gd{width:7px;height:7px;border-radius:50%;background:var(--green)}
@@ -32,11 +119,11 @@
   section{padding:46px 0}
   section + section{border-top:1px solid var(--line)}
   .step{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;
-        border-radius:50%;background:var(--navy);color:var(--off);font-family:Arvo,serif;
+        border-radius:50%;background:var(--navy);color:var(--off);font-family:var(--certa-display);
         font-size:15px;margin-right:13px;flex:0 0 30px}
   .h-row{display:flex;align-items:center;margin-bottom:8px}
   h2{font-size:22px}
-  .lead{color:#41597010;color:#3d5670;margin:0 0 24px;max-width:840px;font-size:15px}
+  .lead{color:#3d5670;margin:0 0 24px;max-width:840px;font-size:15px}
 
   /* ---- macOS Finder ---- */
   .finder{background:var(--mac-bg);border-radius:12px;overflow:hidden;
@@ -45,9 +132,18 @@
         border-bottom:1px solid #1f1f21}
   .tl{width:12px;height:12px;border-radius:50%}
   .tl.r{background:#ff5f57}.tl.y{background:#febc2e}.tl.g{background:#28c840}
-  .tbar .ttl{margin-left:10px;color:#b9bbc0;font-size:13px;font-weight:600}
-  .cols3{display:grid;grid-template-columns:minmax(190px,1fr) minmax(220px,1.05fr) minmax(300px,1.5fr);
+  .tbar .ttl{margin-left:10px;color:#b9bbc0;font-size:13px;font-weight:600;
+             overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .cols3{display:grid;grid-template-columns:minmax(190px,1fr) minmax(230px,1.05fr) minmax(300px,1.5fr);
          min-height:360px}
+  /* Schmales Fenster: die drei Spalten brauchen zusammen ueber 720 px. Ohne diese
+     Regel schneidet .finder (overflow:hidden) die dritte Spalte ab — und genau die
+     zeigt den Ordnerinhalt, um den der Text bittet. Die Nachbarfaelle links sind
+     bloss Kulisse und weichen zuerst. */
+  @media(max-width:820px){
+    .cols3{grid-template-columns:minmax(150px,1fr) minmax(180px,1.4fr)}
+    .cols3 .pane:first-child{display:none}
+  }
   .pane{border-right:1px solid var(--mac-line);padding:7px 0;overflow:auto;max-height:430px}
   .pane:last-child{border-right:0}
   .row{display:flex;align-items:center;gap:9px;padding:5px 13px;margin:1px 6px;border-radius:6px;
@@ -61,12 +157,10 @@
   .row.sel .chev{color:#cfe0ff}
   .row.dim{color:#8d8f95}
   .ico{flex:0 0 17px;height:17px}
-  /* file/folder svg colors via fill */
-  .row .nm small{color:#9a9ca2;font-weight:400}
 
   /* Vorher/Nachher-Umschalter */
   .toggle{display:inline-flex;background:#e7ebf0;border-radius:9px;padding:4px;margin-bottom:16px;gap:4px}
-  .toggle button{font-family:Inter;font-size:13.5px;font-weight:600;border:0;cursor:pointer;
+  .toggle button{font-family:var(--certa-body);font-size:13.5px;font-weight:600;border:0;cursor:pointer;
                  padding:8px 16px;border-radius:6px;color:#56708a;background:transparent;
                  display:flex;align-items:center;gap:8px;transition:.15s}
   .toggle button .n{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;
@@ -76,14 +170,15 @@
   .hint{margin:14px 0 0;font-size:13.5px;color:#3d5670;display:flex;align-items:flex-start;gap:9px}
   .hint .b{flex:0 0 auto;font-size:11px;font-weight:700;color:#04331c;background:var(--green);
            padding:2px 8px;border-radius:5px;margin-top:1px;text-transform:uppercase;letter-spacing:.03em}
+  .hint.warn .b{background:#ffe0b8;color:#7a4e00}
 
   /* Legende unter Finder */
-  .keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px 24px;
+  .keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px 24px;
         margin-top:20px}
   .key{display:flex;gap:10px;font-size:13.5px;color:#3d5670}
   .key b{color:var(--navy)}
   .key .tag{flex:0 0 auto;font-size:11px;font-weight:700;letter-spacing:.03em;padding:2px 8px;
-            border-radius:5px;height:fit-content;margin-top:1px}
+            border-radius:5px;height:fit-content;margin-top:1px;white-space:nowrap}
   .tag.in{background:#dff3e7;color:#1f7a47}
   .tag.raw{background:#e7ebf0;color:#56708a}
   .tag.out{background:#fff1d6;color:#9a6a00}
@@ -110,36 +205,62 @@
   .val{color:var(--navy);font-weight:700;white-space:nowrap}
   .hebel{font-size:11px;font-weight:700;color:#1f7a47;background:#dff3e7;padding:1px 7px;border-radius:5px}
 
-  /* Ergebnis */
+  /* ---- Phasenkette ---- */
+  .phasen{display:grid;gap:10px;margin:4px 0 0}
+  .ph{display:grid;grid-template-columns:36px 1fr;gap:14px;align-items:start;
+      background:var(--off);border:1px solid var(--line);border-radius:11px;padding:14px 18px}
+  .ph .no{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;
+          background:#eef2f7;color:var(--navy);font-family:var(--certa-display);font-size:14px;font-weight:700}
+  .ph.sv .no{background:#e9f6ef;color:#1f7a47}
+  .ph h4{margin:0 0 3px;font-size:14.5px;font-family:var(--certa-body);font-weight:700}
+  .ph p{margin:0;font-size:13.5px;color:#3d5670}
+  .who{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+       padding:2px 8px;border-radius:5px;margin-left:9px;vertical-align:2px}
+  .who.tool{background:#eef2f7;color:#56708a}
+  .who.sv{background:#dff3e7;color:#1f7a47}
+  .sperre{display:flex;gap:10px;align-items:flex-start;background:#fff8ec;border:1px solid #f1e2c4;
+          border-radius:9px;padding:11px 16px;font-size:13px;color:#7a4e00}
+  .sperre b{color:#9a6a00}
+
+  /* Ergebnis-Kacheln */
   .out2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:6px}
   @media(max-width:820px){.out2{grid-template-columns:1fr}}
   .obox{background:var(--off);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
   .obox h3{font-size:15.5px;margin-bottom:6px;display:flex;align-items:center;gap:9px}
   .obox p{margin:0;font-size:13.5px;color:#3d5670}
-  .fn{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:12.5px;color:var(--navy);
+  .fn{font-family:var(--certa-mono);font-size:12.5px;color:var(--navy);
       background:#eef2f7;padding:2px 7px;border-radius:5px}
-  /* Schritt 3 — SV-Workflow */
   a.obox{display:block;text-decoration:none;color:inherit;transition:.15s}
   a.obox:hover{border-color:var(--green);box-shadow:0 7px 22px rgba(69,185,115,.16)}
   .oc{color:#1f7a47;font-weight:600;white-space:nowrap}
-  .sub-h{font-size:16.5px;margin:32px 0 14px}
-  .dstep{background:var(--navy);color:#fff;font-weight:600;border-radius:10px;padding:13px 18px;
-         font-size:14.5px;text-align:center}
-  .dcols{display:grid;grid-template-columns:1fr 1.45fr;gap:16px;margin-top:14px}
-  @media(max-width:820px){.dcols{grid-template-columns:1fr}}
-  .branch{border-radius:10px;padding:16px 19px;font-size:13.5px}
-  .branch p{margin:0;color:#3d5670}
-  .branch.ok{background:#e9f6ef;border:1px solid #cfead9}
-  .branch.fix{background:#fff8ec;border:1px solid #f1e2c4}
-  .bh{font-weight:700;font-size:13px;margin-bottom:9px;letter-spacing:.02em}
-  .branch.ok .bh{color:#1f7a47}
-  .branch.fix .bh{color:#9a6a00}
-  .branch ol{margin:0 0 10px;padding-left:19px;color:#3d5670}
-  .branch ol li{margin-bottom:8px}
-  .branch ol li + li{margin-top:0}
-  .loop{font-weight:600;color:#9a6a00 !important}
+  .sub-h{font-size:16.5px;margin:34px 0 14px}
+  .kf{background:#f4efe6;color:#8a6d3b;}
+  /* Ausblick statt Arbeitsschritt: gedaempft, damit im Onboarding niemand
+     etwas sucht, was es noch nicht gibt. */
+  section.ausblick{opacity:.72;}
+  section.ausblick h2{font-weight:600;}
+  .muster-tag{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+              background:#eef2f7;color:#56708a;padding:2px 8px;border-radius:5px}
 
-  /* Schritt 4 — Upload / CERTA Value */
+  /* Die vier Gebäudearten */
+  .arten{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+  @media(max-width:820px){.arten{grid-template-columns:1fr}}
+  .art{background:var(--off);border:1px solid var(--line);border-radius:12px;
+       padding:20px 22px 17px;display:flex;flex-direction:column}
+  .art-k{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;
+         border-bottom:1px solid var(--line);padding-bottom:11px}
+  .art-k h3{font-size:17.5px}
+  /* Eigene Zeile statt margin-left:auto — sonst bricht der Betrag nur bei den
+     langen Verfahrensnamen um und die vier Karten stehen ungleich hoch. */
+  .art-zahl{flex-basis:100%;font-size:13px;font-weight:700;color:var(--navy)}
+  .art-txt{margin:12px 0 14px;font-size:13.5px;color:#3d5670;flex:1}
+  .art-links{display:grid;gap:7px}
+  .art-links a{display:flex;align-items:center;justify-content:space-between;gap:10px;
+               text-decoration:none;color:inherit;background:#fff;
+               border:1px solid var(--line);border-radius:8px;padding:9px 12px;transition:.15s}
+  .art-links a:hover{border-color:var(--green);box-shadow:0 5px 16px rgba(69,185,115,.14)}
+
+  /* Schritt 5 — Upload / CERTA Value */
   .flow4{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:2px 0 22px}
   .fnode{display:flex;align-items:center;gap:9px;background:var(--off);border:1px solid var(--line);
          border-radius:10px;padding:10px 15px;font-size:13.5px;font-weight:600;color:var(--navy)}
@@ -152,51 +273,102 @@
   .shot-bar{display:flex;align-items:center;gap:8px;padding:9px 14px;background:#e9edf2;
             border-bottom:1px solid #d3dae2}
   .shot-url{margin-left:10px;background:#fff;border-radius:6px;padding:4px 13px;font-size:12px;
-            color:#5a7187;font-family:"SF Mono",Menlo,Consolas,monospace;flex:1;max-width:520px}
+            color:#5a7187;font-family:var(--certa-mono);flex:1;max-width:520px}
   .shot-win img{display:block;width:100%}
   .dlink{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-size:13.5px;
          font-weight:600;color:#1f7a47;text-decoration:none;background:#dff3e7;
          padding:10px 17px;border-radius:8px}
   .dlink:hover{background:#cfeeda}
-  footer{padding:30px 0 70px;color:#7286a0;font-size:12.5px}
+  footer{padding:26px 0 70px;color:#7286a0;font-size:12.5px;
+         border-top:1px solid var(--line)}
+  footer b{color:var(--navy)}
 </style>
 </head>
 <body>
+
+<!-- Ordnerdaten. Standard = anonymer Musterfall. `onboarding.py` ersetzt genau diesen
+     Block durch den echten Fallordner des Mitarbeiters. -->
+<script id="falldaten" type="application/json">
+{
+  "titel": "CERTA – Fulfillment › 1 Gutachten in Bearbeitung",
+  "objekt": "Musterstraße 1, Erfurt",
+  "quelle": "Musterfall (anonymisiert) · MFH · Ertragswertverfahren",
+  "echt": false,
+  "nachbarn": ["0_archiv", "Musterstraße 1, Erfurt", "Musterweg 12, Mainz", "Test_matthias"],
+  "vorher": [
+    {"n": "01 Objektunterlagen Final Gutachten", "f": true, "kinder": [
+      "00 Immobilienmarktbericht Erfurt 2024.txt",
+      "02 Flurkarte Auszug+Liegenschaftskarte.pdf",
+      "03 Bodenrichtwertauszug.pdf",
+      "04 Grundbuch v. 29.02.2024.pdf",
+      "05 Immobiliendokumentation_Grundrisse und Flächen.pdf",
+      "06 Baubeschreibung.pdf",
+      "07 Mieterliste Ist und Soll.pdf",
+      "08 Aufstellung_Modernisierung.pdf"]},
+    {"n": "02 Objektunterlagen Original", "f": true, "kinder": [
+      "Altlastenauskunft.pdf", "Baugenehmigung_DG.pdf", "Denkmalschutz-Auskunft.pdf",
+      "Energieausweis.pdf", "Exposé.pdf", "Gemarkungsauszug.pdf",
+      "Haftpflichtversicherung.pdf", "Heizungssystem.pdf",
+      "Wärmeliefervertrag.pdf", "Wohngebäudeversicherung.pdf"]},
+    {"n": "07 Finales Gutachten", "f": true, "kinder": []},
+    {"n": "Besichtigungsprotokoll", "f": true, "kinder": [
+      "Besichtigungsprotokoll.pdf", "04 Fotos"]},
+    {"n": "Recherche", "f": true, "kinder": [
+      "Grundstücksmarktbericht Erfurt.pdf",
+      "GeoMap_Daten-Export_Umkreis.xlsx",
+      "vdpResearch Marktbericht.pdf"]}
+  ],
+  "neu_doku": ["objekt.json", "projekt.json", "sv_overrides.json",
+               "bodenrichtwert.json", "bodenrichtwert_Musterstrasse_1_Erfurt.html",
+               "_laufprotokoll.txt"],
+  "_hinweis": "neu_doku spiegelt fall_vorbereiten.KONTRAKT_NAMEN + KONTRAKT_GLOBS.",
+  "neu_ergebnis": ["Wertgutachten.html", "Wertgutachten_Rechner.html"],
+  "ergebnisordner": "07 Finales Gutachten",
+  "dokuordner": "ki_dokumentation"
+}
+</script>
+
 <header>
   <div class="wrap">
-    <div class="eyebrow">CERTA · Wertgutachten v1 (realtech)</div>
-    <h1>/certa:wertgutachten — was reingeht, was der Gutachter setzt</h1>
+    <div class="certa-lh">
+      <!-- certa-logo-black.svg, nicht certa-logo.svg: letztere fuehrt noch die
+           Untermarke „Portal", die am 07.08.2026 aus dem Deckblatt genommen wurde. -->
+      <img class="brand-logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgaWQ9IkViZW5lXzEiIGRhdGEtbmFtZT0iRWJlbmUgMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMzAwLjE0IDc4Ij4KICA8ZGVmcz4KICAgIAogIDwvZGVmcz4KICA8Zz4KICAgIDxnPgogICAgICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik03Ni43NSw1My41NWwtOS41MS05Ljkzdi0xMy43MWMwLS4zLS4wNi0uNTktLjE4LS45NC0uMS0uMjEtLjIxLS40My0uMzktLjY3TDQwLjMuNzNjLS40NS0uNDctMS4wNS0uNzMtMS42OC0uNzNzLTEuMjMuMjYtMS42OC43M0wxMC42NiwyOC4xN2MtLjIyLjI0LS40LjUtLjUzLjgyLS4xMS4yNi0uMTUuNTYtLjE1Ljc2djEzLjg5TC42OSw1My4zYy0uOTIuOTYtLjkyLDIuNTMsMCwzLjQ5bDM2LjIxLDM3LjgyYy40My40NSwxLjA1LjcxLDEuNjguNzFzMS4yNS0uMjYsMS42OC0uNzFsMzYuMjEtMzcuODJjLjQyLS40NC42OC0xLjExLjY4LTEuNzUsMC0uNTMtLjE4LTEuMDctLjQ3LTEuNDloLjA3Wk03MS40Niw1NS4wNmwtNC4yMSw0LjR2LTguOGw0LjIxLDQuNFpNNDguNjcsNzguODZsLTEwLjA2LDEwLjUtMTAuMDYtMTAuNWgyMC4xMVpNNTkuMTgsNjcuODhsLTUuNzcsNi4wM2gtMjkuNTlsLTUuNzctNi4wM2g0MS4xM1pNMzYuOTQsMTUuNDRsLTIyLjI0LDIzLjIydi03LjcxTDM4LjYyLDUuOThsMjMuOTEsMjQuOTd2Ny43MWwtMjIuMjMtMjMuMjFjLS40MS0uNDYtMS4wMS0uNzItMS42OS0uNzItLjYyLDAtMS4yLjI0LTEuNjguNzFaTTE0LjcsNDUuNjdsMjMuOTEtMjQuOTcsMjMuOTEsMjQuOTd2MTcuMjdIMTQuN3YtMTcuMjdaTTkuOTUsNTAuNTl2OC44M2wtNC4yMy00LjQyLDQuMjMtNC40MloiPjwvcGF0aD4KICAgICAgPHJlY3QgY2xhc3M9ImNscy0xIiB4PSIzMi4xNCIgeT0iMzQuOTQiIHdpZHRoPSI1LjM1IiBoZWlnaHQ9IjUuNTgiPjwvcmVjdD4KICAgICAgPHJlY3QgY2xhc3M9ImNscy0xIiB4PSIzOS43IiB5PSIzNC45NCIgd2lkdGg9IjUuMzkiIGhlaWdodD0iNS41OCI+PC9yZWN0PgogICAgICA8cmVjdCBjbGFzcz0iY2xzLTEiIHg9IjMyLjE0IiB5PSI0Mi44NyIgd2lkdGg9IjUuMzUiIGhlaWdodD0iNS42MSI+PC9yZWN0PgogICAgICA8cmVjdCBjbGFzcz0iY2xzLTEiIHg9IjM5LjciIHk9IjQyLjg3IiB3aWR0aD0iNS4zOSIgaGVpZ2h0PSI1LjYxIj48L3JlY3Q+CiAgICA8L2c+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0xMTYuOTgsNTIuNjdjLTIuMjgtMS4xNy00LjA3LTIuOTgtNS4zOC01LjQyLTEuMzEtMi40NC0xLjk3LTUuNDUtMS45Ny05LjA0cy42Ny02Ljc0LDItOS4xOGMxLjMzLTIuNDQsMy4xMy00LjI0LDUuMzgtNS40MiwyLjI1LTEuMTcsNC43OC0xLjc2LDcuNTktMS43Niw0LjE5LDAsOC4wMSwxLjIyLDExLjQ2LDMuNjZ2LTguOTdjLTMuMzYtMi4xNi03LjM4LTMuMjQtMTIuMDgtMy4yNC00LjE5LDAtOC4wMi45NC0xMS40OSwyLjgzLTMuNDcsMS44OS02LjIzLDQuNjktOC4yOCw4LjQyLTIuMDUsMy43My0zLjA3LDguMjQtMy4wNywxMy41M3MxLjA0LDkuODgsMy4xMSwxMy42M2MyLjA3LDMuNzUsNC44NSw2LjU3LDguMzUsOC40NSwzLjUsMS44OSw3LjQxLDIuODMsMTEuNzMsMi44MywyLjMsMCw0LjU1LS4yNyw2Ljc2LS43OSwyLjIxLS41Myw0LjA5LTEuMzIsNS42Ni0yLjM4di05LjM5Yy0zLjUsMi42Ny03LjUsNC0xMi4wMSw0LTIuOSwwLTUuNDktLjU5LTcuNzYtMS43NloiPjwvcGF0aD4KICAgIDxwb2x5Z29uIGNsYXNzPSJjbHMtMSIgcG9pbnRzPSIxNTMuODMgNDEuMzggMTc3Ljk5IDQxLjM4IDE3Ny45OSAzMy4yNCAxNTMuODMgMzMuMjQgMTUzLjgzIDIyLjEzIDE3OC4zMyAyMi4xMyAxNzguMzMgMTMuOTkgMTQ1LjYyIDEzLjk5IDE0NS41NSA2Mi4yOSAxNzguODggNjIuMjkgMTc4Ljg4IDU0LjE1IDE1My44MyA1NC4xNSAxNTMuODMgNDEuMzgiPjwvcG9seWdvbj4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTIxNy42MywzOS42MmMzLjA0LTIuNTEsNC41NS02LjA4LDQuNTUtMTAuNzNzLTEuNTItOC40Ny00LjU1LTExLjA0Yy0zLjA0LTIuNTgtNy4zNC0zLjg2LTEyLjkxLTMuODZoLTE2LjYzdjQ4LjMxaDguMjh2LTE4LjkxaDYuOTdsMTEuNTksMTguOTFoOS4zMmwtMTIuMzUtMTkuNzljMi4yNS0uNjMsNC4xNi0xLjU4LDUuNzMtMi44OFpNMjA0LjgsMzYuMDdoLTguNDJ2LTE0LjA4aDguNDJjMi45OSwwLDUuMjMuNjMsNi43MywxLjksMS40OSwxLjI3LDIuMjQsMy4wNSwyLjI0LDUuMzVzLS43Niw0LjAxLTIuMjgsNS4xNGMtMS41MiwxLjEzLTMuNzUsMS42OS02LjY5LDEuNjlaIj48L3BhdGg+CiAgICA8cG9seWdvbiBjbGFzcz0iY2xzLTEiIHBvaW50cz0iMjYyLjAyIDEzLjk5IDIyNy45MiAxMy45OSAyMjcuOTIgMjIuMTMgMjQwLjkgMjIuMTMgMjQwLjkgNjIuMjkgMjQ5LjExIDYyLjI5IDI0OS4xMSAyMi4xMyAyNjIuMDIgMjIuMTMgMjYyLjAyIDEzLjk5Ij48L3BvbHlnb24+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0yODUuMzcsMTMuOTloLTkuMThsLTE0Ljc3LDQ4LjMxaDguN2wyLjk2LTEwLjc3aDE1LjQxbDIuOTYsMTAuNzdoOC43bC0xNC43Ny00OC4zMVpNMjc1LjIyLDQzLjczbDUuNTYtMjAuMjUsNS41NiwyMC4yNWgtMTEuMTNaIj48L3BhdGg+CiAgPC9nPgogIAo8L3N2Zz4=" alt="CERTA">
+      <div class="contact"><b>CERTA GmbH</b><br>
+        Habsburgerring 1 · 50674 Köln<br>
+        office@certa-gutachten.de · www.certa-gutachten.de</div>
+    </div>
+    <div class="kopf-linie"></div>
+    <div class="eyebrow">CERTA · Wertgutachten · Onboarding</div>
+    <h1>/certa:wertgutachten — was reingeht, was der Gutachter entscheidet</h1>
     <p>Ein Befehl, ein Fallordner: Der Skill liest die Unterlagen aus, rechnet nach ImmoWertV 2021
        und legt jede wertkritische Größe dem Sachverständigen zur Entscheidung vor.
-       Beispiel: MFH Biereyestraße 8, Erfurt (Ertragswertverfahren).</p>
-    <div class="stand"><span class="gd"></span> Team-Update · alle Zahlen aus dem echten Lauf (objekt.json)</div>
+       Kein Wert im Gutachten, den der SV nicht freigegeben hat.</p>
+    <div class="stand"><span class="gd"></span> <span id="standtext">wird geladen …</span></div>
   </div>
 </header>
 
 <div class="wrap">
 
   <section>
-    <div class="h-row"><span class="step">1</span><h2>Der Fallordner — so muss er aussehen</h2></div>
+    <div class="h-row"><span class="step">1</span><h2>Der Fallordner — vorher und nachher</h2></div>
     <p class="lead">Der Gutachter bekommt den Objektordner zugeteilt und startet den Skill darauf.
        Die Unterlagen müssen nur <b>im Ordner liegen</b> — die Benennung erkennt der Skill selbst.
        Schalte zwischen <b>vorher</b> und <b>nachher</b> um und klick auf einen Ordner, um seinen Inhalt zu sehen:</p>
 
     <div class="toggle" id="toggle">
       <button data-m="vorher" class="on"><span class="n">1</span> Vorher — wie zugeteilt</button>
-      <button data-m="nachher"><span class="n">2</span> Nachher — nach /certa:wertgutachten</button>
+      <button data-m="nachher"><span class="n">2</span> Nachher — nach dem Lauf</button>
     </div>
 
     <div class="finder">
       <div class="tbar">
         <span class="tl r"></span><span class="tl y"></span><span class="tl g"></span>
-        <span class="ttl">CERTA – Fulfillment › 1 Gutachten in Bearbeitung</span>
+        <span class="ttl" id="findertitel"></span>
       </div>
       <div class="cols3">
-        <!-- Spalte 1: Fälle -->
         <div class="pane" id="p1"></div>
-        <!-- Spalte 2: Fallinhalt -->
         <div class="pane" id="p2"></div>
-        <!-- Spalte 3: Unterordner -->
         <div class="pane" id="p3"></div>
       </div>
     </div>
@@ -206,10 +378,10 @@
     <div class="keys">
       <div class="key"><span class="tag in">auswerten</span><div><b>01 Objektunterlagen Final Gutachten</b> — die kuratierten Unterlagen, aus denen gerechnet wird.</div></div>
       <div class="key"><span class="tag raw">roh</span><div><b>02 Objektunterlagen Original</b> — alles wie vom Kunden geliefert (Exposé, Energieausweis, Versicherungen).</div></div>
-      <div class="key"><span class="tag in">markt</span><div><b>Recherche</b> — GeoMap-Vergleichspreise + Marktberichte für die Plausibilisierung.</div></div>
-      <div class="key"><span class="tag raw">begehung</span><div><b>Besichtigungsprotokoll</b> — das Protokoll des Objektbesichtigers.</div></div>
-      <div class="key"><span class="tag in">automatisch</span><div><b>06 Auswertung</b> — alle vom Tool erzeugten Dateien (objekt.json, Wertgutachten.html, Live-Rechner …); entsteht beim Lauf automatisch.</div></div>
-      <div class="key"><span class="tag out">kunde</span><div><b>07 Finales Gutachten</b> — die finalen Dateien, die an den Kunden gehen (nach SV-Freigabe abgelegt).</div></div>
+      <div class="key"><span class="tag in">markt</span><div><b>Recherche</b> — Marktberichte, GeoMap, vdp. <b>Der Lauf holt nichts aus dem Netz</b> — was hier fehlt, fehlt im Gutachten.</div></div>
+      <div class="key"><span class="tag raw">begehung</span><div><b>Besichtigungsprotokoll</b> — Protokoll und Fotos des Objektbesichtigers.</div></div>
+      <div class="key"><span class="tag in">erzeugt</span><div><b>ki_dokumentation</b> — alles, was das Tool produziert: <span class="fn">objekt.json</span>, <span class="fn">sv_overrides.json</span> (deine Festlegungen), die Bodenrichtwert-Auskunft, das Laufprotokoll. Entsteht beim Laufstart automatisch.</div></div>
+      <div class="key"><span class="tag out">ausfertigung</span><div><b>07 Finales Gutachten</b> — die beiden Dokumente <span class="fn">Wertgutachten.html</span> und <span class="fn">Wertgutachten_Rechner.html</span>. Die fertigen PDFs kommen am Ende dazu: <span class="fn">Wertgutachten_Kunde.pdf</span> und <span class="fn">Wertgutachten_Intern.pdf</span> — zwei Fassungen aus demselben Dokument.</div></div>
     </div>
   </section>
 
@@ -217,204 +389,323 @@
     <div class="h-row"><span class="step">2</span><h2>Was der Skill auswertet — und was der Gutachter entscheidet</h2></div>
     <p class="lead">Links alles, was der Skill <b>selbst aus den Unterlagen und den ImmoWertV-Tabellen
        zieht</b>. Rechts die wenigen <b>wertkritischen Größen, die der Sachverständige heraussucht,
-       prüft und freigibt</b> — Vier-Augen-Prinzip. Erst nach dieser Freigabe ist es ein Gutachten.</p>
+       prüft und freigibt</b>. Erst nach dieser Freigabe ist es ein Gutachten.
+       Zahlen aus dem Musterfall MFH (Ertragswertverfahren).</p>
 
     <div class="cols">
       <div class="card auto">
         <div class="top"><span class="pill b">automatisch</span><h3>Der Skill wertet aus</h3></div>
         <div class="sub">Aus den Ordner-Unterlagen + festen ImmoWertV-2021-Modellwerten — jedes Feld mit Quelle.</div>
         <table>
-          <tr><td class="k">Adresse</td><td class="q"><span class="val">Biereyestr. 8</span> · Flurkarte / Grundbuch</td></tr>
+          <tr><td class="k">Adresse</td><td class="q"><span class="val">Musterstraße 1</span> · Flurkarte / Grundbuch</td></tr>
           <tr><td class="k">Baujahr</td><td class="q"><span class="val">1925</span> · Exposé / Kundenangabe</td></tr>
           <tr><td class="k">Grundstücksfläche</td><td class="q"><span class="val">513 m²</span> · Flurkarte (amtlich)</td></tr>
           <tr><td class="k">Wohneinheiten</td><td class="q"><span class="val">7</span> · Mieterliste</td></tr>
           <tr><td class="k">Mieten / Roherträge</td><td class="q">je Einheit · Mieterliste</td></tr>
           <tr><td class="k">Gesamtnutzungsdauer</td><td class="q"><span class="val">80 J</span> · ImmoWertV Anlage 1</td></tr>
-          <tr><td class="k">Bewirtschaftung</td><td class="q">Verwaltung · Instandhaltung · Mietausfall · ImmoWertV Anlage 3</td></tr>
-          <tr><td class="k">Verfahrenswahl</td><td class="q"><span class="val">Ertragswert</span> · aus Objektart (MFH)</td></tr>
+          <tr><td class="k">Bewirtschaftung</td><td class="q">Verwaltung 298 €/Einheit · Instandhaltung 11,70 €/m² · Mietausfall · ImmoWertV Anlage 3</td></tr>
+          <tr><td class="k">Verfahrenswahl</td><td class="q"><span class="val">Ertragswert</span> · aus der Objektart. Eine Eigentumswohnung wird immer im Ertragswertverfahren bewertet</td></tr>
         </table>
       </div>
 
       <div class="card sv">
         <div class="top"><span class="pill g">SV gibt vor</span><h3>Der Gutachter setzt / bestätigt</h3></div>
-        <div class="sub">Das Tool schlägt vor, der SV sucht heraus, prüft und gibt frei (Entscheidungspunkte).</div>
+        <div class="sub">Das Tool schlägt vor, der SV sucht heraus, prüft und gibt frei — im Rechner, nicht im Chat.</div>
         <table>
           <tr><td class="k">Wohnfläche</td><td class="q">Vorschlag <span class="val">685 m²</span> → aus Wohnflächenberechnung bestätigen</td></tr>
-          <tr><td class="k">Bodenrichtwert</td><td class="q">Vorschlag <span class="val">345 €/m²</span> (Stichtag 01.01.26) → Auszug/GMB bestätigen oder Stichtag wählen</td></tr>
-          <tr><td class="k">Liegenschaftszins</td><td class="q">Vorschlag <span class="val">4,0 %</span> (IVD) → objektspezifisch aus GMB-Matrix</td></tr>
-          <tr><td class="k">Restnutzungsdauer</td><td class="q">Vorschlag <span class="val">16 J</span> → bestätigen &nbsp;<span class="hebel">größter Werthebel</span></td></tr>
-          <tr><td class="k">WGFZ-Richtwert</td><td class="q">Vorschlag <span class="val">1,5</span> → aus BRW-Auskunft</td></tr>
-          <tr><td class="k">Abschläge</td><td class="q">WEG-Abschlag · Instandhaltungsstau · Regionalfaktor — fallspezifisch</td></tr>
+          <tr><td class="k">Bodenrichtwert</td><td class="q">Vorschlag <span class="val">345 €/m²</span> (Stichtag 01.01.26) → gegen den amtlichen Auszug oder den Grundstücksmarktbericht bestätigen oder einen anderen Stichtag wählen</td></tr>
+          <tr><td class="k">Liegenschaftszins</td><td class="q">Vorschlag <span class="val">4,0 %</span> (Rückfallwert des Immobilienverbands IVD) → objektspezifisch aus dem Grundstücksmarktbericht</td></tr>
+          <tr><td class="k">Restnutzungsdauer</td><td class="q">Vorschlag <span class="val">16 J</span> aus der Modernisierungstabelle (Anlage 2) → bestätigen &nbsp;<span class="hebel">größter Werthebel</span></td></tr>
+          <tr><td class="k">Geschossflächenzahl (WGFZ)</td><td class="q">Vorschlag <span class="val">1,5</span> → aus der Bodenrichtwert-Auskunft</td></tr>
+          <tr><td class="k">Besondere Merkmale (boG) und Abschläge</td><td class="q">Instandhaltungsstau · Abschlag für Wohnungseigentum · über- und unterdurchschnittliche Mieten — fallspezifisch</td></tr>
         </table>
       </div>
     </div>
   </section>
 
   <section>
-    <div class="h-row"><span class="step">3</span><h2>Das Ergebnis — und was der Gutachter damit macht</h2></div>
-    <p class="lead">Der Lauf erzeugt zwei Dateien: das <b>interaktive Wertgutachten</b> (am Bildschirm
-       Arbeitsfassung mit Prüfvermerken, beim Drucken sauberes Kunden-PDF) und den <b>Live-Rechner</b>.
-       Klick öffnet das echte Beispiel Biereyestraße:</p>
-    <div class="out2">
-      <a class="obox" href="testfälle/Biereyestra%C3%9Fe%208%2C%20Erfurt/Wertgutachten.html" target="_blank" rel="noopener">
-        <h3>📄 <span class="fn">Wertgutachten.html</span></h3>
-        <p>Das Gutachten: Ergebnis → Bodenwert → Verfahrensrechnung → Plausibilisierung →
-           Schluss. Prüfen, Text direkt editieren, drucken. <span class="oc">↗ Beispiel öffnen</span></p>
-      </a>
-      <a class="obox" href="testfälle/Biereyestra%C3%9Fe%208%2C%20Erfurt/Wertgutachten_Rechner.html" target="_blank" rel="noopener">
-        <h3>🧮 <span class="fn">Wertgutachten_Rechner.html</span></h3>
-        <p>Live-Rechner: alle Eingangsgrößen als Felder, Verkehrswert rechnet sofort neu.
-           Parameter drehen und kopieren. <span class="oc">↗ Beispiel öffnen</span></p>
-      </a>
+    <div class="h-row"><span class="step">3</span><h2>Die sechs Phasen — verbindliche Reihenfolge</h2></div>
+    <p class="lead"><b>Der eine Satz:</b> Erst rechnet der Sachverständige im <b>Rechner</b>, dann erst
+       spricht er mit dem <b>Chat</b>. Wer Werte direkt in den Chat diktiert, ohne sie vorher im
+       Rechner festgelegt zu haben, erzeugt ein Gutachten, dessen Annahmen nicht überprüfbar sind.</p>
+
+    <div class="phasen">
+      <div class="ph"><span class="no">0</span><div>
+        <h4>Auftrag, Fallordner &amp; eigene Recherche <span class="who sv">Backoffice + SV</span></h4>
+        <p>Unterlagen im Fallordner, Deal in Pipedrive, Marktquellen in den Ordner <b>Recherche</b> legen.</p></div></div>
+      <div class="ph"><span class="no">1</span><div>
+        <h4>Entwurf rechnen <span class="who tool">Tool</span></h4>
+        <p><span class="fn">/certa:wertgutachten "&lt;Fallordner&gt;"</span> — Minuten Laufzeit, 0,30–1,00 $.
+           Ergebnis: <span class="fn">Wertgutachten.html</span> (Arbeitsfassung) + <span class="fn">Wertgutachten_Rechner.html</span>.</p></div></div>
+      <div class="ph sv"><span class="no">2</span><div>
+        <h4>Wertermittlung im Rechner — der Kern <span class="who sv">SV</span></h4>
+        <p>Rechner im Browser öffnen. Oben liegt die <b>Übersichtsleiste</b>: je Abschnitt eine
+           Kachel mit dem Wert, den er liefert — sie ist zugleich die Navigation und zeigt,
+           welche Maske noch leer ist. Neun Abschnitte, nicht sechs:
+           <b>0</b> Fall-Angaben · <b>1</b> Baukörper &amp; NHK 2010 ·
+           <b>2</b> Modernisierungspunkte &amp; Restnutzungsdauer · <b>3</b> Bodenwertermittlung ·
+           <b>F</b> Flächenermittlung (BGF nach DIN 277, Wohnfläche nach WoFlV) ·
+           <b>G</b> Garagen und Stellplätze · <b>4</b> Hauptverfahren ·
+           <b>5</b> Zweitverfahren · <b>6</b> besondere objektspezifische Merkmale (boG).
+           Am Ende stehen alle Annahmen und der Verkehrswert.</p></div></div>
+      <div class="ph sv"><span class="no">3</span><div>
+        <h4>Übernahme in den Chat <span class="who sv">SV → Tool</span></h4>
+        <p>Im Rechner „Parameter kopieren“, im Chat einfügen samt Anmerkungen → schreibt
+           <span class="fn">ki_dokumentation/sv_overrides.json</span>, zweiter Lauf mit <span class="fn">--ohne-extraktion</span>.</p></div></div>
+      <div class="ph sv"><span class="no">4</span><div>
+        <h4>Rechnerische Abnahme <span class="who sv">SV</span></h4>
+        <p>Gutachten gegen den Rechner abgleichen. Ziel: <b>Lücken 0, Entscheidungspunkte 0</b>.</p></div></div>
+      <div class="ph sv"><span class="no">5</span><div>
+        <h4>Textabnahme <span class="who sv">SV</span></h4>
+        <p>Freitextkapitel lesen und freigeben — Lage/Markt, Zustand, Modernisierungsbegründung, Plausibilisierung.</p></div></div>
+      <div class="ph sv"><span class="no">6</span><div>
+        <h4>Freigabe, Druck, Unterschrift <span class="who sv">SV</span></h4>
+        <p>Im Dokument „Kundenfassung drucken“ und „Interne Fassung drucken“,
+           unterschreiben. Davor steht <b>kein Freigabeschritt</b> — die Kundenfassung
+           ist der Druck ohne Prüfvermerke und Hinweise. Zu entscheiden bleibt nur, ob
+           das Blatt das Wasserzeichen <b>ENTWURF</b> trägt: ein Haken in der Sidebar.
+           Beide PDFs auf einen Schlag:
+           <span class="fn">rendern.py "&lt;Fallordner&gt;" --beide-pdf</span> — das rechnet
+           nicht neu, es druckt nur, Wasserzeichen abwählbar mit
+           <span class="fn">--ohne-wasserzeichen</span>.</p></div></div>
     </div>
 
-    <h3 class="sub-h">So arbeitet der Sachverständige damit</h3>
-    <div class="dstep">① Das fertige Wertgutachten prüfen</div>
-    <div class="dcols">
-      <div class="branch ok">
-        <div class="bh">✓ stimmt</div>
-        <p><b>Drucken</b> (PDF) → <b>in CERTA Value hochladen</b>. Fertig.</p>
-      </div>
-      <div class="branch fix">
-        <div class="bh">✗ etwas stimmt nicht — anpassen</div>
-        <ol>
-          <li><b>Zahlen:</b> im <span class="fn">Rechner.html</span> prüfen &amp; sachverständig ändern → die neuen Parameter <b>kopieren</b> und <b>im Chat einfügen</b>.</li>
-          <li><b>Text:</b> direkt im <span class="fn">Wertgutachten</span> bearbeiten — oder <b>im Chat</b> Anweisung geben (Formulierungen anpassen, individuelle Ergänzungen).</li>
-        </ol>
-        <p class="loop">↺ Neuer Entwurf → wieder prüfen → freigeben (drucken + hochladen).</p>
-      </div>
+    <h3 class="sub-h">Drei Sperren — nicht verhandelbar</h3>
+    <div class="phasen">
+      <div class="sperre"><b>A · 2→3</b><span>Kein Wert geht in den Chat, bevor der Rechner vollständig ausgefüllt ist.</span></div>
+      <div class="sperre"><b>B · 4→5</b><span>Keine Textabnahme vor der rechnerischen Abnahme. Die Freitexte entstehen bei <b>jedem</b> Lauf neu — wer vorher lektoriert, lektoriert zweimal.</span></div>
+      <div class="sperre"><b>C · 5→6</b><span>Nach der Freigabefassung wird <b>nicht mehr gerechnet</b>. Jeder weitere Lauf setzt Phase 4 und 5 zurück.</span></div>
     </div>
-
-    <p class="hint"><span class="b">wichtig</span><span>In CERTA Value wird <b>jede Version gespeichert</b> — Entwürfe und freigegebene Fassungen bleiben als v1, v2, v3 … nachvollziehbar.</span></p>
   </section>
 
   <section>
-    <div class="h-row"><span class="step">4</span><h2>In CERTA Value hochladen — für das ganze Team</h2></div>
+    <div class="h-row"><span class="step">4</span><h2>Die beiden Dateien, je Gebäudeart ein Beispiel</h2></div>
+    <p class="lead">Jeder Lauf erzeugt zwei Dateien. Das <b>Wertgutachten</b> zeigt am Bildschirm die
+       Arbeitsfassung mit allen Prüfvermerken — und trägt <b>zwei Druckknöpfe</b>:
+       „Kundenfassung drucken“ lässt SV-Vermerke, Prüfhinweise und die internen
+       Herleitungsseiten weg, „Interne Fassung drucken“ druckt alles. Ein Dokument,
+       zwei Fassungen — die Blattzahl stimmt in beiden, weil die Kapitel vor dem Druck
+       neu durchnumeriert werden. Dazu kommt der <b>Live-Rechner</b>. Für jede Gebäudeart liegt hier ein Muster:
+       echt gerechnet, Namen und Adressen erfunden. Welches Verfahren gilt, entscheidet die Objektart
+       und nicht der Bearbeiter.</p>
+
+    <div class="arten">
+      <div class="art">
+        <div class="art-k">
+          <h3>Einfamilienhaus</h3>
+          <span class="muster-tag">Sachwertverfahren</span>
+          <span class="art-zahl">570.000 € · 4.014 €/m²</span>
+        </div>
+        <p class="art-txt">Baujahr 2000, 142 m² Wohnfläche, Restnutzungsdauer 56 Jahre.
+           So läuft der Sachwert: Die Normalherstellungskosten (NHK 2010) ergeben die
+           Herstellungskosten, davon geht der Abzug für das Alter ab, zum Schluss passt der
+           Sachwertfaktor das Ergebnis an den Markt an.</p>
+        <div class="art-links">
+          <a href="beispiele/EFH-Sachwert/Wertgutachten.html" target="_blank" rel="noopener">
+            <span class="fn">Wertgutachten.html</span> <span class="oc">↗ öffnen</span></a>
+          <a href="beispiele/EFH-Sachwert/Wertgutachten_Rechner.html" target="_blank" rel="noopener">
+            <span class="fn">Wertgutachten_Rechner.html</span> <span class="oc">↗ öffnen</span></a>
+        </div>
+      </div>
+
+      <div class="art">
+        <div class="art-k">
+          <h3>Zweifamilienhaus</h3>
+          <span class="muster-tag">Sachwertverfahren</span>
+          <span class="art-zahl">383.000 € · 2.297 €/m²</span>
+        </div>
+        <p class="art-txt">Baujahr 1995, 166,77 m², Restnutzungsdauer 49 Jahre. Dieses Muster
+           stammt aus einem echten Fall und ist das vollständigste von den vieren. In den Anlagen
+           liegen Fotodokumentation, Flurkarte und Bodenrichtwert-Auskunft.</p>
+        <div class="art-links">
+          <a href="beispiele/ZFH-Sachwert/Wertgutachten.html" target="_blank" rel="noopener">
+            <span class="fn">Wertgutachten.html</span> <span class="oc">↗ öffnen</span></a>
+          <a href="beispiele/ZFH-Sachwert/Wertgutachten_Rechner.html" target="_blank" rel="noopener">
+            <span class="fn">Wertgutachten_Rechner.html</span> <span class="oc">↗ öffnen</span></a>
+        </div>
+      </div>
+
+      <div class="art">
+        <div class="art-k">
+          <h3>Mehrfamilienhaus</h3>
+          <span class="muster-tag">Ertragswertverfahren</span>
+          <span class="art-zahl">489.000 € · 714 €/m²</span>
+        </div>
+        <p class="art-txt">Baujahr 1925, 7 Wohneinheiten, Restnutzungsdauer 16 Jahre.
+           So läuft der Ertragswert: Aus der Mieterliste kommt die Jahresmiete, davon gehen die
+           Bewirtschaftungskosten ab, der Rest wird über die Restnutzungsdauer abgezinst.
+           Bei nur 16 Jahren wiegt genau diese Zahl am schwersten.</p>
+        <div class="art-links">
+          <a href="beispiele/MFH-Ertragswert/Wertgutachten.html" target="_blank" rel="noopener">
+            <span class="fn">Wertgutachten.html</span> <span class="oc">↗ öffnen</span></a>
+          <a href="beispiele/MFH-Ertragswert/Wertgutachten_Rechner.html" target="_blank" rel="noopener">
+            <span class="fn">Wertgutachten_Rechner.html</span> <span class="oc">↗ öffnen</span></a>
+        </div>
+      </div>
+
+      <div class="art">
+        <div class="art-k">
+          <h3>Eigentumswohnung</h3>
+          <span class="muster-tag">Ertragswertverfahren</span>
+          <span class="art-zahl">194.000 € · 2.604 €/m²</span>
+        </div>
+        <p class="art-txt">Sanierter Altbau, 74,5 m², vom Eigentümer selbst bewohnt. Zwei Dinge
+           laufen hier anders. Das Grundstück gehört der Eigentümergemeinschaft, deshalb zählt nur
+           der <b>Miteigentumsanteil</b>: Fläche mal Bodenrichtwert mal Anteil. Und weil keine Miete
+           fließt, wird die <b>ortsübliche Miete</b> angesetzt.</p>
+        <div class="art-links">
+          <a href="beispiele/ETW-Ertragswert/Wertgutachten.html" target="_blank" rel="noopener">
+            <span class="fn">Wertgutachten.html</span> <span class="oc">↗ öffnen</span></a>
+          <a href="beispiele/ETW-Ertragswert/Wertgutachten_Rechner.html" target="_blank" rel="noopener">
+            <span class="fn">Wertgutachten_Rechner.html</span> <span class="oc">↗ öffnen</span></a>
+        </div>
+      </div>
+    </div>
+
+    <p class="hint"><span class="b">merke</span><span>Eine <b>Eigentumswohnung wird immer im
+       Ertragswertverfahren</b> bewertet, auch wenn der Eigentümer selbst darin wohnt. Dann rechnest du
+       mit der Miete, die sich dauerhaft erzielen ließe. Der Vergleichswert dient nur dazu, das Ergebnis
+       zu kontrollieren. So bei CERTA festgelegt am 13.07.2026.</span></p>
+
+    <p class="hint"><span class="b">wasserzeichen</span><span>Die einzige Entscheidung vor dem
+       Druck: <b>Haken drin</b> heißt <b>ENTWURF</b> diagonal auf jedem Blatt, <b>Haken raus</b>
+       heißt Ausfertigung. Er gilt für beide Fassungen. Ein Freigabeschritt, der das Drucken
+       sperrt, existiert nicht — verantwortlich für den Stand ist der Sachverständige, nicht
+       das Werkzeug.</span></p>
+
+    <p class="hint"><span class="b">tipp</span><span>Suche im Rechner den Knopf <b>„Parameter kopieren“</b>.
+       Er ist die Brücke von Phase 2 zu Phase 3. Alles, was du dort einstellst, landet über den Chat
+       in <span class="fn">sv_overrides.json</span> und steht damit nachvollziehbar im Gutachten.</span></p>
+  </section>
+
+  <section class="ausblick">
+    <div class="h-row"><span class="step">5</span><h2>(In CERTA Value hochladen — für das ganze Team) <span class="muster-tag kf">könnte folgen</span></h2></div>
     <p class="lead">Das Gutachten entsteht lokal beim Sachverständigen. Aus der fertigen Datei genügt
-       <b>ein Klick „In CERTA Value hochladen"</b> — danach liegt der Fall <b>versioniert in der
+       <b>ein Klick „In CERTA Value hochladen“</b> — danach liegt der Fall <b>versioniert in der
        Team-Plattform</b>: für alle sichtbar, jede Version als PDF öffenbar und an die übrigen
        CERTA-Value-Module (Vorabprüfung · Verkehrswert · Mietwert · Restnutzungsdauer) angebunden.</p>
     <div class="flow4">
-      <span class="fnode"><span class="ic">💻</span> Lokal in Claude Code</span>
+      <span class="fnode">Lokal in Claude Code</span>
       <span class="farr">→</span>
-      <span class="fnode"><span class="ic">⬆️</span> 1 Klick „hochladen"</span>
+      <span class="fnode">1 Klick „hochladen“</span>
       <span class="farr">→</span>
-      <span class="fnode cv"><span class="ic">●</span> CERTA Value · ganzes Team</span>
+      <span class="fnode cv">CERTA Value · ganzes Team</span>
     </div>
     <div class="shot-win">
       <div class="shot-bar">
         <span class="tl r"></span><span class="tl y"></span><span class="tl g"></span>
         <span class="shot-url">gutachter97.github.io/wertgutachten-demo</span>
       </div>
-      <img src="certa-value-wertgutachten.png" alt="CERTA Value — Wertgutachten-Liste des Teams: 10 gerechnete Gutachten, versioniert, PDF je Version">
+      <img src="certa-value-wertgutachten.png" alt="CERTA Value — Wertgutachten-Liste des Teams: gerechnete Gutachten, versioniert, PDF je Version">
     </div>
     <a class="dlink" href="https://gutachter97.github.io/wertgutachten-demo/" target="_blank" rel="noopener">↗ Live-Demo öffnen — gutachter97.github.io/wertgutachten-demo</a>
+
+    <p class="hint"><span class="b">wichtig</span><span>In CERTA Value wird <b>jede Version gespeichert</b>
+       — Entwürfe und freigegebene Fassungen bleiben als v1, v2, v3 … nachvollziehbar.</span></p>
   </section>
 
 </div>
-<footer><div class="wrap">CERTA Gutachten · internes Team-Material · Beispielfall Biereyestraße 8, Erfurt</div></footer>
+<footer><div class="wrap"><b>CERTA GmbH</b> · Habsburgerring 1, 50674 Köln · internes Team-Material · <span id="fussquelle"></span></div></footer>
 
 <script>
-// SVG-Icons (macOS-nah): Ordner blau, Datei grau
+// ---- Daten ----------------------------------------------------------------
+const D = JSON.parse(document.getElementById('falldaten').textContent);
+
 const FOLDER = '<svg class="ico" viewBox="0 0 20 16"><path fill="#54a0ff" d="M2 2.5A1.5 1.5 0 0 1 3.5 1h4l1.6 1.6H17A1.5 1.5 0 0 1 18.5 4v9A1.5 1.5 0 0 1 17 14.5H3.5A1.5 1.5 0 0 1 2 13z"/></svg>';
 const FILE   = '<svg class="ico" viewBox="0 0 16 18"><path fill="#cfd2d8" d="M2.5 1.5h7l4 4V16a.5.5 0 0 1-.5.5H2.5A.5.5 0 0 1 2 16V2a.5.5 0 0 1 .5-.5z"/><path fill="#a9adb5" d="M9.5 1.5l4 4h-3.5a.5.5 0 0 1-.5-.5z"/></svg>';
 
-// Spalte 1: Fälle (Biereye ausgewählt)
-const faelle = ["0_archiv","Biereyestraße 8, Erfurt","Breite Straße 22A, Berlin … (Deal_33766)","Test_matthias"];
+document.getElementById('findertitel').textContent = D.titel;
+document.getElementById('standtext').innerHTML = D.echt
+  ? 'Dein Fallordner: <b>' + esc(D.objekt) + '</b>'
+  : D.quelle;
+document.getElementById('fussquelle').textContent = D.quelle;
 
-// Spalte 2: Inhalt Biereyestraße — VORHER (nur die zugeteilten Unterlagen)
-const inhaltVorher = [
-  {n:"01 Objektunterlagen Final Gutachten", f:true},
-  {n:"02 Objektunterlagen Original",        f:true},
-  {n:"07 Finales Gutachten",                f:true},
-  {n:"Besichtigungsprotokoll",              f:true},
-  {n:"Recherche",                           f:true},
-];
-// NACHHER: zusätzlich der automatisch erzeugte Ergebnis-Ordner
-const ERGEBNIS = "06 Auswertung";
-const inhaltNachher = [
-  {n:"01 Objektunterlagen Final Gutachten", f:true},
-  {n:"02 Objektunterlagen Original",        f:true},
-  {n:ERGEBNIS,                              f:true, neu:true},
-  {n:"07 Finales Gutachten",                f:true},
-  {n:"Besichtigungsprotokoll",              f:true},
-  {n:"Recherche",                           f:true},
-];
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
-// Spalte 3: Unterordner-Inhalte (echt aus dem Fall)
-const unter = {
-  "01 Objektunterlagen Final Gutachten":[
-    "00 Immobilienmaktbericht Erfurt 2024.txt",
-    "02 Flurkarte Auszug+Liegenschaftskarte.pdf",
-    "03 Bodenrichtwertauszug.pdf",
-    "04 Grundbuch v. 29.02.2024.pdf",
-    "05 Immobiliendokumentation_Grundrisse und Flächen.pdf",
-    "06 Baubeschreibung_Biereyestrasse_8_Erfurt.pdf",
-    "07 Mieterliste Ist und Soll.pdf",
-    "08 Aufstellung_Modernisierung.pdf",
-  ],
-  "02 Objektunterlagen Original":[
-    "Altlastenauskunft.pdf","Baugenehmigung_DG.pdf",
-    "Denkmalschutz-Auskunft_Biereyestrasse_8.html","Energieaus. neu bis2030-Bier8.pdf",
-    "Exposé – 21.04.26.pdf","Gemarkung Erfurt-Mitte.pdf",
-    "Haftpflichtversicherung_Biereye8.pdf","Heizungssystem.pdf",
-    "Langexposé_MFH_Andreasvorstadt.pdf","Wärmeliefervertrag_Biereye8.pdf",
-    "Wohngebäudeversicherung_Biereye8.pdf",
-  ],
-  "07 Finales Gutachten":["(die finalen Dateien, die an den Kunden gehen)"],
-  "Recherche":[
-    "00 Auszug aus Immobilienmaktbericht … Objektes.txt","Bericht (1).pdf",
-    "GeoMap_Daten-Export_Umkreis_2026-04-09.xlsx","GeoMap_Daten-Export_Umkreis_2026-04-28.xlsx",
-    "Immobilienreport Biereyestraße 8 Erfurt.pdf","Mieten.png",
-  ],
-  "Besichtigungsprotokoll":["(Besichtigungsprotokoll des Objektbesichtigers)"],
-};
-// Inhalt des automatisch erzeugten Ergebnis-Ordners (alles vom Tool produziert)
-unter[ERGEBNIS] = [
-  "objekt.json","projekt.json","bodenrichtwert.json",
-  "bodenrichtwert_Biereyestrasse_8_Erfurt.html",
-  "Wertgutachten.html","Wertgutachten_Rechner.html",
-];
+// ---- Vorher/Nachher ableiten ----------------------------------------------
+// Nachher = vorher + zwei gefüllte Ordner. So legt `live_lauf.ablegen()` ab:
+// alles Erzeugte (Daten) nach „ki_dokumentation“, die beiden Ausfertigungen
+// (Lesbares) nach „07 Finales Gutachten“. Die Wurzel bleibt den Unterlagen.
+const EO = D.ergebnisordner, DO = D.dokuordner;
 
-const row = (name,{folder=false,sel=false,dim=false,neu=false}={}) =>
-  `<div class="row${folder?' folder':''}${sel?' sel':''}${dim?' dim':''}" data-n="${folder?name:''}">`+
-  (folder?FOLDER:FILE)+`<span class="nm">${name}</span>`+
+const vorher = D.vorher.map(o => ({...o}));
+
+// Einen Zielordner füllen — vorhandenen ergänzen oder neu anlegen.
+function fuelle(liste, name, dateien) {
+  const da = liste.find(o => o.n === name);
+  if (da) {
+    const frisch = dateien.filter(f => !(da.kinder || []).includes(f));
+    da.kinder = [...(da.kinder || []), ...frisch];
+    da.neuKinder = frisch;
+  } else {
+    liste.push({n: name, f: true, kinder: [...dateien], neuKinder: dateien, neu: true});
+  }
+}
+// Altfälle tragen Kontrakt und Laufprotokoll noch lose in der Wurzel. Der Lauf
+// zieht sie nach ki_dokumentation um — sie verschwinden also aus der Wurzel und
+// tauchen drüben auf. Genau dieses Aufräumen soll die Ansicht zeigen.
+const UMZUG = D.umzug || [];
+const nachher = D.vorher
+  .filter(o => o.f || !UMZUG.includes(o.n))
+  .map(o => ({...o, kinder: [...(o.kinder || [])]}));
+fuelle(nachher, DO, [...UMZUG, ...D.neu_doku]);
+fuelle(nachher, EO, D.neu_ergebnis);
+nachher.sort((a, b) => (b.f === true) - (a.f === true));   // Ordner zuerst, wie im Finder
+
+const row = (name, {folder=false, sel=false, dim=false, neu=false}={}) =>
+  `<div class="row${folder?' folder':''}${sel?' sel':''}${dim?' dim':''}" data-n="${folder?esc(name):''}">`+
+  (folder?FOLDER:FILE)+`<span class="nm">${esc(name)}</span>`+
   (neu?'<span class="neu">neu</span>':'')+(folder?'<span class="chev">›</span>':'')+`</div>`;
 
-document.getElementById('p1').innerHTML =
-  faelle.map(n=>row(n,{folder:true,sel:n.startsWith("Bierey"),dim:!n.startsWith("Bierey")})).join('');
+document.getElementById('p1').innerHTML = D.nachbarn
+  .map(n => row(n, {folder:true, sel:n===D.objekt, dim:n!==D.objekt})).join('');
 
-function renderP3(folder){
-  const items = unter[folder]||[];
-  const markNeu = folder===ERGEBNIS;   // erzeugte Dateien hervorheben
-  document.getElementById('p3').innerHTML = items.length
-    ? items.map(n=> n.startsWith('(')
-        ? `<div class="row dim"><span class="nm" style="font-style:italic">${n}</span></div>`
-        : row(n,{neu:markNeu})).join('')
+function renderP3(liste, ordner){
+  const o = liste.find(x => x.n === ordner);
+  const kinder = o ? (o.kinder || []) : [];
+  const neuKinder = (o && o.neuKinder) || [];
+  document.getElementById('p3').innerHTML = kinder.length
+    // Kein Punkt im Namen → Ordner. „.bak-1329“ ist eine Datei, die
+    // Endungs-Regel muss die Zählsuffixe der Sicherungen mitnehmen.
+    ? kinder.map(n => row(n, {folder: !/\.[a-z0-9]{2,5}(-\d+)?$/i.test(n), neu: neuKinder.includes(n)})).join('')
     : '<div class="row dim"><span class="nm">— leer —</span></div>';
 }
-function renderP2(modus, active){
-  const liste = modus==='nachher' ? inhaltNachher : inhaltVorher;
+function renderP2(liste, active){
   document.getElementById('p2').innerHTML =
-    liste.map(it=>row(it.n,{folder:!!it.f,sel:it.f&&it.n===active,neu:!!it.neu})).join('');
-  document.querySelectorAll('#p2 .row.folder').forEach(r=>{
-    r.onclick=()=>{ renderP2(modus, r.dataset.n); renderP3(r.dataset.n); };
+    liste.map(it => row(it.n, {folder: !!it.f, sel: it.f && it.n === active, neu: !!it.neu})).join('');
+  document.querySelectorAll('#p2 .row.folder').forEach(r => {
+    r.onclick = () => { renderP2(liste, r.dataset.n); renderP3(liste, r.dataset.n); };
   });
 }
 
 const HINTS = {
-  vorher:  ['vorher','So bekommt der Gutachter den Ordner — nur die Eingangs-Unterlagen. Noch keine JSON- oder HTML-Dateien.'],
-  nachher: ['nachher','Nach dem Lauf liegt alles Erzeugte gebündelt im neuen Ordner <b>06 Auswertung</b> — objekt.json, das Gutachten und der Live-Rechner. Automatisch, nichts von Hand angelegt.'],
+  vorher: ['vorher', 'So bekommt der Gutachter den Ordner — nur die Eingangs-Unterlagen. Noch keine JSON- oder HTML-Dateien.'],
+  nachher: ['nachher', 'Nach dem Lauf liegt alles Erzeugte in <b>zwei</b> Ordnern: die Daten in '
+    + '<b>„' + DO + '“</b> (objekt.json, sv_overrides.json, BRW-Auskunft, Laufprotokoll), '
+    + 'die beiden Ausfertigungen in <b>„' + EO + '“</b>. Die Wurzel bleibt den Kundenunterlagen. '
+    + 'Beide Ordner entstehen automatisch — klick sie an.'],
 };
 function setModus(modus){
-  document.querySelectorAll('#toggle button').forEach(b=>b.classList.toggle('on', b.dataset.m===modus));
-  const [tag,txt] = HINTS[modus];
+  document.querySelectorAll('#toggle button').forEach(b => b.classList.toggle('on', b.dataset.m === modus));
+  const [tag, txt] = HINTS[modus];
   document.getElementById('hint').innerHTML = `<span class="b">${tag}</span><span>${txt}</span>`;
-  if(modus==='nachher'){ renderP2('nachher', ERGEBNIS); renderP3(ERGEBNIS); }
-  else { renderP2('vorher', '01 Objektunterlagen Final Gutachten'); renderP3('01 Objektunterlagen Final Gutachten'); }
+  const liste = modus === 'nachher' ? nachher : vorher;
+  const start = modus === 'nachher' ? DO : (liste.find(o => o.f) || {n:''}).n;
+  renderP2(liste, start); renderP3(liste, start);
 }
-document.querySelectorAll('#toggle button').forEach(b=> b.onclick=()=>setModus(b.dataset.m));
+document.querySelectorAll('#toggle button').forEach(b => b.onclick = () => setModus(b.dataset.m));
 setModus('vorher');
+
+// ponytail: Selbstprüfung im Browser — schlägt an, wenn die Nachher-Ansicht
+// die erzeugten Dateien verliert (der Kern dieser Seite).
+(function selbsttest(){
+  const hat = (name, dateien) => {
+    const o = nachher.find(x => x.n === name);
+    return o && dateien.every(f => o.kinder.includes(f));
+  };
+  if (!hat(EO, D.neu_ergebnis) || !hat(DO, D.neu_doku))
+    console.error('Onboarding-Seite: Nachher-Ansicht unvollständig', {EO, DO, nachher});
+})();
 </script>
 </body>
 </html>
