@@ -149,24 +149,41 @@
 
   <section>
     <span class="where w-cc">▣ In Claude Code</span>
-    <h2><span class="num">3</span>Einrichtungsprompt eingeben</h2>
-    <p class="sub">Kopier diesen Text und schick ihn an Claude Code. Setz ganz hinten deinen API-Key ein. Claude erledigt Download und Einrichtung dann selbst — bestätige nur, wenn es nachfragt.</p>
+    <h2><span class="num">3</span>Claude einrichten lassen</h2>
+    <p class="sub">Vier Sätze kopieren, einfügen, abschicken. Den Rest findet Claude selbst heraus.</p>
     <div class="body">
-      <span class="cmd">Lade das Repo https://github.com/Gutachter97/wertgutachten_v1_elias.git in diesen Ordner herunter, führe danach ./setup.sh aus und trag meinen Claude-API-Key in die Datei plugins/certa/tool/.env ein. Falls Python oder Git fehlen, installier sie bitte. Mein API-Key ist: sk-ant-DEIN-KEY-HIER</span>
-      <p>Das dauert ein paar Minuten (es lädt u. a. ~300 MB fürs PDF). Wenn Claude um Erlaubnis fragt, immer auf <strong>„Allow"</strong> klicken — und einfach durchlaufen lassen.</p>
-      <div class="tip"><strong>Nur beim allerersten Mal auf einem neuen Mac:</strong> Es kann sein, dass <em>macOS selbst</em> einmal ein Fenster „Befehlszeilentools installieren" zeigt (→ „Installieren" klicken) oder nach deinem <strong>Mac-Passwort</strong> fragt (→ eintippen). Das ist normal, passiert höchstens einmal, und du bleibst dabei in Claude Code. War der Mac schon mal in Benutzung, kommt das meist gar nicht.</div>
+      <p>Diesen Text kopieren und unten in die <strong>Eingabezeile von Claude Code</strong> einfügen — dort, wo du sonst mit Claude schreibst.</p>
+      <span class="cmd">Richte mir bitte das CERTA Wertgutachten-Tool ein, damit ich es nutzen kann:
+https://github.com/Gutachter97/wertgutachten_v1_elias.git
+
+Das Repo ist privat, melde mich also bei GitHub an. Was auf dem Rechner fehlt, installier bitte. Meinen API-Key trage ich selbst in die Datei ein, frag mich nicht danach. Wenn er drin ist, melde die fertige Einrichtung ans Team. Sag mir am Ende, ob alles laeuft und was ich noch selbst tippen muss.</span>
+      <p>Das dauert einige Minuten, allein rund 300 MB für die PDF-Erzeugung. Wenn Claude um Erlaubnis fragt, immer auf <strong>„Allow"</strong> klicken und durchlaufen lassen. Zwischendurch meldet es sich zweimal bei dir:</p>
+      <div class="tip"><strong>GitHub-Anmeldung.</strong> Claude zeigt dir einen kurzen Code und öffnet deinen Browser. Code dort eintippen, bestätigen, fertig. Das passiert genau einmal auf diesem Rechner.</div>
+      <div class="tip"><strong>Zwei Schlüssel.</strong> Claude öffnet dir die Datei <code>.env</code>. Dort kommen beide hinein: dein Claude-Key aus Teil 1, Schritt 3 hinter <code>ANTHROPIC_API_KEY=</code> und dein GeoMap-Token hinter <code>GEOMAP_API_TOKEN=</code> (den bekommst du von Elias). Speichern, fertig. Die Schlüssel <em>nie</em> in die Chat-Eingabezeile schreiben — auch dann nicht, wenn Claude danach fragen sollte. Die Datei bleibt auf deinem Rechner und geht nie ins Repository.</div>
+      <div class="tip"><strong>Meldet Claude „Zugriff verweigert"?</strong> Dann ist die Einladung aus Schritt 2 noch nicht angenommen. Mail von Elias prüfen, annehmen, den Text nochmal abschicken.</div>
+      <div class="tip"><strong>Die Fertigmeldung</strong> legt ein Issue im Repository an, damit alle sehen, dass dein Arbeitsplatz läuft. Sie enthält Betriebssystem, Python-Version und Tool-Stand — deinen API-Key sieht dort niemand. Hat Claude sie vergessen, hol sie nach mit <code>python3 ~/wertgutachten_v1_elias/melde_einrichtung.py</code>.</div>
+      <div class="tip"><strong>Nur beim allerersten Mal auf einem neuen Mac:</strong> Es kann sein, dass <em>macOS selbst</em> einmal ein Fenster „Befehlszeilentools installieren" zeigt (→ „Installieren" klicken) oder nach deinem <strong>Mac-Passwort</strong> fragt (→ eintippen). Das ist normal und passiert höchstens einmal.</div>
     </div>
   </section>
 
   <section>
     <span class="where w-cc">▣ In Claude Code</span>
-    <h2><span class="num">4</span>Plugin aktivieren</h2>
-    <p class="sub">Zum Schluss zwei kurze Befehle — einzeln nacheinander in die Eingabezeile tippen.</p>
+    <h2><span class="num">4</span>Plugin aktivieren und einsteigen</h2>
+    <p class="sub">Zwei Befehle, die du selbst tippst — Slash-Befehle kann Claude nicht ausführen.</p>
     <div class="body">
-      <span class="cmd">/plugin marketplace add wertgutachten_v1_elias
+      <span class="cmd">/plugin marketplace add ~/wertgutachten_v1_elias
 /plugin install certa@certa-skills</span>
-      <p>Kontrolle: <code>/reload-plugins</code> meldet <strong>1 Plugin · 1 Skill</strong>. Dann ein <strong>neues Claude-Code-Fenster</strong> öffnen — fertig eingerichtet.</p>
-      <div class="tip"><strong>Unsicher beim Pfad?</strong> Frag Claude einfach: „Wie lautet der Pfad zum Ordner wertgutachten_v1_elias?" — und setz die Antwort beim ersten Befehl statt des Namens ein.</div>
+      <p>Meldet der erste Befehl, dass er den Ordner nicht findet: frag Claude „wo liegt der Ordner?" und setz den genannten Pfad statt <code>~/wertgutachten_v1_elias</code> ein.</p>
+      <div class="tip"><strong>Wohin damit?</strong> Diese <code>/</code>-Befehle gehören in die <strong>Eingabezeile von Claude Code</strong> — dort, wo du mit Claude schreibst —, <em>nicht</em> in ein schwarzes Terminal-Fenster. Kommt <code>no such file or directory</code>, hast du sie ins falsche Fenster getippt.</div>
+      <div class="tip"><strong>„/plugin isn't available in this environment" — oder es passiert nichts?</strong> Manche Claude-Code-Varianten kennen die <code>/plugin</code>-Befehle nicht. Dann tipp einfach in normalen Worten in die Eingabezeile:
+      <span class="cmd" style="background:#001731;border:1px solid #244065">Aktiviere das certa-Plugin bitte über plugin_registrieren (die .sh auf Mac, die .ps1 auf Windows) — /plugin funktioniert bei mir nicht.</span>
+      Claude führt dann das mitgelieferte Skript aus, das das Plugin von Hand registriert — ganz ohne <code>/plugin</code> und ohne Terminal-Kommandos. Danach ein neues Fenster öffnen.</div>
+      <div class="tip"><strong>Windows-Hinweis:</strong> Liegt dein Ordner nicht unter <code>~</code>, sondern z. B. auf dem Desktop, nenn Claude den vollen Pfad, etwa <code>C:\Users\&lt;name&gt;\Desktop\Wertgutachten\wertgutachten_v1_elias</code>. Auch das erledigt der Satz oben — Claude findet den Ordner selbst.</div>
+      <p>Kontrolle: <code>/reload-plugins</code> listet das Plugin <strong>certa</strong> auf. Dann ein <strong>neues Claude-Code-Fenster</strong> öffnen und dort eingeben:</p>
+      <span class="cmd">/certa:onboarding</span>
+      <p>Claude öffnet eine Seite im Browser und geht mit dir Abschnitt für Abschnitt durch: Fallordner, was das Tool rechnet und was du als Sachverständiger entscheidest, die sechs Phasen, und je ein Musterfall für EFH, ZFH, MFH und ETW. Rechne mit einer guten halben Stunde.</p>
+      <div class="tip"><strong>Marktdaten selbst ziehen:</strong> mit dem GeoMap-Token kannst du Kauf- und Mietvergleiche direkt abfragen — <code>/geomap:abfragen "&lt;Adresse&gt;" &lt;Objektart&gt;</code>. Das Ergebnis landet als Excel im Ordner <code>Recherche</code> des Falls und wird beim nächsten Lauf mitgelesen. GeoMap sind Angebotspreise, sie zählen mit minus 10 Prozent und stehen im Rang hinter dem Grundstücksmarktbericht.</div>
+      <div class="tip"><strong>Aktuell halten:</strong> <code>/certa:wertgutachten-update</code> holt den neuesten Stand von GitHub. Einmal laufen lassen, danach hält sich das Tool bei jedem Lauf selbst aktuell.</div>
     </div>
   </section>
 
@@ -185,8 +202,8 @@
   <section>
     <h2 style="display:block">Was rauskommt</h2>
     <div class="result">
-      <div class="row"><span class="dot"></span><p><span class="t">Bearbeitbares HTML-Wertgutachten</span><br><span class="d">Zahlen und Texte passen sich live an, wenn du etwas änderst. Am Bildschirm Arbeitsfassung mit SV-Markierungen, im Druck das saubere Kunden-PDF.</span></p></div>
-      <div class="row"><span class="dot"></span><p><span class="t">PDF drucken</span><br><span class="d">Aus dem HTML direkt das fertige Kunden-PDF erzeugen.</span></p></div>
+      <div class="row"><span class="dot"></span><p><span class="t">Bearbeitbares HTML-Wertgutachten</span><br><span class="d">Zahlen und Texte passen sich live an, wenn du etwas änderst. Am Bildschirm Arbeitsfassung mit SV-Markierungen, im Druck die saubere Kundenfassung.</span></p></div>
+      <div class="row"><span class="dot"></span><p><span class="t">Zwei Fassungen, ein Dokument</span><br><span class="d">Zwei Druckknöpfe: „Kundenfassung drucken“ lässt SV-Vermerke und interne Seiten weg, „Interne Fassung drucken“ druckt alles. Ein Haken entscheidet, ob das Blatt das Wasserzeichen ENTWURF trägt — mehr ist vor dem Druck nicht zu tun.</span></p></div>
       <div class="row"><span class="dot"></span><p><span class="t">In CERTA Value hochladen</span><br><span class="d">Die Daten lassen sich anschließend in CERTA Value übernehmen.</span></p></div>
     </div>
   </section>
@@ -195,12 +212,17 @@
     <h2 style="display:block">Wenn's hakt</h2>
     <table class="help">
       <tr><th>Problem</th><th>Lösung</th></tr>
-      <tr><td>„Kein Zugang" / Download scheitert</td><td>Einladung noch nicht angenommen (Teil 2, Schritt 2) — Mail von Elias prüfen</td></tr>
+      <tr><td>Claude meldet „Zugriff verweigert" / „repository not found"</td><td>Einladung aus Schritt 2 noch nicht angenommen — das Repository ist privat und sonst unsichtbar. Mail von Elias prüfen, annehmen, den Text aus Schritt 3 nochmal abschicken</td></tr>
       <tr><td>Claude meldet, etwas fehlt</td><td>Antworte einfach „ja, bitte installieren" — Claude macht's selbst</td></tr>
-      <tr><td><code>/reload-plugins</code> zeigt 0</td><td>Schritt 4 wiederholen: <code>/plugin install certa@certa-skills</code></td></tr>
+      <tr><td>Setup abgebrochen, unklar was fehlt</td><td>Den Text aus Schritt 3 nochmal abschicken. Er schadet kein zweites Mal, das Einrichtungsskript setzt dort an, wo es aufgehört hat, und deine <code>.env</code> bleibt unangetastet</td></tr>
+      <tr><td><code>/reload-plugins</code> zeigt 0</td><td>Schritt 4, zweite Zeile wiederholen: <code>/plugin install certa@certa-skills</code></td></tr>
+      <tr><td><code>/plugin isn't available in this environment</code></td><td>Deine Claude-Variante kennt den Befehl nicht. In die Eingabezeile tippen: „<em>aktiviere das certa-Plugin über plugin_registrieren, /plugin geht bei mir nicht.</em>" Claude erledigt es per Skript</td></tr>
+      <tr><td>Nach <code>/plugin …</code> kommt <code>no such file or directory</code></td><td>Der Befehl kam ins schwarze Terminal-Fenster statt ins Claude-Chat-Feld. Dort eingeben, wo du sonst mit Claude schreibst</td></tr>
+      <tr><td>Windows: <code>„claude" wurde nicht … erkannt</code></td><td>Das ist der Terminal-Weg, den du nicht brauchst. Nutz den Satz oben — Claude aktiviert das Plugin per Skript</td></tr>
+      <tr><td><code>marketplace add</code> findet den Ordner nicht</td><td>Claude fragen „wo liegt der Ordner?" und den genannten Pfad statt <code>~/wertgutachten_v1_elias</code> einsetzen (Windows: voller Pfad)</td></tr>
       <tr><td>Slash-Befehl reagiert nicht</td><td>Nur ein <code>/</code>, Befehle einzeln, neues Fenster offen?</td></tr>
     </table>
   </section>
 
-  <footer>CERTA Gutachten · interner Leitfaden · Wertgutachten v1 — läuft nur in der Claude-Code-App (Mac)</footer>
+  <footer>CERTA Gutachten · interner Leitfaden · Wertgutachten v1 — läuft nur in der Claude-Code-App, Mac und Windows</footer>
 </div>
